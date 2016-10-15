@@ -7,8 +7,10 @@
 <title>Insert title here</title>
 </head>
 <body>
+<div align="center" style="position:absolute;top:50px;left:200px;width:960px;height:80px;" >
 	<a href="#"><img
 		src="image/logo1.png"
-		alt="WlayTeam" width="137" height="85"></a>
+		alt="WlayTeam" width="137" height="85" align="left"></a>
+		</div>	
 </body>
 </html>
