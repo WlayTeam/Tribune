@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
+<title>WlayTeam Tribune</title>
 <style type="text/css" >
 	@IMPORT url("css/index.css");
 </style>
@@ -16,7 +16,7 @@
 		alt="WlayTeam" width="137" height="85" align="left" ></a>
 		
 		</div>
-		<div align="center" style="position:absolute;top:130px;left:200px;width:960px;height:80px;" >
+		<div align="center" style="position:absolute;top:130px;left:155px;width:960px;height:80px;" >
 			<ul class="list">
 				<li><a href="#">首页</a></li>
 				<li><a href="#">所有文章</a></li>
