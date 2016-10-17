@@ -26,8 +26,9 @@
 			<li><a href="#">基础技术</a></li>
 			<li><a href="#">书籍</a></li>
 			<li><a href="#">教程</a></li>
-			<li><a href="#">java小组</a></li>
-			<li><a href="#">工具资源</a></li>
+			<li><a href="http://group.jobbole.com/category/tech/java/"
+				target="_blank">java小组</a></li>
+			<li><a href="http://hao.jobbole.com/?catid=32" target="_blank">工具资源</a></li>
 		</ul>
 	</div>
 	<div class="content-style">
@@ -52,22 +53,18 @@
 
 		<div class="content-midele-left"></div>
 		<div class="content-midele-right"></div>
-		
+
 		<div class="content-bottom-style">
 			<h5>业界动态</h5>
 			<hr align="left" />
 		</div>
-		<div class="contet-bottom">
-			
-		</div>
-		
+		<div class="contet-bottom"></div>
+
 		<div class="content-mostbottom-style">
 			<h5>基础技术</h5>
 			<hr align="left" />
 		</div>
-		<div class="contet-mostbottom">
-			
-		</div>
+		<div class="contet-mostbottom"></div>
 	</div>
 </body>
 </html>
