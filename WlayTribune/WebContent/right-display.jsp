@@ -26,7 +26,7 @@
 
 #search-input {
 	border: 1px solid #e8e8e8;
-	border-right:none;
+	border-right: none;
 	display: block;
 	width: 280px;
 	height: 28px;
@@ -36,25 +36,31 @@
 }
 
 #search-submit {
-border: 1px solid #e8e8e8;
-border-left:none;
-	display: block; 
-	border:none;
+	border: 1px solid #e8e8e8;
+	border-left: none;
+	display: block;
+	border: none;
 	position: absolute;
 	width: 27px;
 	height: 27px;
 	right: 6px;
-	top:6px;
-	background-color:#ffffff;
-	background-image:url(image/search.png)
+	top: 6px;
+	background-color: #0099cc;
+	background-image: url(image/search.png);
+	display: block;
+}
+
+#search-submit:hover {
+	cursor: pointer;
+	background-color: #c32020;
 }
 </style>
 </head>
 <body>
 	<div class="main">
 		<div class="search-swapper">
-			<input type="text" id="search-input" placeholder="search"/> 
-			<input type="submit" value="" id="search-submit" />
+			<input type="text" id="search-input" placeholder="search" /> <input
+				type="submit" value="" id="search-submit" />
 		</div>
 	</div>
 
