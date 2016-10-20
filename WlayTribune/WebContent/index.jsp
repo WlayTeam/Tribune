@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -11,11 +12,13 @@
 </style>
 </head>
 <body>
+
 	<div align="center" class="image-style">
-		<a href="#"><img src="image/logo1.png" alt="WlayTeam" width="137"
-			height="85" align="left"></a>
+		<a href="#"><img src="image/logo1.png" alt="WlayTeam" width="137px"
+			height="85px" align="left"></a>
 
 	</div>
+	<div class="div1">
 	<div align="center" class="title-style">
 		<ul class="list">
 			<li><a href="#">首页</a></li>
@@ -34,20 +37,25 @@
 	<div class="content-style">
 		<div class="content-title-style">
 			<h5>推荐阅读</h5>
+			<br/>
 			<hr align="left" />
 		</div>
 		<!-- 右边的栏位 预留 -->
-		<div class="right-display"></div>
+		<div class="right-display">
+			<c:import url="right-display.jsp"/>
+		</div>
 
 		<div class="suggestedreading"></div>
 
 		<div class="content-middle-style">
 			<h5>最新文章</h5>
+			<br/>
 			<hr align="left" />
 		</div>
 
 		<div class="content-middle-style">
 			<h5>java干货</h5>
+			<br/>
 			<hr align="left" />
 		</div>
 
@@ -56,15 +64,18 @@
 
 		<div class="content-bottom-style">
 			<h5>业界动态</h5>
+			<br/>
 			<hr align="left" />
 		</div>
 		<div class="contet-bottom"></div>
 
 		<div class="content-mostbottom-style">
 			<h5>基础技术</h5>
+			<br/>
 			<hr align="left" />
 		</div>
 		<div class="contet-mostbottom"></div>
 	</div>
+</div>
 </body>
 </html>
