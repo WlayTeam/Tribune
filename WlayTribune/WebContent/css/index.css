@@ -111,6 +111,7 @@ a:active {
 	float: left;
 }
 
+/* 文章内容内部样式 */
 .inner_content {
 	width: 700px;
 	text-align: left;
@@ -119,6 +120,7 @@ a:active {
 	
 }
 
+/* 右侧显示栏样式 */
 .right-display {
 	width: 300px;
 	float: right;
