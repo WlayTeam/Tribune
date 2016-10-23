@@ -16,7 +16,7 @@
 	<div class="main_style">
 		<div class="image-style">
 			<div class="inner_image">
-				<a href="http://www.baidu.com/"> <img src="image/logo1.png"
+				<a href="http://www.bing.com/"> <img src="image/logo1.png"
 					alt="WlayTeam" width="137px" height="85px">
 
 				</a>
@@ -26,7 +26,7 @@
 			<div class="inner_title">
 				<ul class="list">
 					<li><a href="#">首页</a></li>
-					<li><a href="#">所有文章</a></li>
+					<li><a href="${pageContext.request.contextPath }/allArticle">所有文章</a></li>
 					<li><a href="#">资讯</a></li>
 					<li><a href="#">web</a></li>
 					<li><a href="#">架构</a></li>
