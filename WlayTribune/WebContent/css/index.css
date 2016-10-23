@@ -1,7 +1,3 @@
-.div1{
-	width: 100%;
-	height: 1500px;
-}
 .list li {
 	list-style-type: none;
 	float: left;
@@ -33,108 +29,110 @@ a:active {
 	text-decoration: none;
 }
 
+/* 页面总的 样式 */
+.main_div {
+	width: 100%;
+	height: 1500px;
+}
 
-
+/* 图片logo外层div样式 */
 .image-style {
- width: 75%;  
-    height: 85px;  
-    border: 1px solid #000;  
-    position: absolute;  
-    left: 12.5%;  
-    top: 2%;  
-	
+	width: 1000px;
+	height: 85px;
+	margin: 0 auto;
 }
 
+/* 图片样式 */
+.inner_image {
+	width: 1000px; /*--宽度必须的--*/
+	text-align: left;
+	height: 85px;
+	margin: 0 20px;
+}
+/* 导航栏样式 */
 .title-style {
-	 width: 75%;  
-    height: 25px;  
-    border: 1px solid #000;  
-    position: absolute;  
-    left: 12.5%;  
-    top: 15%;  
+	width: 1000px;
+	height: 30px;
+	margin: 0 auto;
 }
 
+/* 导航栏内部样式 */
+.inner_title {
+	width: 1000px; /*--宽度必须的--*/
+	text-align: center;
+	height: 30px;
+	margin: 0 10px;
+}
+
+/* 文章总样式 */
 .content-style {
-	position: absolute;  
-	left: 12.5%;
-	width: 75%;
-	top:20%
+	margin: 0 auto; /*--居中 --*/
+	width: 1000px; /*--宽度必须的--*/
+	text-align: left;
+	height: 1500px;
+}
+
+/* 推荐阅读样式 */
+.suggestedreading {
+	width: 700px; /*--宽度必须的--*/
+	text-align: left;
+	height: 360px;
+}
+
+/* 最新文章 */
+.new_article {
+	width: 350px; /*--宽度必须的--*/
+	text-align: left;
+	height: 360px;
+	float: left;
+}
+
+/* java干货 */
+.java {
+	width: 350px; /*--宽度必须的--*/
+	height: 360px;
+	float: left;
+	margin: 0 -40px;
+}
+
+/* 业界动态 */
+.industry_dynamics {
+	width: 700px; /*--宽度必须的--*/
+	text-align: left;
+	height: 360px;
+	float: left;
+}
+
+/* 基础技术 */
+.base_tic {
+	width: 700px; /*--宽度必须的--*/
+	text-align: left;
+	height: 360px;
+	float: left;
+}
+
+.inner_content {
+	width: 700px;
+	text-align: left;
+	height:1500px;
+	margin: 0 40px;
 	
 }
 
-.content-title-style {
-	/* position: absolute; */
-	float: left;
-	/* top: 160px;
-	left: 225px; */
-	width: 550px;
-	height: 60px;
-}
-
-.content-middle-style {
-	float: left;
-	width: 275px;
-	height: 60px;
-}
-
-.content-bottom-style {
-	float: left;
-	width: 550px;
-	height: 60px;
-}
-
-.content-mostbottom-style {
-	float: left;
-	width: 550px;
-	height: 60px;
+.right-display {
+	width: 300px;
+	float: right;
+	height: 1500px;
 }
 
 h5 {
 	color: #0099cc;
-	height: 10px;
-	width: 550px;
-}
-
-.content-middle-style hr {
-	width: 270px;
 }
 
 hr {
-	color: #7FFFD4;
+	width: 650px;
 }
 
-.right-display {
-	float: right;
+.content-middle-style hr {
 	width: 300px;
-	height: 1200px;
-}
-
-.suggestedreading {
-	float: left;
-	width: 550px;
-	height: 300px;
-}
-
-.content-midele-left {
-	float: left;
-	width: 275px;
-	height: 300px;
-}
-
-.content-midele-right {
-	float: left;
-	width: 275px;
-	height: 300px;
-}
-
-.contet-bottom {
-	float: left;
-	width: 550px;
-	height: 300px;
-}
-
-.contet-mostbottom {
-	float: left;
-	width: 550px;
-	height: 300px;
 }
