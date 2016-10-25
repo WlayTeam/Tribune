@@ -14,24 +14,23 @@
 .main {
 	width: 300px;
 	height: 900px;
-	border: 1px solid red;
+	margin: 0 auto;
 }
 
 .search-swapper {
+	margin-left: 5px;
+	margin-top: 20px;
 	position: relative;
-	border: 1px solid blue;
 	background: #f8f8f8;
 	padding: 5px;
+	margin-top: 20px;
 }
 
 #search-input {
 	border: 1px solid #e8e8e8;
-	border-right: none;
-	display: block;
-	width: 280px;
+	width: 275px;
 	height: 28px;
 	line-height: 28px;
-	padding-right: 29px;
 	padding: 0 4px;
 }
 
@@ -46,6 +45,7 @@
 	right: 6px;
 	top: 6px;
 	background-color: #0099cc;
+	backgroun-position:right;
 	background-image: url(image/search.png);
 	display: block;
 }
@@ -54,13 +54,93 @@
 	cursor: pointer;
 	background-color: #c32020;
 }
+
+.right-image {
+	width: 300px;
+	height: 120px;
+	margin-top: 20px;
+	background: url(image/right-image.jpg);
+}
+
+.right-ul {
+	margin-top: 20px;
+}
+
+.right-ul li {
+	position: relative;
+	list-style: none;
+	margin-bottom: -1px;
+	padding: 10px;
+	float: left;
+	background: #fff;
+}
+
+.ulActive {
+	border: 1px solid #e8e8e8;
+	background: #fff;
+	border-bottom-color: #fff;
+}
+
+.right-title-swapper {
+	clear: both;
+	height: 358px;
+	border: 1px solid #e8e8e8;
+	width: 300px;
+}
+
+.right-title-swapper div {
+	float: left;
+	width: 270px;
+	height: 330px;
+	opacity: 0;
+}
+.right-title-swapper div{
+	position:absolute;
+}
 </style>
+<script type="text/javascript" src="js/jquery.js"></script>
+<script type="text/javascript">
+	window.onload = function() {
+		var oUl = document.getElementById("right-ul");
+		var oLi = oUl.getElementsByTagName("li");
+		var oCon = document.getElementById("right-content");
+		var oCons = oCon.getElementsByTagName("div");
+		
+		for (var i = 0; i < oLi.length; i++) {
+			oLi[i].index = i;
+			oLi[i].onclick = function() {
+				show(this.index);
+			}
+		}
+		function show(index) {
+			for (var j = 0; j < oLi.length; j++) {
+				oLi[j].setAttribute("class","");
+				oCons[j].style.opacity = 0;
+			}
+			oLi[index].setAttribute("class","ulActive");
+			oCons[index].style.opacity = 1; 
+		}
+	}
+</script>
 </head>
 <body>
 	<div class="main">
 		<div class="search-swapper">
 			<input type="text" id="search-input" placeholder="search" /> <input
 				type="submit" value="" id="search-submit" />
+		</div>
+		<div class="right-image"></div>
+		<ul class="right-ul" id="right-ul">
+			<li class="ulActive">本周热门文章</li>
+			<li>本月热门</li>
+			<li>热门标签</li>
+		</ul>
+		<div class="right-title-swapper" id="right-content">
+			<div class="hot-article" style="opacity: 1;">
+				<span>0</span> <a href="#">sample</a>
+			</div>
+			<div class="month-hot">222222</div>
+			<div class="label-hot">33333</div>
 		</div>
 	</div>
 
