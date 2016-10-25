@@ -26,6 +26,7 @@ class SpiderManager(object):
     #抓取url及内容
     def craw(self, root_url):
         count = 1
+        #
         self.urls.add_new_url(root_url) 
         while self.urls.has_new_url():
             try:
