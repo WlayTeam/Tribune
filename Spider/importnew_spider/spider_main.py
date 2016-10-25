@@ -17,33 +17,31 @@ class SpiderManager(object):
         self.parser = html_parser.htmlParser()
         #生成输出页面对象
         self.outputer = html_outputer.htmlOutput()
-
-    #获得url
-    def get_new_url(self):
-       pass
         
-    
     #抓取url及内容
     def craw(self, root_url):
         count = 1
-        #
+        #加入初始待爬url
         self.urls.add_new_url(root_url) 
         while self.urls.has_new_url():
             try:
                 new_url = self.urls.get_new_url()
-                print("第", count, "个url" + new_url)
+                print("第", count, "个url " + new_url)
                 html_cont = self.downloader.download(new_url)
                 new_urls, new_data = self.parser.parse(new_url, html_cont)
+                print("title:",new_data.get('title'))
+                print("summary:",new_data.get('summary'))
                 self.urls.add_new_urls(new_urls)
                 self.outputer.collect_data(new_data)
-                if count == 1020:
+                if count == 10:
                     break
                 count += 1
             except :
                 print("craw failed")
         self.outputer.output_html()
 if  __name__ == "__main__":
-    root_url = "http://www.importnew.com/all-posts"
+    #root_url = "http://www.importnew.com/22087.html"
+    root_url ="http://www.importnew.com/all-posts/page/1"
     obj_spider = SpiderManager()
     obj_spider.craw(root_url)
     
