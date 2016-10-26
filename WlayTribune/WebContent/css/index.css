@@ -29,94 +29,92 @@ a:active {
 	text-decoration: none;
 }
 
-/* 椤甸潰鎬荤殑 鏍峰紡 */
-.main_div {
-	width: 100%;
-	height: 1500px;
-}
+
+/* .main_div { */
+/* 	width: 100%; */
+/* 	height: 1500px; */
+/* } */
+
+
+
+/*main div style of page*/
 .main_style{
 	width:1000px;
-	height:1500px;
+	height:2500px;
 	border:1px solid red;
 	margin:0 auto;
 }
-/* 鍥剧墖logo澶栧眰div鏍峰紡 */
+/*logo div style*/
 .image-style {
 	width: 1000px;
 	height: 85px;
 	margin: 0 auto;
 }
 
-/* 鍥剧墖鏍峰紡 */
+/*logo image style*/
 .inner_image {
-	width: 1000px; /*--瀹藉害蹇呴』鐨�--*/
+	width: 1000px; 
 	text-align: left;
 	height: 85px;
 	margin: 0 20px;
 }
-/* 瀵艰埅鏍忔牱寮� */
+/*The navigation bar div style*/
 .title-style {
 	width: 1000px;
 	height: 30px;
 	margin: 0 auto;
 }
 
-/* 瀵艰埅鏍忓唴閮ㄦ牱寮� */
+/*The navigation bar inner style*/
 .inner_title {
-	width: 1000px; /*--瀹藉害蹇呴』鐨�--*/
+	width: 1000px;
 	text-align: center;
 	height: 30px;
 	margin: 0 10px;
 }
 
-/* 鏂囩珷鎬绘牱寮� */
+/* content style*/
 .content-style {
-	margin: 0 auto; /*--灞呬腑 --*/
-	width: 1000px; /*--瀹藉害蹇呴』鐨�--*/
+	margin: 0 auto; 
+	width: 1000px; 
 	text-align: left;
 	height: 1500px;
 }
 
-/* 鎺ㄨ崘闃呰鏍峰紡 */
 .suggestedreading {
-	width: 700px; /*--瀹藉害蹇呴』鐨�--*/
+	width: 700px;
 	text-align: left;
 	height: 360px;
 }
 
-/* 鏈�鏂版枃绔� */
 .new_article {
-	width: 350px; /*--瀹藉害蹇呴』鐨�--*/
+	width: 350px; 
 	text-align: left;
 	height: 360px;
 	float: left;
 }
 
-/* java骞茶揣 */
 .java {
-	width: 350px; /*--瀹藉害蹇呴』鐨�--*/
+	width: 350px; 
 	height: 360px;
 	float: left;
 	margin: 0 -40px;
 }
 
-/* 涓氱晫鍔ㄦ�� */
 .industry_dynamics {
-	width: 700px; /*--瀹藉害蹇呴』鐨�--*/
+	width: 700px;
 	text-align: left;
 	height: 360px;
 	float: left;
 }
 
-/* 鍩虹鎶�鏈� */
 .base_tic {
-	width: 700px; /*--瀹藉害蹇呴』鐨�--*/
+	width: 700px; 
 	text-align: left;
 	height: 360px;
 	float: left;
 }
 
-/* 鏂囩珷鍐呭鍐呴儴鏍峰紡 */
 .inner_content {
 	width: 700px;
 	text-align: left;
@@ -125,7 +123,6 @@ a:active {
 	
 }
 
-/* 鍙充晶鏄剧ず鏍忔牱寮� */
 .right-display {
 	width: 300px;
 	float: right;

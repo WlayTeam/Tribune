@@ -1,5 +1,5 @@
 /**
- * 404页面
+ * 404 page
  * @author ashin
  * 
  */

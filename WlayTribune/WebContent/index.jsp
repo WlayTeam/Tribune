@@ -40,7 +40,6 @@
 				</ul>
 			</div>
 		<!--</div>-->
-<!-- TC     -->
 
 		<br /> <br />
 		<!--<div class="content-style">-->
@@ -94,7 +93,6 @@
 					</div>
 					<div class="contet-mostbottom"></div>
 				</div>
-			<!--</div>-->
 
 		</div>
 
