@@ -13,6 +13,7 @@
 </style>
 </head>
 <body>
+<h1></h1>
 	<div class="main_style">
 		<!--  <div class="image-style">-->
 			<div class="inner_image">
