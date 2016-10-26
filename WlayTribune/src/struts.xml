@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+ <!DOCTYPE struts PUBLIC
+	"-//Apache Software Foundation//DTD Struts Configuration 2.1.7//EN"
+	"http://struts.apache.org/dtds/struts-2.1.7.dtd">
+
+<struts>
+	<constant name="struts.devMode" value="true" />
+	<package name="default" namespace="/" extends="struts-default">
+		<default-action-ref name="notFound" />
+		<!-- 全局结果页面 -->
+		<global-results>
+			<result>/indexs.jsp</result>
+		</global-results>
+
+		<action name="index" class="com.wlayteam.controller.IndexAction"
+			method="indexAction">
+			<result name="success">/index.jsp</result>
+		</action>
+
+		<action name="allArticle" class="com.wlayteam.controller.IndexAction"
+			method="displayArticle">
+			<result name="success">/right-display.jsp</result>
+		</action>
+
+		<action name="notFound" class="com.wlayteam.controller.IndexAction">
+			<result name="success">/404.jsp</result>
+		</action>
+
+
+	</package>
+
+</struts>

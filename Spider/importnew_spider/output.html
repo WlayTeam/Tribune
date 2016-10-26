@@ -1,0 +1,1980 @@
+<!DOCTYPE html><body><table><tr><td>http://www.importnew.com/21947.html</td><td>使用Dozer优雅的将DO转换成VO</td><td>
+原文出处： hollischuang
+什么是DO、DTO和VO
+在Java中 VO、 PO、DO、DTO、 BO、 QO、DAO、POJO的概念中介绍过Java中的各种模型概念。
+在这里简单再总结一下：
+在日常的项目开发中，VO对应于页面上需要显示的数据（表单），DO对应于数据库中存储的数据（数据表），DTO对应于除二者之外需要进行传递的数据。
+很多人可能对VO和DTO并不是那么熟悉，相反对DO却比较熟悉，那是因为在很多项目中由于种种原因我们只使用了DO，原因可能有以下几种：
+1、项目太小，对于一种业务实体，封装成一个DO就够了。
+2、并不熟悉DTO、VO，更不知道他们之间的区别。
+3、了解DO\DTO\VO之间的区别，但是懒得用。
+那么，这里，博主再啰嗦一下为什么要引入这么多概念，为什么我要建议大家在自己的项目中使用这些实体对象。
+为什么不能只用一个DO
+我们来看这样一个例子。假如我们的项目中由User这样一个实体。我们在创建User表的时候一般包含一下属性：
+
+针对这个实体，我们通常需要创建一个DO类，用来封装这个User实体。
+public class UserDO {
+    private Integer id;                 //唯一主键
+    private Date createdTime;           //创建时间
+    private Date updatedTime;           //最后更新时间
+    private String name;                //姓名
+    private Integer age;                //年龄
+    private String gender;              //性别
+    private String address;             //住址
+    private String password;            //密码
+    private String nickName;            //昵称
+    private Date birthday;              //生日
+    private String politicalStatus;     //政治面貌,1表示群众,2表示团员,3表示党员,4表示其他,100表示未知
+    private Integer companyId;          //公司的ID
+    private Integer status;             //数据状态,1表示可用,0表示不可用
+
+    //setter and getter
+}
+然后，在代码中，从DAO一直到前端展示，我们都通过这个UserDO类的对象来进行数据传输。这样做会有什么问题嘛？
+
+不需要的字段也会传递到前端页面。
+
+如password、createdTime、updatedTime和status这几个字段我们可能在前端根本不需要展示，但是这些字段有可能也会被传递到前端（除非我们在SQL查询的时候没有查询出对应的字段）。这不仅使数据的传输量增大，还可能有安全性问题。
+
+
+某些字段需要转换，但是无法支持。
+
+对于上面例子中的政治面貌字段，我们在数据库中存储的是数字，但是在前端页面我要展示的是中文描述。这种情况只能在前端通过if/else的方式来分情况展示。
+
+
+某些字段要展示，但是并不希望出现在数据库中
+
+在User表中我们只保存了这个用户的companyId，需要同时查询company表来查询出该公司的更多详细信息。对于User对象，如果我们想在前端同时展示他所属的公司，希望通过一次查询全都查出来怎么办？有几个简单的方案，第一个是让UserDO中包含一个Company类的属性，通过这个属性来传递。另外一种是把我们希望传到前端的Company的属性也写到UserDO中。但是，如果真的这么做了，那UserDO还能被称作DO了吗？
+
+
+
+还有很多问题，这这里就不详细介绍了。
+可见，使用一个DO从头用到尾（从数据库到前端页面）并不是一种好的设计。
+如何正确的使用DO、DTO、VO
+对于上面的例子，我们可以将他设计成以下类。由于模型并不复杂，这里只需要再引入VO就可以了。
+UserDO已经和数据库字段一一对应了，这里不需要修改。
+public class UserDO {
+    private Integer id;                 //唯一主键
+    private Date createdTime;           //创建时间
+    private Date updatedTime;           //最后更新时间
+    private String name;                //姓名
+    private Integer age;                //年龄
+    private String gender;              //性别
+    private String address;             //住址
+    private String password;            //密码
+    private String nickName;            //昵称
+    private Date birthday;              //生日
+    private String education;           //学历
+    private String politicalStatus;     //政治面貌,1表示群众,2表示团员,3表示党员,4表示其他,100表示未知
+    private Integer companyId;          //公司的ID
+    private Integer status;             //数据状态,1表示可用,0表示不可用
+
+    //setter and getter
+}
+引入UserVO，用于封装传递到前端需要展示的字段。
+public class UserVO {
+    private Integer id;                 //唯一主键
+    private String name;                //姓名
+    private Integer age;                //年龄
+    private String gender;              //性别
+    private String address;             //住址
+    private String nickName;            //昵称
+    private Date birthday;              //生日
+    private String education;           //学历
+    private String politicalStatus;     //政治面貌，群众、团员、党员等
+    private Company company;            //公司
+
+    //setter and getter
+}
+UserVO中只包含了展示所需要的字段，并不需要展示的字段在这里不需要包含。
+在引入了这个类之后，我们就可在进行数据库查询的时候使用UserDO，然后再需要传递到前端的时候把DO转换成VO。
+总结
+看到这里，你可能已经发现，UserDO和UserVO中包含了大量的相同字段。难道真的有必要再单独设计个VO嘛？我可以明确告诉你的是，当你的系统越来越大，表中的字段越来越多的时候，使用DO\DTO\VO等概念进行分层处理是绝对有好处的。至于如何进行有效的在不同的实体类间进行转换是我接下来要介绍的。
+优雅的将DO转换成VO
+Dozer 是一个对象转换工具。
+Dozer可以在JavaBean到JavaBean之间进行递归数据复制,并且这些JavaBean可以是不同的复杂的类型。
+所有的mapping，Dozer将会很直接的将名称相同的fields进行复制，如果field名不同，或者有特别的对应要求，则可以在xml中进行定义。
+前面我们介绍的DO\DTO\VO不就是JavaBean嘛。正好可以使用Dozer进行转换呀。
+除了使用Dozer，当然你还由其他选择：
+典型的解决方案就是手动拷贝，弊端很明显，代码中充斥大量Set 和Get方法，真正的业务被埋藏值与值的拷贝之中。
+另一种方案就是使用BeanUtil，但BeanUtil不够很好的灵活性，又时候还不得不手动拷贝。Dozer可以灵活的对对象进行转换，且使用简单。
+Dozer 支持的转换类型
+Primitive 基本数据类型 , 后面带 Wrapper 是包装类 Complex Type 是复杂类型
+•   Primitive to Primitive Wrapper 
+•   Primitive to Custom Wrapper 
+•   Primitive Wrapper to Primitive Wrapper 
+•   Primitive to Primitive 
+•   Complex Type to Complex Type 
+•   String to Primitive 
+•   String to Primitive Wrapper 
+•   String to Complex Type if the Complex Type contains a String constructor 
+•   String 到复杂类型 , 如果复杂类型包含一个 String 类型的构造器 
+•   String to Map 
+•   Collection to Collection 
+•   Collection to Array 
+•   Map to Complex Type 
+•   Map to Custom Map Type 
+•   Enum to Enum 
+•   Each of these can be mapped to one another: java.util.Date, java.sql.Date, java.sql.Time, java.sql.Timestamp, java.util.Calendar, java.util.GregorianCalendar 
+•   String to any of the supported Date/Calendar Objects. 
+•   Objects containing a toString() method that produces a long representing time in (ms) to any supported Date/Calendar object.
+在普通Java项目中使用Dozer
+在pom.xml中增加依赖
+<dependency>
+  <groupId>net.sf.dozer</groupId>
+  <artifactId>dozer</artifactId>
+  <version>5.5.1</version>
+</dependency>
+使用Dozer进行类转换
+public class Main {
+
+    public static void main(String[] args) {
+        DozerBeanMapper mapper = new DozerBeanMapper();
+        UserDO userDO = new UserDO();
+        userDO.setName("hollis");
+        userDO.setAddress("hz");
+        userDO.setAge(25);
+        userDO.setCompanyId(1);
+        userDO.setBirthday(new Date());
+        userDO.setGender("male");
+        userDO.setEducation("1");
+        userDO.setNickName("hollis");
+        userDO.setPoliticalStatus("3");
+        UserVO userVO = (UserVO) mapper.map(userDO, UserVO.class);
+        System.out.println(userVO);
+    }
+}
+特殊的字段转换
+在使用mapper进行转换前，设置一个或多个mapping文件
+List myMappingFiles = new ArrayList();    
+myMappingFiles.add("dozer-mapping.xml");    
+mapper.setMappingFiles(myMappingFiles);
+配置dozer-mapping.xml文件
+数据类型不一致，或者名称不相同或者有级联关系等情况下，可以通过文件dozer-mapping.xml来进行定制Bean的转换
+<?xml version="1.0" encoding="UTF-8"?>
+<mappings xmlns="http://dozer.sourceforge.net" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://dozer.sourceforge.net
+
+http://dozer.sourceforge.net/schema/beanmapping.xsd">
+
+    <mapping>
+        <class-a>com.hollis.lab.UserDO</class-a>
+        <class-b>com.hollis.lab.UserVO</class-b>
+    </mapping>
+</mappings>
+在JavaWeb项目中使用Dozer
+在pom.xml中增加依赖
+<dependency>
+  <groupId>net.sf.dozer</groupId>
+  <artifactId>dozer</artifactId>
+  <version>5.5.1</version>
+</dependency>
+使用Spring集成dozer
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd">
+<beans>
+    <bean id="baseMapper" class="org.dozer.spring.DozerBeanMapperFactoryBean">
+        <property name="mappingFiles">
+            <list>
+                <value>classpath:mapping/dozer-mapping.xml</value>
+            </list>
+        </property>
+    </bean> 
+</beans>
+使用baseMapper进行Bean的转换
+@Autowired
+private Mapper baseMapper;
+private UserVO doToVo(UserDO userDO){
+    if(userDO == null) return null;
+    UserVO vo = baseMapper.map(userDO, UserVO.getClass());
+    if(userDO.getCompanyId != null) getCompany(vo);
+    return vo;
+}
+通过以上的代码加配置，我们就实现了从DO转换到VO的部分操作，之所以说是部分操作，是因为我们在dozer-mapping.xml并没有做多余的配置，只是使用dozer将DO中和VO中共有的属性转换了过来。对于其他的类型不同或者名称不同等的转换可以参考官网例子通过设置dozer-mapping.xml文件来实现。
+上面还有一个getCompany()没有实现。这个方法其实就是通过companyId查询出company实体然后在赋值给UserVO中的company属性。
+在使用了dozer之后，我们可以把UserDO中的部分属性赋值到UserVO中，其实，转化的过程是通过调用UserDO中的getter方法和UserVO中的setter方法来实现的。读者可以做个实验，对于UserVO中的部分属性不写Setter方法看看还能不能把属性值转换过来，博主已经测试过了，是不能的。
+
+
+</td></tr><tr><td>http://www.importnew.com/21754.html</td><td>曾经的 Java IDE 王者 Eclipse，它是如何没落的？</td><td>
+本文由 ImportNew - Patrick_颜 翻译自 Moving Fulcrum。欢迎加入翻译小组。转载请见文末要求。
+根据今年 6 月份的一份调查，Eclipse 的使用比例下降至 41%，已低于 Intellij IDEA 的 46%。
+
+曾经的 Java IDE 王者，为何会走到这一步？
+1. Eclipse 4
+如果有一个时间点标志着 Eclipse 的没落，那一定是 Eclipse 4 的发布。
+在 Eclipse 3.x 的时代，Eclipse 的发展非常顺利，统治着所有开发工具，但是突然间它却走上了自取灭亡的道路。它犯了重写所有 UI 代码的错误。正如 Joel Spolsky 所言，这是自我毁灭（事实确实如此）。
+Eclipse 3.x 是一个速度非常快的，拥有本地外观的 IDE。每一次版本发布都增加了一些实用的功能。而此时基于 UI 的 Intellij Swing  正在艰难的追赶着 Eclipse 的原生组件。然而到了 Eclipse 4， 就完全变了。缓慢的运行速度、奇怪的问题以及丑陋的 UI 。Eclipse 好像倒退了好几年。
+2. Equinox P2
+Equinox P2 项目的目的是让插件升级变得更简单。插件作为 Eclipse 赖以生存的组成部分，Equinox P2 可以说是一个非常重要的项目。
+然而，它最终却变得非常复杂，而且好像要和 InstallShield 竞争成为通用安装工具。由于这个原因，它最常用的功能——安装 Eclipse 插件——也不再好用了。
+在安装插件的时候，这样的对话框随处可见。
+
+3.并非产品
+一直以来，Eclipse.org 都热衷于推广 Eclipse 基金会，而不是 IDE。网站看上去就像没有人维护的独立项目的大集合。
+看吧，功能列表里显示的都是捆绑插件的内部id。
+
+Eclipse 给人的感觉不再像一个 IDE，而是一个插件的集合。你需要安装插件来创建自己的开发工具。
+4.太难看
+忠言逆耳。
+自从 Eclipse 4 发布以来，Eclipse 的 UI 变得越来越丑。配色难看的工具栏、边缘参差不齐的图标、令人发狂的黑色主题以及不支持 retina 屏幕（直到最近才解决）。再加上难看的bug追踪器、邮件列表以及一个无人维护的网站，让 Eclipse 4 看上去还停留在2000 年。
+每一次在使用 Eclipse 的时候，你都会感觉到，你还在使用它的唯一原因是因为你太穷，买不起 Intellij。
+5. Intellij IDEA 社区版
+尽管有些不足，但对于寻求免费 IDE 的纯 Java 开发人员、学生和开源项目来说，Eclipse JDT 仍然是首选。
+但是 Intellij 社区版的发布，彻底摧毁了 Eclipse。
+Intellij 社区版和免费的 Android Studio 意味着当你用 Java 开发时，你已经完全没必要再忍受 Eclipse 了。你有一个更好的 IDE，而且也是免费的。
+总结
+然而，Eclipse 的没落也导致了开发人员的流失。在没有 Eclipse 与之竞争的情况下，Jetbrains 公司少了许多创新以及为 IDE 添加新功能的动力。比如，看看 WebStrorm 对 TypeScript 的支持程度就知道事情变得有多糟。
+在我年轻的时候，有 Eclipse 这样完全免费的顶级 IDE，对我的编程学习起了很大的作用。这意味着一个穷学生也可以使用和专业人士一样的工具。然而这个时代已经一去不复返了。
+
+        
+        原文链接： Moving Fulcrum    翻译：  ImportNew.com  - Patrick_颜译文链接： http://www.importnew.com/21754.html[ 转载请保留原文出处、译者和译文链接。]
+
+
+
+	关于作者： Patrick_颜
+
+
+
+
+
+
+
+查看Patrick_颜的更多文章 >> 
+
+
+
+
+</td></tr><tr><td>http://www.importnew.com/1885.html</td><td>MapReduce启蒙文献</td><td>
+本文作者： ImportNew - 储晓颖 未经许可，禁止转载！
+MapReduce是一个极其强大的算法，尤其当使用普通硬件构成的分布式系统处理海量数据时尤为如此。它让广大开发者能轻易在大型、分布式、容错的系统上处理数据。最近Cloudant产品线上众多灵感中的一个让其焕发新生。事实上，这个灵感也促进了这个公司本身的创立。MapReduce最近也被重新审视，它的实现方案众多，各有优势和弱点。它不是适合所有场景的万能工具，我也曾经直言过这个问题。但是，如果使用得当，它会是一个极其强大的工具。它也是一个极其简单的概念，是进入分布式计算世界的绝佳入口。我也因此很吃惊为何这么少人读过MapReduce启蒙文献。我提供下列我主观认为很有益的文章，并向大家介绍它们的核心概念。
+
+MapReduce的发现和承诺
+
+Google MapReduce.Jeff Dean和Sanjay Ghemawat 发表了Google的MapReduce实现的细节，此举为世界做出了巨大贡献，文章诠释了数据如何并行批处理，如何拥有最大的可伸缩性。他们方案的主要优势是为开发者提供了一个优雅简洁的API（“你想如何处理文件中的一行数据？”）并且隐藏了所有的工作流管理、任务调度、失败恢复。但是这个论文最精彩的部分是13页的一个示例应用，他们在一个顺序的C程序中嵌入了一个MapReduce工作流。这一个例子非常明显的突出了顺序化编程和并行处理之间的区别，而且令人兴奋的是几行代码就能轻易碾碎PB级别的数据。最后，这个论文还展现了真实的运作数据，这些数据巩固了MapReduce在Google的关键地位。
+Google Sawzall。不深究细节，Sawzall是我找到的第一份演示声明式语言重要性的论文，文章介绍了声明式语言如何封装Google的MapReduce实现。它也第一次让我意识到，类SQL的语言比如 Pig 和Hive即将来临。这篇文章也预示着Google未来将启用的具有改革意义的大数据查询引擎产品。
+Yahoo map-reduce-merge。这份论文提供了第一个证明多步式MapReduce工作流（尤其是map-reduce-merge）是关系上完备的。SQL关系代数能够在一种“负载均衡、可伸缩以及并行”的方式上表达。这份论文也对提到的算法提供了例子实现。这篇文章使得Pig、Hive以及其他类SQL语言在MapReduce（那时已经发展出Hadoop）上衍生、发展成为必然。
+
+ 
+理解和量化MapReduce的限制
+
+Graph Twiddling in a MapReduce World.这篇具有改革意义的（但是很少引用的）的文章发表自NSA的Jonathan Cohen，详细讨论了通用MapReduce算法处理图形数据的适用性和限制。它特别检查了一些常用的图形算法（例如计算所有节点的出度，枚举三角等等）。这篇文章实现了几个常用算法的示例以进行举证，而且提出MapReduce处理过程通常需要多层加工，因此在一些场景下整个图形需要在连续步骤中不断向后拷贝。虽然图形处理在mapreduce中是可以做到的，但是也可能很低效，取决于使用哪种算法。
+“Google Percolator.我曾在别处详细描述了这份论文，它建立了Google面向批处理的MapReduce框架（Hadoop）的延迟缺陷观点。特别是此文介绍了增量处理的Percolator框架，以及它如何增量处理添加到文档库中的新文件（比如新抓取的网页添加到搜索引擎时如何增量建立索引，译者注）。它讨论了一些特定实现（包括为Bigtable添加事务处理语义）并且提供了引人注目的可运行的证据，证明了增量方法是高效分析连续成长/变化数据集合的优秀方案。Google写到，“转化索引系统到增量系统……减少了100倍的平均文档处理延迟”
+Google Dremel.如果你不读其他任何文档，读这篇吧。这份论文描述了一个惊人的替代方案的核心，此方案可以用难以置信的低延迟查询海量数据。它就是Dremel，作为新型BigQuery产品的核心，它承诺能在几千台服务器上秒级分析万亿行数据。这篇文章令人信服的证明了Google的MapReduce实现有两个致命弱点：（i）在他们面向批处理的实现中不可避免的严重处理延迟；(ii)缺少声明式查询语言。Dremel简直是个混蛋（可能指Dremel太强大、对传统MapReduce缺陷的剖析太直接，译者注）。面向列的存储、查询扩展和服务器树以及一个类SQL的查询语言组成了这个绝对革命性产品的核心。开源和企业阵营都妒忌该产品并不让人意外，我们拭目以待， 开源项目Apache Drill（基于Dremel）对比Cloudera的近期宣布的Impala项目（基于Hadoop）谁更胜一筹。
+
+ 
+
+Cloudant的MapReduce
+
+MapReduce极其强大。在Cloudant我们认为这是理所应当的，但是如果引入并行计算到数据库层面，可以极大简化应用层面的复杂度。我们的实现方案是非常不同于Google、Hadoop、Mongo和Riak。与Google和Hadoop类似，我们是完全并行的。执行过程发生在集群中每一个节点上，这些节点都持有输入数据集的一部分。但是不像上述所有产品，我们的实现是增量的。它的优化不是为了贯穿数据的首次处理，而是为新增或修改的文档提供高效的计算，Percolator论文中也提到了非增量方案的延迟问题。
+下一步，我们的实现不是仅仅在文件系统存储上创建key/value行。Cloudant MapReduce的输出其实是一个持久化在磁盘上的b+树。通过Cloudant mapreduce引擎，我们允许用户高效处理数据并且为速度要求极高的查询创建二级索引。它逻辑上等价于SQL里的ALTER TABLE CREATE INDEX。
+与Mongo和Riak中的数据库实现相比，Cloudant的MapReduce是可连接的。这首先意味着它是能够在大量的事务型数据上对某些类型的JOIN操作执行高效预计算。最后，不像Dremel，我们还没提供一个声明式查询语言。map-reduce-merge论文以及Pig和Hive的编译器都为如何将SQL查询编译为高效的MapReduce代码提供了一个清晰的方案。这是新Cloudant用户的普遍需求。如果你感兴趣这些反馈将如何影响我们的产品发展路线图，请在11月8号星期四收听Alan Hoffman的网络广播。
+英文原文：MapReduce’s Founding Documents，编译：ImportNew - 储晓颖
+译文链接：http://www.importnew.com/1706.html
+【如需转载，请在正文中标注并保留原文链接、译文链接和译者等信息，谢谢合作！】
+
+
+
+	关于作者： 储晓颖
+
+
+
+ 
+
+现任支付宝架构师，负责监控分析域的架构和产品设计。架构时严谨，编码时疯狂。新浪微博：@疯狂编码中的xiaoY
+
+查看储晓颖的更多文章 >> 
+
+
+
+
+</td></tr><tr><td>http://www.importnew.com/21988.html</td><td>Apache Commons CLI官方文档翻译 —— 快速构建命令行启动模式</td><td>
+原文出处： xingoo
+昨天已经联系过几个基本的命令行参数使用场景，可以参考这里
+通过使用Apache Commons CLI可以帮助开发者快速构建命令行启动模式，并可以快速生成帮助指令，基于用户启动参数提供不同的服务。
+入门样例
+下面就举个例子，比如我想输入命令:
+xxx -t
+从而打印出当前的时间。
+定义阶段——创建选项
+首先要创建Options对象，然后添加Option对象.
+
+// create Options object
+Options options = new Options();
+
+// add t option
+options.addOption("t", false, "display current time");
+
+其中addOption方法有三个参数：
+
+第一个参数是字符串类型，代表命令的参数。
+第二个参数是Bool型，代表该选项是否需要额外的参数。
+第三个参数是该选项的描述信息。
+
+上面的例子就代表，t选项不需要参数，它的意思是显示当前时间。
+解析阶段——解析命令行参数
+CLI通过CommandLineParser的parse方法解析命令行参数。有好几种CommandLineParser的实现类，推荐使用的是DefaultParser。看源码除了这个DefaultParser，其他的都被打上了@Deprecated标记。
+除去这个DefaultParser以外，还有一个抽象类实现了CommandLineParser接口——Parser,这个Parser有三个子类：
+
+BasicParser
+GnuParser
+PosixParser
+
+
+CommandLineParser parser = new DefaultParser();
+CommandLine cmd = parser.parse( options, args);
+
+询问阶段—— 判断命令行中出现了哪个选项
+现在就可以检查是否存在这个t选项了，首先需要在CommandLine对象中进行查询。hasOption方法可以通过选项的名字，判断命令行是否出现该命令。出现则返回true,否则返回false。
+
+if(cmd.hasOption("t")) {
+    // print the date and time
+}
+else {
+    // print the date
+}
+
+全部代码
+public class DateApp {
+    public static void main(String[] args) {
+        String[] arg = {"-t"};
+//      String[] arg = {};
+        try {
+            testOption(arg);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+    }
+    static void testOption(String[] args) throws ParseException{
+        Options options = new Options();
+        options.addOption("t", false, "display current time");
+
+        CommandLineParser parser = new DefaultParser();
+        CommandLine cmd = parser.parse( options, args);
+
+        if(cmd.hasOption("t")) {
+            System.out.println((new SimpleDateFormat("yyyy-MM-dd HH:mm:ss")).format(new Date()));
+        }else {
+            System.out.println((new SimpleDateFormat("yyyy-MM-dd")).format(new Date()));
+        }
+    }
+}
+进阶样例
+下面这个例子继承自DateApp，并且提供了根据城市显示时间和日期的功能。为了实现这个命令，会增加一个c选项，来添加城市信息。
+// add c option
+options.addOption("c", true, "country code");
+第二个参数这时设置为true，就代表它需要额外的参数。
+获得参数值
+CommandLine对象的getOptionValue方法可以获取到参数的值。
+// get c option value
+String countryCode = cmd.getOptionValue("c");
+
+if(countryCode == null) {
+    // print default date
+}else {
+    // print date for country specified by countryCode
+}
+此时如果只有c选项，没有参数，就会报错
+org.apache.commons.cli.MissingArgumentException: Missing argument for option: c
+    at org.apache.commons.cli.DefaultParser.checkRequiredArgs(DefaultParser.java:211)
+    at org.apache.commons.cli.DefaultParser.parse(DefaultParser.java:125)
+    at org.apache.commons.cli.DefaultParser.parse(DefaultParser.java:76)
+    at org.apache.commons.cli.DefaultParser.parse(DefaultParser.java:60)
+    at hangout.study.InternationalDateApp.testOption(InternationalDateApp.java:29)
+    at hangout.study.InternationalDateApp.main(InternationalDateApp.java:18)
+全部代码
+public class InternationalDateApp {
+    public static void main(String[] args) {
+        String[] arg = {"-t","-c","hello"};
+//      String[] arg = {"-t","-c"};
+//      String[] arg = {};
+        try {
+            testOption(arg);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+    }
+    static void testOption(String[] args) throws ParseException{
+        Options options = new Options();
+        options.addOption("t", false, "display current time");
+        options.addOption("c", true, "country code");
+
+        CommandLineParser parser = new DefaultParser();
+        CommandLine cmd = parser.parse( options, args);
+
+        if(cmd.hasOption("t")) {
+            System.out.println((new SimpleDateFormat("yyyy-MM-dd HH:mm:ss")).format(new Date())+" in "+cmd.getOptionValue("c"));
+        }else {
+            System.out.println((new SimpleDateFormat("yyyy-MM-dd")).format(new Date()));
+        }
+    }
+}
+此时运行代码，则会正确输出信息:
+2016-06-23 21:18:50 in hello
+Ant样例
+下面举一个Ant的样例，下面是Ant输出的帮助信息
+ant [options] [target [target2 [target3] ...]]
+  Options: 
+  -help                  print this message
+  -projecthelp           print project help information
+  -version               print the version information and exit
+  -quiet                 be extra quiet
+  -verbose               be extra verbose
+  -debug                 print debugging information
+  -emacs                 produce logging information without adornments
+  -logfile <file>        use given file for log
+  -logger <classname>    the class which is to perform logging
+  -listener <classname>  add an instance of class as a project listener
+  -buildfile <file>      use given buildfile
+  -D<property>=<value>   use value for given property
+  -find <file>           search for buildfile towards the root of the
+                         filesystem and use it
+使用Bool选项创建
+Option help = new Option( "help", "print this message" );
+Option projecthelp = new Option( "projecthelp", "print project help information" );
+Option version = new Option( "version", "print the version information and exit" );
+Option quiet = new Option( "quiet", "be extra quiet" );
+Option verbose = new Option( "verbose", "be extra verbose" );
+Option debug = new Option( "debug", "print debugging information" );
+Option emacs = new Option( "emacs","produce logging information without adornments" );
+也可以使用OptionBuilder构建选项：
+Option logfile   = OptionBuilder.withArgName( "file" )
+       .hasArg()
+       .withDescription(  "use given file for log" )
+       .create( "logfile" );
+
+Option logger    = OptionBuilder.withArgName( "classname" )
+       .hasArg()
+       .withDescription( "the class which it to perform "+ "logging" )
+       .create( "logger" );
+
+Option listener  = OptionBuilder.withArgName( "classname" )
+       .hasArg()
+       .withDescription( "add an instance of class as "+ "a project listener" )
+       .create( "listener"); 
+
+Option buildfile = OptionBuilder.withArgName( "file" )
+       .hasArg()
+       .withDescription(  "use given buildfile" )
+       .create( "buildfile");
+
+Option find      = OptionBuilder.withArgName( "file" )
+       .hasArg()
+       .withDescription( "search for buildfile towards the "+ "root of the filesystem and use it" )
+       .create( "find" );
+最后一个OptionBuilder创建带有参数名称的选项：
+Option property  = OptionBuilder.withArgName( "property=value" )
+                                .hasArgs(2)
+                                .withValueSeparator()
+                                .withDescription( "use value for given property" )
+                                .create( "D" );
+通过上面的方式定义的属性，可以通过CommandLine对象的getOptionProperties(“D”)方法获得。
+定义阶段——创建选项
+Options options = new Options();
+
+options.addOption( help );
+options.addOption( projecthelp );
+options.addOption( version );
+options.addOption( quiet );
+options.addOption( verbose );
+options.addOption( debug );
+options.addOption( emacs );
+options.addOption( logfile );
+options.addOption( logger );
+options.addOption( listener );
+options.addOption( buildfile );
+options.addOption( find );
+options.addOption( property );
+解析阶段——创建解析器
+跟前面类似，创建CommandLineParser解析器，返回CommandLine对象，用于查询选项参数。
+public static void main( String[] args ) {
+    // create the parser
+    CommandLineParser parser = new DefaultParser();
+    try {
+        // parse the command line arguments
+        CommandLine line = parser.parse( options, args );
+    }
+    catch( ParseException exp ) {
+        // oops, something went wrong
+        System.err.println( "Parsing failed.  Reason: " + exp.getMessage() );
+    }
+}
+询问阶段——查询命令行参数
+通过hasOption选项判断是否包含某个选项参数:
+// has the buildfile argument been passed?
+if( line.hasOption( "buildfile" ) ) {
+    // initialise the member variable
+    this.buildfile = line.getOptionValue( "buildfile" );
+}
+创建帮助信息
+一般命令行工具都有help帮助提示，即输入-h命令，就会输出所有的命令参数。CLI提供给我们快捷输出帮助信息的工具——HelpFormatter。
+// automatically generate the help statement
+HelpFormatter formatter = new HelpFormatter();
+formatter.printHelp( "ant", options );
+当执行到此处时，就会输出相应的帮助信息
+usage: ant
+-D <property=value>     use value for given property
+-buildfile <file>       use given buildfile
+-debug                  print debugging information
+-emacs                  produce logging information without adornments
+-file <file>            search for buildfile towards the root of the
+                        filesystem and use it
+-help                   print this message
+-listener <classname>   add an instance of class as a project listener
+-logger <classname>     the class which it to perform logging
+-projecthelp            print project help information
+-quiet                  be extra quiet
+-verbose                be extra verbose
+-version                print the version information and exit
+全部代码
+public class AntExample {
+    public static void main(String[] args) {
+        String[] arg = {"-help"};
+        testOption(arg);
+    }
+    @SuppressWarnings({ "deprecation", "static-access" })
+    static void testOption(String[] args){
+        Option help = new Option( "help", "print this message" );
+        Option projecthelp = new Option( "projecthelp", "print project help information" );
+        Option version = new Option( "version", "print the version information and exit" );
+        Option quiet = new Option( "quiet", "be extra quiet" );
+        Option verbose = new Option( "verbose", "be extra verbose" );
+        Option debug = new Option( "debug", "print debugging information" );
+        Option emacs = new Option( "emacs","produce logging information without adornments" );
+
+        Option logfile   = OptionBuilder.withArgName( "file" )
+                .hasArg()
+                .withDescription(  "use given file for log" )
+                .create( "logfile" );
+
+        Option logger    = OptionBuilder.withArgName( "classname" )
+                .hasArg()
+                .withDescription( "the class which it to perform "+ "logging" )
+                .create( "logger" );
+
+        Option listener  = OptionBuilder.withArgName( "classname" )
+                .hasArg()
+                .withDescription( "add an instance of class as "+ "a project listener" )
+                .create( "listener"); 
+
+        Option buildfile = OptionBuilder.withArgName( "file" )
+                .hasArg()
+                .withDescription(  "use given buildfile" )
+                .create( "buildfile");
+
+        Option find = OptionBuilder.withArgName( "file" )
+                .hasArg()
+                .withDescription( "search for buildfile towards the " + "root of the filesystem and use it" )
+                .create( "find" );
+        Option property  = OptionBuilder.withArgName( "property=value" )
+                .hasArgs(2)
+                .withValueSeparator()
+                .withDescription( "use value for given property" )
+                .create( "D" );
+        Options options = new Options();
+
+        options.addOption( help );
+        options.addOption( projecthelp );
+        options.addOption( version );
+        options.addOption( quiet );
+        options.addOption( verbose );
+        options.addOption( debug );
+        options.addOption( emacs );
+        options.addOption( logfile );
+        options.addOption( logger );
+        options.addOption( listener );
+        options.addOption( buildfile );
+        options.addOption( find );
+        options.addOption( property );
+
+        CommandLineParser parser = new DefaultParser();
+        try {
+            CommandLine line = parser.parse( options, args );
+            if( line.hasOption( "buildfile" ) ) {
+               System.out.println(line.getOptionValue( "buildfile" ));
+            }
+            if( line.hasOption("help")){
+                HelpFormatter formatter = new HelpFormatter();
+                formatter.printHelp( "ant", options );
+            }
+        }catch( ParseException exp ) {
+            System.err.println( "Parsing failed.  Reason: " + exp.getMessage() );
+        }
+    }
+}
+运行后得到下面的输出信息：
+usage: ant
+ -buildfile <file>       use given buildfile
+ -D <property=value>     use value for given property
+ -debug                  print debugging information
+ -emacs                  produce logging information without adornments
+ -find <file>            search for buildfile towards the root of the
+                         filesystem and use it
+ -help                   print this message
+ -listener <classname>   add an instance of class as a project listener
+ -logfile <file>         use given file for log
+ -logger <classname>     the class which it to perform logging
+ -projecthelp            print project help information
+ -quiet                  be extra quiet
+ -verbose                be extra verbose
+ -version                print the version information and exit
+如果想在输出信息中加入参数列表，也可以在printHelp加入第三个参数true，formatter.printHelp( "ant", options, true);
+usage: ant [-buildfile <file>] [-D <property=value>] [-debug] [-emacs]
+       [-find <file>] [-help] [-listener <classname>] [-logfile <file>]
+       [-logger <classname>] [-projecthelp] [-quiet] [-verbose] [-version]
+ -buildfile <file>       use given buildfile
+ -D <property=value>     use value for given property
+ -debug                  print debugging information
+ -emacs                  produce logging information without adornments
+ -find <file>            search for buildfile towards the root of the
+                         filesystem and use it
+ -help                   print this message
+ -listener <classname>   add an instance of class as a project listener
+ -logfile <file>         use given file for log
+ -logger <classname>     the class which it to perform logging
+ -projecthelp            print project help information
+ -quiet                  be extra quiet
+ -verbose                be extra verbose
+ -version                print the version information and exit
+LS样例
+这个例子模拟了Linux下的命令行使用帮助：
+全部代码：
+public class LSExample {
+    public static void main(String[] args) {
+        String[] arg = new String[]{ "--block-size=10" };
+        testOption(arg);
+    }
+    static void testOption(String[] args){
+        CommandLineParser parser = new DefaultParser();
+
+        // create the Options
+        Options options = new Options();
+        options.addOption( "a", "all", false, "do not hide entries starting with ." );
+        options.addOption( "A", "almost-all", false, "do not list implied . and .." );
+        options.addOption( "b", "escape", false, "print octal escapes for nongraphic "
+                                                 + "characters" );
+        options.addOption( OptionBuilder.withLongOpt( "block-size" )
+                                        .withDescription( "use SIZE-byte blocks" )
+                                        .hasArg()
+                                        .withArgName("SIZE")
+                                        .create() );
+        options.addOption( "B", "ignore-backups", false, "do not list implied entried "
+                                                         + "ending with ~");
+        options.addOption( "c", false, "with -lt: sort by, and show, ctime (time of last " 
+                                       + "modification of file status information) with "
+                                       + "-l:show ctime and sort by name otherwise: sort "
+                                       + "by ctime" );
+        options.addOption( "C", false, "list entries by columns" );
+
+        try {
+            CommandLine line = parser.parse( options, args );
+
+            if( line.hasOption( "block-size" ) ) {
+                System.out.println( line.getOptionValue( "block-size" ) );
+            }
+        }
+        catch( ParseException exp ) {
+            System.out.println( "Unexpected exception:" + exp.getMessage() );
+        }
+    }
+}
+输出可以得到下面的信息:
+10
+usage: ls
+ -a,--all                 do not hide entries starting with .
+ -A,--almost-all          do not list implied . and ..
+ -b,--escape              print octal escapes for nongraphic characters
+ -B,--ignore-backups      do not list implied entried ending with ~
+    --block-size <SIZE>   use SIZE-byte blocks
+ -c                       with -lt: sort by, and show, ctime (time of last
+                          modification of file status information) with
+                          -l:show ctime and sort by name otherwise: sort
+                          by ctime
+ -C                       list entries by columns
+参考
+我的前一天总结
+Apache Common CLI官方文档
+
+
+</td></tr><tr><td>http://www.importnew.com/10567.html</td><td>Java中简化堆外内存结构、元组</td><td>
+本文由 ImportNew - norwind 翻译自 javacodegeeks。欢迎加入翻译小组。转载请见文末要求。
+在上一篇文件章中，我详细描述了内存访问模式的重要性。从那时起，我就在考虑在Java中怎样做才能更好的预测内存的使用情况。有一些使用数组结构的模式可以使用，我将在另一篇文章中讨论。这篇文章将探讨怎样模拟一个Java中严重缺失的特性——类似于C语言中的结构数组。
+结构是非常有用的，无论在栈还是在堆。据我所知，Java栈的特性是无法模拟的。这样极大地限制了一些并行算法的性能，这一点以后再说。
+在Java中，所有的用户自定义类型必须存在于堆中。在一般情况下，Java堆是由垃圾回收器管理，但是Java程序中还存在更广泛的堆。通过引入直接的ByteBuffer，内存可以不被垃圾收集器跟踪，因为它可以使本地代码在与内核IO交互时避免对数据重复性操作。因此，管理结构时假装它们在ByteBuffer内是一种合理的方法。这可以简化数据表示，但有性能和规模的限制。例如，ByteBuffer不能大于2GB，所有的访问都要进行边界检查，这将影响性能。另一个可供选择的方法是使用Unsafe类，速度更快，并且不像ByteBuffer那样有大小限制。
+我将要详述的不是传统的方法。如果你要处理大规模数据，或者对性能要求很高，那请你接着往下看。如果你的数据集较小，性能不是问题，那么现在跑开，以免陷入本地内存管理的黑魔法中。
+使用该方法具体的好处是：
+
+显著提高性能
+更简化的数据表示
+非常强的大数据集工作能力，同时避免讨厌的GC pauses. [1]
+
+使用这些方法也要承担一些后果。使用下面提到的方法时需要你自己进行一部分内存管理工作。如果出现问题可能导致内存泄露，更严重的会导致JVM崩溃！请谨慎行事…
+合适的例子 – 贸易数据
+金融应用程序面临的一个共同挑战是需要获取和处理大量的订单及贸易数据。对于这个例子，我会根据内存中的贸易数据创建一张大表，并可以针对它运行分析查询。这张表将使用两种对比性很强的方法创建。第一种，我将使用Java中的传统方法，创建一个大的数组，数组中的每个元素是一个Trade对象的引用。第二种，我将使用相同的代码，但是把大数组和Trade对象换成堆外数组结构，使得可以通过一个享元(Flyweight)模式处理。
+如果在传统方法我使用了其它的数据结构，如Map或Tree, 那么内存占用会更大，性能会更低。
+传统的Java方法：
+public class TestJavaMemoryLayout
+{
+    private static final int NUM_RECORDS = 50 * 1000 * 1000;
+
+    private static JavaMemoryTrade[] trades;
+
+    public static void main(final String[] args)
+    {
+        for (int i = 0; i < 5; i++)
+        {
+            System.gc();
+            perfRun(i);
+        }
+    }
+
+    private static void perfRun(final int runNum)
+    {
+        long start = System.currentTimeMillis();
+
+        init();
+
+        System.out.format('Memory %,d total, %,d free\n',
+                          Runtime.getRuntime().totalMemory(),
+                          Runtime.getRuntime().freeMemory());
+
+        long buyCost = 0;
+        long sellCost = 0;
+
+        for (int i = 0; i < NUM_RECORDS; i++)
+        {
+            final JavaMemoryTrade trade = get(i);
+
+            if (trade.getSide() == 'B')
+            {
+                buyCost += (trade.getPrice() * trade.getQuantity());
+            }
+            else
+            {
+                sellCost += (trade.getPrice() * trade.getQuantity());
+            }
+        }
+
+        long duration = System.currentTimeMillis() - start;
+        System.out.println(runNum + ' - duration ' + duration + 'ms');
+        System.out.println('buyCost = ' + buyCost + ' sellCost = ' + sellCost);
+    }
+
+    private static JavaMemoryTrade get(final int index)
+    {
+        return trades[index];
+    }
+
+    public static void init()
+    {
+        trades = new JavaMemoryTrade[NUM_RECORDS];
+
+        final byte[] londonStockExchange = {'X', 'L', 'O', 'N'};
+        final int venueCode = pack(londonStockExchange);
+
+        final byte[] billiton = {'B', 'H', 'P'};
+        final int instrumentCode = pack( billiton);
+
+        for (int i = 0; i < NUM_RECORDS; i++)
+        {
+            JavaMemoryTrade trade = new JavaMemoryTrade();
+            trades[i] = trade;
+
+            trade.setTradeId(i);
+            trade.setClientId(1);
+            trade.setVenueCode(venueCode);
+            trade.setInstrumentCode(instrumentCode);
+
+            trade.setPrice(i);
+            trade.setQuantity(i);
+
+            trade.setSide((i & 1) == 0 ? 'B' : 'S');
+        }
+    }
+
+    private static int pack(final byte[] value)
+    {
+        int result = 0;
+        switch (value.length)
+        {
+            case 4:
+                result = (value[3]);
+            case 3:
+                result |= ((int)value[2] << 8);
+            case 2:
+                result |= ((int)value[1] << 16);
+            case 1:
+                result |= ((int)value[0] << 24);
+                break;
+
+            default:
+                throw new IllegalArgumentException('Invalid array size');
+        }
+
+        return result;
+    }
+
+    private static class JavaMemoryTrade
+    {
+        private long tradeId;
+        private long clientId;
+        private int venueCode;
+        private int instrumentCode;
+        private long price;
+        private long quantity;
+        private char side;
+
+        public long getTradeId()
+        {
+            return tradeId;
+        }
+
+        public void setTradeId(final long tradeId)
+        {
+            this.tradeId = tradeId;
+        }
+
+        public long getClientId()
+        {
+            return clientId;
+        }
+
+        public void setClientId(final long clientId)
+        {
+            this.clientId = clientId;
+        }
+
+        public int getVenueCode()
+        {
+            return venueCode;
+        }
+
+        public void setVenueCode(final int venueCode)
+        {
+            this.venueCode = venueCode;
+        }
+
+        public int getInstrumentCode()
+        {
+            return instrumentCode;
+        }
+
+        public void setInstrumentCode(final int instrumentCode)
+        {
+            this.instrumentCode = instrumentCode;
+        }
+
+        public long getPrice()
+        {
+            return price;
+        }
+
+        public void setPrice(final long price)
+        {
+            this.price = price;
+        }
+
+        public long getQuantity()
+        {
+            return quantity;
+        }
+
+        public void setQuantity(final long quantity)
+        {
+            this.quantity = quantity;
+        }
+
+        public char getSide()
+        {
+            return side;
+        }
+
+        public void setSide(final char side)
+        {
+            this.side = side;
+        }
+    }
+}
+简化的堆外内存结构
+import sun.misc.Unsafe;
+
+import java.lang.reflect.Field;
+
+public class TestDirectMemoryLayout
+{
+    private static final Unsafe unsafe;
+    static
+    {
+        try
+        {
+            Field field = Unsafe.class.getDeclaredField('theUnsafe');
+            field.setAccessible(true);
+            unsafe = (Unsafe)field.get(null);
+        }
+        catch (Exception e)
+        {
+            throw new RuntimeException(e);
+        }
+    }
+
+    private static final int NUM_RECORDS = 50 * 1000 * 1000;
+
+    private static long address;
+    private static final DirectMemoryTrade flyweight = new DirectMemoryTrade();
+
+    public static void main(final String[] args)
+    {
+        for (int i = 0; i < 5; i++)
+        {
+            System.gc();
+            perfRun(i);
+        }
+    }
+
+    private static void perfRun(final int runNum)
+    {
+        long start = System.currentTimeMillis();
+
+        init();
+
+        System.out.format('Memory %,d total, %,d free\n',
+                          Runtime.getRuntime().totalMemory(),
+                          Runtime.getRuntime().freeMemory());
+
+        long buyCost = 0;
+        long sellCost = 0;
+
+        for (int i = 0; i < NUM_RECORDS; i++)
+        {
+            final DirectMemoryTrade trade = get(i);
+
+            if (trade.getSide() == 'B')
+            {
+                buyCost += (trade.getPrice() * trade.getQuantity());
+            }
+            else
+            {
+                sellCost += (trade.getPrice() * trade.getQuantity());
+            }
+        }
+
+        long duration = System.currentTimeMillis() - start;
+        System.out.println(runNum + ' - duration ' + duration + 'ms');
+        System.out.println('buyCost = ' + buyCost + ' sellCost = ' + sellCost);
+
+        destroy();
+    }
+
+    private static DirectMemoryTrade get(final int index)
+    {
+        final long offset = address + (index * DirectMemoryTrade.getObjectSize());
+        flyweight.setObjectOffset(offset);
+        return flyweight;
+    }
+
+    public static void init()
+    {
+        final long requiredHeap = NUM_RECORDS * DirectMemoryTrade.getObjectSize();
+        address = unsafe.allocateMemory(requiredHeap);
+
+        final byte[] londonStockExchange = {'X', 'L', 'O', 'N'};
+        final int venueCode = pack(londonStockExchange);
+
+        final byte[] billiton = {'B', 'H', 'P'};
+        final int instrumentCode = pack( billiton);
+
+        for (int i = 0; i < NUM_RECORDS; i++)
+        {
+            DirectMemoryTrade trade = get(i);
+
+            trade.setTradeId(i);
+            trade.setClientId(1);
+            trade.setVenueCode(venueCode);
+            trade.setInstrumentCode(instrumentCode);
+
+            trade.setPrice(i);
+            trade.setQuantity(i);
+
+            trade.setSide((i & 1) == 0 ? 'B' : 'S');
+        }
+    }
+
+    private static void destroy()
+    {
+        unsafe.freeMemory(address);
+    }
+
+    private static int pack(final byte[] value)
+    {
+        int result = 0;
+        switch (value.length)
+        {
+            case 4:
+                result |= (value[3]);
+            case 3:
+                result |= ((int)value[2] << 8);
+            case 2:
+                result |= ((int)value[1] << 16);
+            case 1:
+                result |= ((int)value[0] << 24);
+                break;
+
+            default:
+                throw new IllegalArgumentException('Invalid array size');
+        }
+
+        return result;
+    }
+
+    private static class DirectMemoryTrade
+    {
+        private static long offset = 0;
+
+        private static final long tradeIdOffset = offset += 0;
+        private static final long clientIdOffset = offset += 8;
+        private static final long venueCodeOffset = offset += 8;
+        private static final long instrumentCodeOffset = offset += 4;
+        private static final long priceOffset = offset += 4;
+        private static final long quantityOffset = offset += 8;
+        private static final long sideOffset = offset += 8;
+
+        private static final long objectSize = offset += 2;
+
+        private long objectOffset;
+
+        public static long getObjectSize()
+        {
+            return objectSize;
+        }
+
+        void setObjectOffset(final long objectOffset)
+        {
+            this.objectOffset = objectOffset;
+        }
+
+        public long getTradeId()
+        {
+            return unsafe.getLong(objectOffset + tradeIdOffset);
+        }
+
+        public void setTradeId(final long tradeId)
+        {
+            unsafe.putLong(objectOffset + tradeIdOffset, tradeId);
+        }
+
+        public long getClientId()
+        {
+            return unsafe.getLong(objectOffset + clientIdOffset);
+        }
+
+        public void setClientId(final long clientId)
+        {
+            unsafe.putLong(objectOffset + clientIdOffset, clientId);
+        }
+
+        public int getVenueCode()
+        {
+            return unsafe.getInt(objectOffset + venueCodeOffset);
+        }
+
+        public void setVenueCode(final int venueCode)
+        {
+            unsafe.putInt(objectOffset + venueCodeOffset, venueCode);
+        }
+
+        public int getInstrumentCode()
+        {
+            return unsafe.getInt(objectOffset + instrumentCodeOffset);
+        }
+
+        public void setInstrumentCode(final int instrumentCode)
+        {
+            unsafe.putInt(objectOffset + instrumentCodeOffset, instrumentCode);
+        }
+
+        public long getPrice()
+        {
+            return unsafe.getLong(objectOffset + priceOffset);
+        }
+
+        public void setPrice(final long price)
+        {
+            unsafe.putLong(objectOffset + priceOffset, price);
+        }
+
+        public long getQuantity()
+        {
+            return unsafe.getLong(objectOffset + quantityOffset);
+        }
+
+        public void setQuantity(final long quantity)
+        {
+            unsafe.putLong(objectOffset + quantityOffset, quantity);
+        }
+
+        public char getSide()
+        {
+            return unsafe.getChar(objectOffset + sideOffset);
+        }
+
+        public void setSide(final char side)
+        {
+            unsafe.putChar(objectOffset + sideOffset, side);
+        }
+    }
+}
+运行结果：
+Intel i7-860 @ 2.8GHz, 8GB RAM DDR3 1333MHz, 
+Windows 7 64-bit, Java 1.7.0_07
+=============================================
+java -server -Xms4g -Xmx4g TestJavaMemoryLayout
+Memory 4,116,054,016 total, 1,108,901,104 free
+0 - duration 19334ms
+Memory 4,116,054,016 total, 1,109,964,752 free
+1 - duration 14295ms
+Memory 4,116,054,016 total, 1,108,455,504 free
+2 - duration 14272ms
+Memory 3,817,799,680 total, 815,308,600 free
+3 - duration 28358ms
+Memory 3,817,799,680 total, 810,552,816 free
+4 - duration 32487ms
+
+java -server TestDirectMemoryLayout
+Memory 128,647,168 total, 126,391,384 free
+0 - duration 983ms
+Memory 128,647,168 total, 126,992,160 free
+1 - duration 958ms
+Memory 128,647,168 total, 127,663,408 free
+2 - duration 873ms
+Memory 128,647,168 total, 127,663,408 free
+3 - duration 886ms
+Memory 128,647,168 total, 127,663,408 free
+4 - duration 884ms
+
+Intel i7-2760QM @ 2.40GHz, 8GB RAM DDR3 1600MHz, 
+Linux 3.4.11 kernel 64-bit, Java 1.7.0_07
+=================================================
+java -server -Xms4g -Xmx4g TestJavaMemoryLayout
+Memory 4,116,054,016 total, 1,108,912,960 free
+0 - duration 12262ms
+Memory 4,116,054,016 total, 1,109,962,832 free
+1 - duration 9822ms
+Memory 4,116,054,016 total, 1,108,458,720 free
+2 - duration 10239ms
+Memory 3,817,799,680 total, 815,307,640 free
+3 - duration 21558ms
+Memory 3,817,799,680 total, 810,551,856 free
+4 - duration 23074ms
+
+java -server TestDirectMemoryLayout 
+Memory 123,994,112 total, 121,818,528 free
+0 - duration 634ms
+Memory 123,994,112 total, 122,455,944 free
+1 - duration 619ms
+Memory 123,994,112 total, 123,103,320 free
+2 - duration 546ms
+Memory 123,994,112 total, 123,103,320 free
+3 - duration 547ms
+Memory 123,994,112 total, 123,103,320 free
+4 - duration 534ms
+分析
+让我们按上面提到的三个优势依次比较一下运行结果。
+
+显著提高性能结果很明显，使用离堆结构要快一个数量级。最好的情况是在用Sandy Bridge处理器运行至第五次的时候，我们完成任务快了43.2倍。这也说明了Sandy Bridge处理器在数据存取预测方面做的比较好。不仅性能更好，而且更加稳定。而稍后使用标准的Java方法运行时，我们可以看到，随着堆变得分散，数据访问随机性增强，性能会下降。
+更简化的数据表示在我们的离堆例子中，每个对象需要42个字节。而在这个例子中需要存储5千万个对象，也就是2,100,000,000字节。JVM堆所需要的内存是：所需的内存=总内存 – 空闲内存 – 基本JVM需求2,883,248,712 = 3,817,799,680 – 810,551,856 – 123,999,112这意味着JVM需要〜40％的内存来表示相同的数据。此开销用在Java对象的引用数组及对象头的存储上。在前面的文章中我讨论过Java的对象设计。当数据量非常大时这方面的开销可能成为一个显著的限制因素。
+非常强的大数据集工作能力，同时避免讨厌的GC pauses.上面的示例代码在每次运行周期前强制GC，这样可以提高每次运行结果的一致性。你可以去掉System.gc（）调用后再观察一下影响。如果您添加以下命令行参数后再运行，垃圾回收器将会输出具体发生的令人头疼的细节。-XX:+PrintGC -XX:+PrintGCDetails -XX:+PrintGCDateStamps -XX:+PrintTenuringDistribution -XX:+PrintHeapAtGC -XX:+PrintGCApplicationConcurrentTime -XX:+PrintGCApplicationStoppedTime -XX:+PrintSafepointStatistics分析输出信息，我们以可看出一共运行了29个GC周期。下面列出的暂停时间是从输出中提取出来的，表示程序线程停止时间：
+
+With System.gc() before each run
+================================
+Total time for which application threads were stopped: 0.0085280 seconds
+Total time for which application threads were stopped: 0.7280530 seconds
+Total time for which application threads were stopped: 8.1703460 seconds
+Total time for which application threads were stopped: 5.6112210 seconds
+Total time for which application threads were stopped: 1.2531370 seconds
+Total time for which application threads were stopped: 7.6392250 seconds
+Total time for which application threads were stopped: 5.7847050 seconds
+Total time for which application threads were stopped: 1.3070470 seconds
+Total time for which application threads were stopped: 8.2520880 seconds
+Total time for which application threads were stopped: 6.0949910 seconds
+Total time for which application threads were stopped: 1.3988480 seconds
+Total time for which application threads were stopped: 8.1793240 seconds
+Total time for which application threads were stopped: 6.4138720 seconds
+Total time for which application threads were stopped: 4.4991670 seconds
+Total time for which application threads were stopped: 4.5612290 seconds
+Total time for which application threads were stopped: 0.3598490 seconds
+Total time for which application threads were stopped: 0.7111000 seconds
+Total time for which application threads were stopped: 1.4426750 seconds
+Total time for which application threads were stopped: 1.5931500 seconds
+Total time for which application threads were stopped: 10.9484920 seconds
+Total time for which application threads were stopped: 7.0707230 seconds
+
+Without System.gc() before each run
+===================================
+Test run times
+0 - duration 12120ms
+1 - duration 9439ms
+2 - duration 9844ms
+3 - duration 20933ms
+4 - duration 23041ms
+
+Total time for which application threads were stopped: 0.0170860 seconds
+Total time for which application threads were stopped: 0.7915350 seconds
+Total time for which application threads were stopped: 10.7153320 seconds
+Total time for which application threads were stopped: 5.6234650 seconds
+Total time for which application threads were stopped: 1.2689950 seconds
+Total time for which application threads were stopped: 7.6238170 seconds
+Total time for which application threads were stopped: 6.0114540 seconds
+Total time for which application threads were stopped: 1.2990070 seconds
+Total time for which application threads were stopped: 7.9918480 seconds
+Total time for which application threads were stopped: 5.9997920 seconds
+Total time for which application threads were stopped: 1.3430040 seconds
+Total time for which application threads were stopped: 8.0759940 seconds
+Total time for which application threads were stopped: 6.3980610 seconds
+Total time for which application threads were stopped: 4.5572100 seconds
+Total time for which application threads were stopped: 4.6193830 seconds
+Total time for which application threads were stopped: 0.3877930 seconds
+Total time for which application threads were stopped: 0.7429270 seconds
+Total time for which application threads were stopped: 1.5248070 seconds
+Total time for which application threads were stopped: 1.5312130 seconds
+Total time for which application threads were stopped: 10.9120250 seconds
+Total time for which application threads were stopped: 7.3528590 seconds
+从输出中可以看出垃圾回收器花费了相当比例的时间。当你的线程停止时，你的程序不再响应。这些测试中使用了默认的GC设置。可以通过调整GC配置来获得更好的结果，但是这需要高超的技术水平和能力。我知道的唯一一个即使在高通量条件下也可以不依赖强制设置长的停顿时间来高效处理的JVM是Azul并行压缩收集器。
+通过分析这个程序，我可以看到大部分时间都是花在分配对象和使他们成为老一代，因为他们不适合年轻一代。初始化成本通过定时删除也是不现实的。如果使用传统的Java方法，在查询进行前，必须先建立状态。程序的最终用户必须等待状态建立和查询执行。
+这个测试是真的很微不足道。但是想象一下，类似的数据集在100 GB的规模时会怎样运作。
+注意：当垃圾回收器处理一个区域时，会将对象彼此移动到较远的位置，导致TLB和其他高速缓存命中率降低。
+序列化的边注
+使用离堆结构的一个巨大优势是他们可以很容易的序列化，通过我之前文章提到的简单的内存拷贝来在网络中传输或存储。这样我们就可以完全绕过中间缓冲和对象分配。
+结论
+如果你愿意对大型数据集做一些C风格的编程，就可以通过离堆来控制Java中的内存布局。如果你这样做，在性能，紧凑性，避免GC问题等方面的好处将很显著。然而，不是所有应用程序都适用这样的方法。只有在数据量非常巨大，或者在吞吐量和/或延迟方面性能要求非常高的场合才比较适用。
+我希望Java社区能集体意识到堆和栈两者的支撑结构的重要性。John Rose在定义元组怎样才能被添加到JVM这一领域做了很多出色的工作。他在今年的JVM语言峰会上关于Arrays 2.0的谈话值得注意。John在他的谈话中讨论了结构数组和数组结构的选择。如果John提议的元组可用，那么这里所描述的测试可能有相当的性能，并可成为一个更愉快的编程风格。结构的整体阵列可以被分配在一个单一的动作，从而绕过单个对象的跨代的副本，并将使用一个紧凑的连续的方式储存。这将消除这类显著的GC问题。
+最近，我比较了Java和.NET之间的标准数据结构。在某些情况下，如图或字典，Java比使用自身数据结构的.NET有6到10倍的性能优势。让我们尽快使用Java!
+结果也很明显的表明，如果我们要使用Java进行大数据的实时分析，那么我们的标准垃圾收集器需要进行显著改善，并能够支持真正的并行操作。
+[1]据我所知，唯一的能处理非常大的堆的JVM是Azul Zing
+
+        
+        原文链接： javacodegeeks    翻译：  ImportNew.com  - norwind译文链接： http://www.importnew.com/10567.html[ 转载请保留原文出处、译者和译文链接。]
+
+
+
+	关于作者： norwind
+
+
+
+
+
+（新浪微博：@norwindnew）
+
+查看norwind的更多文章 >> 
+
+
+
+
+</td></tr><tr><td>http://www.importnew.com/21298.html</td><td>为Java说句公道话</td><td>
+原文出处： 正义的花生
+有些人问我，在现有的语言里面，有什么好的推荐？我说：“Java。” 他们很惊讶：“什么？Java！” 所以我现在来解释一下。
+Java超越了所有咒骂它的“动态语言”
+也许是因为年轻人的逆反心理，人们都不把自己的入门语言当回事。很早的时候，计算机系的学生用Scheme或者Pascal入门，现在大部分学校用Java。这也许就是为什么很多人恨Java，瞧不起用Java的人。提到Java，感觉就像是爷爷那辈人用的东西。大家都会用Java，怎么能显得我优秀出众呢？于是他们说：“Java老气，庞大，复杂，臃肿。我更愿意探索新的语言……”
+某些Python程序员，在论坛里跟初学者讲解Python有什么好，其中一个原因竟然是：“因为Python不是Java！” 他们喜欢这样宣传：“看Python多简单清晰啊，都不需要写类型……” 对于Java的无缘无故的恨，盲目的否认，导致了他们看不到它很重要的优点，以至于迷失自己的方向。虽然气势上占上风，然而其实Python作为一个编程语言，是完全无法和Java抗衡的。
+在性能上，Python比Java慢几十倍。由于缺乏静态类型等重要设施，Python代码有bug很不容易发现，发现了也不容易debug，所以Python无法用于构造大规模的，复杂的系统。你也许发现某些startup公司的主要代码是Python写的，然而这些公司的软件，质量其实相当的低。在成熟的公司里，Python最多只用来写工具性质的东西，或者小型的，不会影响系统可靠性的脚本。
+静态类型的缺乏，也导致了Python不可能有很好的IDE支持，你不能完全可靠地“跳转到定义”，不可能完全可靠地重构（refactor）Python代码。PyCharm对于早期的Python编程环境，是一个很大的改进，然而理论决定了，它不可能完全可靠地进行“变量换名”等基本的重构操作。就算是比PyCharm强大很多的PySonar，对此也无能为力。由于Python的设计过度的“动态”，没有类型标记，使得完全准确的定义查找，成为了不可判定（undecidable）的问题。
+在设计上，Python，Ruby比起Java，其实复杂很多。缺少了很多重要的特性，有毛病的“强大特性”倒是多了一堆。由于盲目的推崇所谓“正宗的面向对象”方式，所谓“late binding”，这些语言里面有太多可以“重载”语义的地方，不管什么都可以被重定义，这导致代码具有很大的不确定性和复杂性，很多bug就是被隐藏在这些被重载的语言结构里面了。因此，Python和Ruby代码很容易被滥用，不容易理解，容易写得很乱，容易出问题。
+很多JavaScript程序员也盲目地鄙视Java，而其实JavaScript比Python和Ruby还要差。不但具有它们的几乎所有缺点，而且缺乏一些必要的设施。JavaScript的各种“WEB框架”，层出不穷，似乎一直在推陈出新，而其实呢，全都是在黑暗里瞎蒙乱撞。JavaScript的社区以幼稚和愚昧著称。你经常发现一些非常基本的常识，被JavaScript“专家”们当成了不起的发现似的，在大会上宣讲。我看不出来JavaScript社区开那些会议，到底有什么意义，仿佛只是为了拉关系找工作。
+Python凑合可以用在不重要的地方，Ruby是垃圾，JavaScript是垃圾中的垃圾。原因很简单，因为Ruby和JavaScript的设计者，其实都是一知半解的民科。然而世界就是这么奇怪，一个彻底的垃圾语言，仍然可以宣称是“程序员最好的朋友”，从而得到某些人的爱戴……
+Java的“继承人”没能超越它
+最近一段时间，很多人热衷于Scala，Clojure，Go等新兴的语言，他们以为这些是比Java更现代，更先进的语言，以为它们最终会取代Java。然而这些狂热分子们逐渐发现，Scala，Clojure和Go其实并没有解决它们声称能解决的问题，反而带来了它们自己的毛病，而这些毛病很多是Java没有的。然后他们才意识到，Java离寿终正寝的时候，还远得很……
+Go语言
+关于Go，我已经评论过很多了，有兴趣的人可以看这里。总之，Go是民科加自大狂的产物，奇葩得不得了。这里我就不多说它了，只谈谈Scala和Clojure。
+Scala
+我认识一些人，开头很推崇Scala，仿佛什么救星似的。我建议他们别去折腾了，老老实实用Java。没听我的，结果到后来，成天都在骂Scala的各种毛病。但是没办法啊，项目上了贼船，不得不继续用下去。我不喜欢进行人身攻击，然而我发现一个语言的好坏，往往取决于它的设计者的背景，觉悟，人品和动机。很多时候我看人的直觉是异常的准，以至于依据对语言设计者的第一印象，我就能预测到这个语言将来会怎么发展。在这里，我想谈一下对Scala和Clojure的设计者的看法。
+Scala的设计者Martin Odersky，在PL领域有所建树，发表了不少学术论文（ 包括著名的《The Call-by-Need Lambda Calculus》），而且还是大名鼎鼎的Niklaus Wirth的门徒，我因此以为他还比较靠谱。可是开始接触Scala没多久，我就很惊讶的发现，有些非常基本的东西，Scala都设计错了。这就是为什么我几度试图采用Scala，最后都不了了之。因为我一边看，一边发现让人跌眼镜的设计失误，而这些问题都是Java没有的。这样几次之后，我就对Odersky失去了信心，对Scala失去了兴趣。
+回头看看Odersky那些论文的本质，我发现虽然理论性貌似很强，其实很多是在故弄玄虚（包括那所谓的“call-by-need lambda calculus”）。他虽然对某些特定的问题有一定深度，然而知识面其实不是很广，眼光比较片面。对于语言的整体设计，把握不够好。感觉他是把各种语言里的特性，强行拼凑在一起，并没有考虑过它们是否能够“和谐”的共存，也很少考虑“可用性”。
+由于Odersky是大学教授，名声在外，很多人想找他拿个PhD，所以东拉西扯，喜欢往Scala里面加入一些不明不白，有潜在问题的“特性”，其目的就是发paper，混毕业。这导致Scala不加选择的加入过多的特性，过度繁复。加入的特性很多后来被证明没有多大用处，反而带来了问题。学生把代码实现加入到Scala的编译器，毕业就走人不管了，所以Scala编译器里，就留下一堆堆的历史遗留垃圾和bug。这也许不是Odersky一个人的错，然而至少说明他把关不严，或者品位确实有问题。
+最有名的采用Scala的公司，无非是Twitter。其实像Twitter那样的系统，用Java照样写得出来。Twitter后来怎么样了呢？CEO都跑了 :P 新CEO上台就裁员300多人，包括工程师在内。我估计Twitter裁员的一个原因是，有太多的Scala程序员，扯着各种高大上不实用的口号，比如“函数式编程”，进行过度工程，浪费公司的资源。花着公司的钱，开着各种会议，组织各种meetup和hackathon，提高自己在open source领域的威望，其实没有为公司创造很多价值……
+Clojure
+再来说一下Clojure。当Clojure最初“横空面世”的时候，有些人热血沸腾地向我推荐。于是我看了一下它的设计者Rich Hickey做的宣传讲座视频。当时我就对他一知半解拍胸脯的本事，印象非常的深刻。Rich Hickey真的是半路出家，连个CS学位都没有。可他那种气势，仿佛其他的语言设计者什么都不懂，只有他看到了真理似的。不过也只有这样的人，才能创造出“宗教”吧？
+满口热门的名词，什么lazy啊，pure啊，STM啊，号称能解决“大规模并发”的问题，…… 这就很容易让人上钩。其实他这些词儿，都是从别的语言道听途说来，却又没能深刻理解其精髓。有些“函数式语言”的特性，本来就是有问题的，却为了主义正确，为了显得高大上，抄过来。所以最后你发现这语言是挂着羊头卖狗肉，狗皮膏药一样说得头头是道，用起来怎么就那么蹩脚。
+Clojure的社区，一直忙着从Scheme和Racket的项目里抄袭思想，却又想标榜是自己的发明。比如Typed Clojure，就是原封不动抄袭Typed Racket。有些一模一样的基本概念，在Scheme里面都几十年了，恁是要改个不一样的名字，免得你们发现那是Scheme先有的。甚至有人把SICP，The Little Schemer等名著里的代码，全都用Clojure改写一遍，结果完全失去了原作的简单和清晰。最后你发现，Clojure里面好的地方，全都是Scheme已经有的，Clojure里面新的特性，几乎全都有问题。我参加过一些Clojure的meetup，可是后来发现，里面竟是各种喊着大口号的小白，各种趾高气昂的民科，愚昧之至。
+如果现在要做一个系统，真的宁可用Java，也不要浪费时间去折腾什么Scala或者Clojure。错误的人设计了错误的语言，拿出来浪费大家的时间。
+Java没有特别讨厌的地方
+我至今不明白，很多人对Java的仇恨和鄙视，从何而来。它也许缺少一些方便的特性，然而长久以来用Java进行教学，用Java工作，用Java开发PySonar，RubySonar，Yin语言，…… 我发现Java其实并不像很多人传说的那么可恶。我发现自己想要的95%以上的功能，在Java里面都能找到比较直接的用法。剩下的5%，用稍微笨一点的办法，一样可以解决问题。
+盲目推崇Scala和Clojure的人们，很多最后都发现，这些语言里面的“新特性”，几乎都有毛病，里面最重要最有用的特性，其实早就已经在Java里了。有些人跟我说：“你看，Java做不了这件事情！” 后来经我分析，发现他们在潜意识里早已死板的认定，非得用某种最新最酷的语言特性，才能达到目的。Java没有这些特性，他们就以为非得用另外的语言。其实，如果你换一个角度来看问题，不要钻牛角尖，专注于解决问题，而不是去追求最新最酷的“写法”，你就能用Java解决它，而且解决得干净利落。
+很多人说Java复杂臃肿，其实是因为早期的Design Patterns，试图提出千篇一律的模板，给程序带来了不必要的复杂性。然而Java语言本身跟Design Patterns并不是等价的。Java的设计者，跟Design Pattern的设计者，完全是不同的人。你完全可以使用Java写出非常简单的代码，而不使用Design Patterns。
+Java只是一个语言。语言只提供给你基本的机制，至于代码写的复杂还是简单，取决于人。把对一些滥用Design Patterns的Java程序员的恨，转移到Java语言本身，从而完全抛弃它的一切，是不明智的。
+结论
+我平时用着Java偷着乐，本来懒得评论其它语言的。可是实在不忍心看着有些人被Scala和Clojure忽悠，所以在这里说几句。如果没有超级高的性能和资源需求（可能要用C这样的低级语言），目前我建议就老老实实用Java吧。虽然不如一些新的语言炫酷，然而实际的系统，还真没有什么是Java写不出来的。少数地方可能需要绕过一些限制，或者放宽一些要求，然而这样的情况不是很多。
+编程使用什么工具是重要的，然而工具终究不如自己的技术重要。很多人花了太多时间，折腾各种新的语言，希望它们会奇迹一般的改善代码质量，结果最后什么都没做出来。选择语言最重要的条件，应该是“够好用”就可以，因为项目的成功最终是靠人，而不是靠语言。既然Java没有特别大的问题，不会让你没法做好项目，为什么要去试一些不靠谱的新语言呢？
+
+
+</td></tr><tr><td>http://www.importnew.com/19600.html</td><td>跟开涛学SpringMVC（6.4）：SpringMVC强大的数据绑定（1）</td><td>
+原文出处： 张开涛
+到目前为止，请求已经能交给我们的处理器进行处理了，接下来的事情是要进行收集数据啦，接下来我们看看我们能从请求中收集到哪些数据，如图6-11：
+
+图6-11
+1、@RequestParam绑定单个请求参数值；
+2、@PathVariable绑定URI模板变量值；
+3、@CookieValue绑定Cookie数据值
+4、@RequestHeader绑定请求头数据；
+5、@ModelValue绑定参数到命令对象；
+6、@SessionAttributes绑定命令对象到session；
+7、@RequestBody绑定请求的内容区数据并能进行自动类型转换等。
+8、@RequestPart绑定“multipart/data”数据，除了能绑定@RequestParam能做到的请求参数外，还能绑定上传的文件等。
+除了上边提到的注解，我们还可以通过如HttpServletRequest等API得到请求数据，但推荐使用注解方式，因为使用起来更简单。
+接下来先看一下功能处理方法支持的参数类型吧。
+6.6.1、功能处理方法支持的参数类型
+在继续学习之前，我们需要首先看看功能处理方法支持哪些类型的形式参数，以及他们的具体含义。
+一、ServletRequest/HttpServletRequest 和 ServletResponse/HttpServletResponse
+
+
+Java代码
+
+public String requestOrResponse (
+        ServletRequest servletRequest, HttpServletRequest httpServletRequest,
+        ServletResponse servletResponse, HttpServletResponse httpServletResponse
+    )
+
+
+
+Spring Web MVC框架会自动帮助我们把相应的Servlet请求/响应（Servlet API）作为参数传递过来。
+二、InputStream/OutputStream 和 Reader/Writer
+
+
+Java代码
+
+public void inputOrOutBody(InputStream requestBodyIn, OutputStream responseBodyOut)
+        throws IOException {
+responseBodyOut.write("success".getBytes());
+}
+
+
+
+requestBodyIn：获取请求的内容区字节流，等价于request.getInputStream();
+responseBodyOut：获取相应的内容区字节流，等价于response.getOutputStream()。
+
+
+Java代码
+
+public void readerOrWriteBody(Reader reader, Writer writer)
+        throws IOException {
+    writer.write("hello");
+}
+
+
+
+reader：获取请求的内容区字符流，等价于request.getReader();
+writer：获取相应的内容区字符流，等价于response.getWriter()。
+InputStream/OutputStream 和 Reader/Writer两组不能同时使用，只能使用其中的一组。
+三、WebRequest/NativeWebRequest
+WebRequest是spring Web MVC提供的统一请求访问接口，不仅仅可以访问请求相关数据（如参数区数据、请求头数据，但访问不到Cookie区数据），还可以访问会话和上下文中的数据；NativeWebRequest继承了WebRequest，并提供访问本地Servlet API的方法。
+
+
+Java代码
+
+public String webRequest(WebRequest webRequest, NativeWebRequest nativeWebRequest) {
+    System.out.println(webRequest.getParameter("test"));//①得到请求参数test的值
+    webRequest.setAttribute("name", "value", WebRequest.SCOPE_REQUEST);//②
+    System.out.println(webRequest.getAttribute("name", WebRequest.SCOPE_REQUEST));
+    HttpServletRequest request = 
+        nativeWebRequest.getNativeRequest(HttpServletRequest.class);//③
+    HttpServletResponse response = 
+        nativeWebRequest.getNativeResponse(HttpServletResponse.class);
+        return "success";
+    }
+
+
+
+① webRequest.getParameter：访问请求参数区的数据，可以通过getHeader()访问请求头数据；
+② webRequest.setAttribute/getAttribute：到指定的作用范围内取/放属性数据，Servlet定义的三个作用范围分别使用如下常量代表：
+SCOPE_REQUEST ：代表请求作用范围；
+SCOPE_SESSION ：代表会话作用范围；
+SCOPE_GLOBAL_SESSION ：代表全局会话作用范围，即ServletContext上下文作用范围。
+③ nativeWebRequest.getNativeRequest/nativeWebRequest.getNativeResponse：得到本地的Servlet API。
+四、HttpSession
+
+
+Java代码
+
+public String session(HttpSession session) {
+    System.out.println(session);
+    return "success";
+}
+
+
+
+此处的session永远不为null。
+注意：session访问不是线程安全的，如果需要线程安全，需要设置AnnotationMethodHandlerAdapter或RequestMappingHandlerAdapter的synchronizeOnSession属性为true，即可线程安全的访问session。
+五、命令/表单对象
+Spring Web MVC能够自动将请求参数绑定到功能处理方法的命令/表单对象上。
+
+
+Java代码
+
+@RequestMapping(value = "/commandObject", method = RequestMethod.GET)
+public String toCreateUser(HttpServletRequest request, UserModel user) {
+    return "customer/create";
+}
+@RequestMapping(value = "/commandObject", method = RequestMethod.POST)
+public String createUser(HttpServletRequest request, UserModel user) {
+    System.out.println(user);
+    return "success";
+}
+
+
+
+如果提交的表单（包含username和password文本域），将自动将请求参数绑定到命令对象user中去。
+六、Model、Map、ModelMap
+Spring Web MVC 提供Model、Map或ModelMap让我们能去暴露渲染视图需要的模型数据。
+
+
+Java代码
+
+@RequestMapping(value = "/model")
+public String createUser(Model model, Map model2, ModelMap model3) {
+    model.addAttribute("a", "a");
+    model2.put("b", "b");
+    model3.put("c", "c");
+    System.out.println(model == model2);
+    System.out.println(model2 == model3);
+    return "success";}
+
+
+
+虽然此处注入的是三个不同的类型（Model model, Map model2, ModelMap model3），但三者是同一个对象，如图6-12所示：
+
+图6-12
+AnnotationMethodHandlerAdapter和RequestMappingHandlerAdapter将使用BindingAwareModelMap作为模型对象的实现，即此处我们的形参（Model model, Map model2, ModelMap model3）都是同一个BindingAwareModelMap实例。
+此处还有一点需要我们注意：
+
+
+Java代码
+
+@RequestMapping(value = "/mergeModel")
+public ModelAndView mergeModel(Model model) {
+    model.addAttribute("a", "a");//①添加模型数据
+    ModelAndView mv = new ModelAndView("success");
+    mv.addObject("a", "update");//②在视图渲染之前更新③处同名模型数据
+    model.addAttribute("a", "new");//③修改①处同名模型数据
+    //视图页面的a将显示为"update" 而不是"new"
+    return mv;
+}
+
+
+
+从代码中我们可以总结出功能处理方法的返回值中的模型数据（如ModelAndView）会 合并 功能处理方法形式参数中的模型数据（如Model），但如果两者之间有同名的，返回值中的模型数据会覆盖形式参数中的模型数据。
+七、Errors/BindingResult
+
+
+Java代码
+
+@RequestMapping(value = "/error1")
+public String error1(UserModel user, BindingResult result)
+
+
+
+
+
+Java代码
+
+@RequestMapping(value = "/error2")
+public String error2(UserModel user, BindingResult result, Model model) {
+
+
+
+
+
+Java代码
+
+@RequestMapping(value = "/error3")
+public String error3(UserModel user, Errors errors)
+
+
+
+以上代码都能获取错误对象。
+Spring3.1之前（使用AnnotationMethodHandlerAdapter）错误对象必须紧跟在命令对象/表单对象之后，如下定义是错误的：
+
+
+Java代码
+
+@RequestMapping(value = "/error4")
+public String error4(UserModel user, Model model, Errors errors)
+    }
+
+
+
+如上代码从Spring3.1开始（使用RequestMappingHandlerAdapter）将能正常工作，但还是推荐“错误对象紧跟在命令对象/表单对象之后”，这样是万无一失的。
+Errors及BindingResult的详细使用请参考4.16.2数据验证。
+八、其他杂项
+
+
+Java代码
+
+public String other(Locale locale, Principal principal)
+
+
+
+java.util.Locale：得到当前请求的本地化信息，默认等价于ServletRequest.getLocale()，如果配置LocaleResolver解析器则由它决定Locale，后续介绍；
+Java.security.Principal：该主体对象包含了验证通过的用户信息，等价于HttpServletRequest.getUserPrincipal()。
+以上测试在cn.javass.chapter6.web.controller.paramtype.MethodParamTypeController中。
+其他功能处理方法的形式参数类型（如HttpEntity、UriComponentsBuilder、SessionStatus、RedirectAttributes）将在后续章节详细讲解。
+第二部分会介绍注解方式的数据绑定。
+本系列
+
+跟开涛学SpringMVC（1）：Web MVC简介
+跟开涛学SpringMVC（2）：Spring MVC入门
+跟开涛学SpringMVC（3）：DispatcherServlet详解
+跟开涛学SpringMVC（4.1）：Controller接口控制器详解（1）
+跟开涛学SpringMVC（4.2）：Controller接口控制器详解（2）
+跟开涛学SpringMVC（4.3）：Controller接口控制器详解（3）
+跟开涛学SpringMVC（4.4）：Controller接口控制器详解（4）
+跟开涛学SpringMVC（4.5）：Controller接口控制器详解（5）
+跟开涛学SpringMVC（4.6）：Controller接口控制器详解（6）
+跟开涛学SpringMVC（4.7）：Controller接口控制器详解（7）
+跟开涛学SpringMVC（5）：处理器拦截器详解
+跟开涛学SpringMVC（6.1）：注解式控制器运行流程及处理器定义
+跟开涛学SpringMVC（6.2）：SpringMVC3强大的请求映射规则详解
+跟开涛学SpringMVC（6.3）：Spring MVC 3.1新特性 生产者、消费者请求限定
+跟开涛学SpringMVC（6.4）：SpringMVC强大的数据绑定（1）
+
+
+
+</td></tr><tr><td>http://www.importnew.com/21807.html</td><td>AOP 那点事儿</td><td>
+原文出处： 黄勇
+又是一个周末，刚给宝宝喂完牛奶，终于让她睡着了。所以现在我才能腾出手来，坐在电脑面前给大家写这篇文章。
+今天我要和大家分享的是 AOP（Aspect-Oriented Programming）这个东西，名字与 OOP 仅差一个字母，其实它是对 OOP 编程方式的一种补充，并非是取而代之。翻译过来就是“面向方面编程”，可我更倾向于翻译为“面向切面编程”。它听起有些的神秘，为什么呢？当你看完这篇文章的时候，就会知道，我们做的很重要的工作就是去写这个“切面” 。那么什么是“切面”呢？
+没错！就是用一把刀来切一坨面。注意，相对于面而言，我们一定是横着来切它，这简称为“横切”。可以把一段代码想象成一坨面，同样也可以用一把刀来横切它，下面要做的就是如何去实现这把刀！
+需要澄清的是，这个概念不是由 Rod Johnson（老罗）提出的。其实很早以前就有了，目前最知名最强大的 Java 开源项目就是 AspectJ 了，然而它的前身是 AspectWerkz（该项目已经在 2005 年停止更新），这才是 AOP 的老祖宗。老罗（一个头发秃得和我老爸有一拼的天才）写了一个叫做 Spring 框架，从此一炮走红，成为了 Spring 之父。他在自己的 IOC 的基础之上，又实现了一套 AOP 的框架，后来仿佛发现自己越来越走进深渊里，在不能自拔的时候，有人建议他还是集成 AspectJ 吧，他在万般无奈之下才接受了该建议。于是，我们现在用得最多的想必就是 Spring + AspectJ 这种 AOP 框架了。
+那么 AOP 到底是什么？如何去使用它？本文将逐步带您进入 AOP 的世界，让您感受到前所未有的畅快！
+不过在开始讲解 AOP 之前，我想有必要回忆一下这段代码：
+1. 写死代码
+先来一个接口：
+public interface Greeting {
+
+    void sayHello(String name);
+}
+还有一个实现类：
+public class GreetingImpl implements Greeting {
+
+    @Override
+    public void sayHello(String name) {
+        before();
+        System.out.println("Hello! " + name);
+        after();
+    }
+
+    private void before() {
+        System.out.println("Before");
+    }
+
+    private void after() {
+        System.out.println("After");
+    }
+}
+before() 与 after() 方法写死在 sayHello() 方法体中了，这样的代码的味道非常不好。如果哪位仁兄大量写了这样的代码，肯定要被你的架构师骂个够呛。
+比如：我们要统计每个方法的执行时间，以对性能作出评估，那是不是要在每个方法的一头一尾都做点手脚呢？
+再比如：我们要写一个 JDBC 程序，那是不是也要在方法的开头去连接数据库，方法的末尾去关闭数据库连接呢？
+这样的代码只会把程序员累死，把架构师气死！
+一定要想办法对上面的代码进行重构，首先给出三个解决方案：
+2. 静态代理
+最简单的解决方案就是使用静态代理模式了，我们单独为 GreetingImpl 这个类写一个代理类：
+public class GreetingProxy implements Greeting {
+
+    private GreetingImpl greetingImpl;
+
+    public GreetingProxy(GreetingImpl greetingImpl) {
+        this.greetingImpl = greetingImpl;
+    }
+
+    @Override
+    public void sayHello(String name) {
+        before();
+        greetingImpl.sayHello(name);
+        after();
+    }
+
+    private void before() {
+        System.out.println("Before");
+    }
+
+    private void after() {
+        System.out.println("After");
+    }
+}
+就用这个 GreetingProxy 去代理 GreetingImpl，下面看看客户端如何来调用：
+public class Client {
+
+    public static void main(String[] args) {
+        Greeting greetingProxy = new GreetingProxy(new GreetingImpl());
+        greetingProxy.sayHello("Jack");
+    }
+}
+这样写没错，但是有个问题，XxxProxy 这样的类会越来越多，如何才能将这些代理类尽可能减少呢？最好只有一个代理类。
+这时我们就需要使用 JDK 提供的动态代理了。
+3. JDK 动态代理
+public class JDKDynamicProxy implements InvocationHandler {
+
+    private Object target;
+
+    public JDKDynamicProxy(Object target) {
+        this.target = target;
+    }
+
+    @SuppressWarnings("unchecked")
+    public <T> T getProxy() {
+        return (T) Proxy.newProxyInstance(
+            target.getClass().getClassLoader(),
+            target.getClass().getInterfaces(),
+            this
+        );
+    }
+
+    @Override
+    public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
+        before();
+        Object result = method.invoke(target, args);
+        after();
+        return result;
+    }
+
+    private void before() {
+        System.out.println("Before");
+    }
+
+    private void after() {
+        System.out.println("After");
+    }
+}
+客户端是这样调用的：
+public class Client {
+
+    public static void main(String[] args) {
+        Greeting greeting = new JDKDynamicProxy(new GreetingImpl()).getProxy();
+        greeting.sayHello("Jack");
+    }
+}
+这样所有的代理类都合并到动态代理类中了，但这样做仍然存在一个问题：JDK 给我们提供的动态代理只能代理接口，而不能代理没有接口的类。有什么方法可以解决呢？
+4. CGLib 动态代理
+我们使用开源的 CGLib 类库可以代理没有接口的类，这样就弥补了 JDK 的不足。CGLib 动态代理类是这样玩的：
+public class CGLibDynamicProxy implements MethodInterceptor {
+
+    private static CGLibDynamicProxy instance = new CGLibDynamicProxy();
+
+    private CGLibDynamicProxy() {
+    }
+
+    public static CGLibDynamicProxy getInstance() {
+        return instance;
+    }
+
+    @SuppressWarnings("unchecked")
+    public <T> T getProxy(Class<T> cls) {
+        return (T) Enhancer.create(cls, this);
+    }
+
+    @Override
+    public Object intercept(Object target, Method method, Object[] args, MethodProxy proxy) throws Throwable {
+        before();
+        Object result = proxy.invokeSuper(target, args);
+        after();
+        return result;
+    }
+
+    private void before() {
+        System.out.println("Before");
+    }
+
+    private void after() {
+        System.out.println("After");
+    }
+}
+以上代码中了 Singleton 模式，那么客户端调用也更加轻松了：
+public class Client {
+
+    public static void main(String[] args) {
+        Greeting greeting = CGLibDynamicProxy.getInstance().getProxy(GreetingImpl.class);
+        greeting.sayHello("Jack");
+    }
+}
+到此为止，我们能做的都做了，问题似乎全部都解决了。但事情总不会那么完美，而我们一定要追求完美！
+老罗搞出了一个 AOP 框架，能否做到完美而优雅呢？请大家继续往下看吧！
+5. Spring AOP：前置增强、后置增强、环绕增强（编程式）
+在 Spring AOP 的世界里，与 AOP 相关的术语实在太多，往往也是我们的“拦路虎”，不管是看那本书或是技术文档，在开头都要将这些术语逐个灌输给读者。我想这完全是在吓唬人了，其实没那么复杂的，大家放轻松一点。
+我们上面例子中提到的 before() 方法，在 Spring AOP 里就叫 Before Advice（前置增强）。有些人将 Advice 直译为“通知”，我想这是不太合适的，因为它根本就没有“通知”的含义，而是对原有代码功能的一种“增强”。再说，CGLib 中也有一个 Enhancer 类，它就是一个增强类。
+此外，像 after() 这样的方法就叫 After Advice（后置增强），因为它放在后面来增强代码的功能。
+如果能把 before() 与 after() 合并在一起，那就叫 Around Advice（环绕增强），就像汉堡一样，中间夹一根火腿。
+这三个概念是不是轻松地理解了呢？如果是，那就继续吧！
+我们下面要做的就是去实现这些所谓的“增强类”，让他们横切到代码中，而不是将这些写死在代码中。
+先来一个前置增强类吧：
+public class GreetingBeforeAdvice implements MethodBeforeAdvice {
+
+    @Override
+    public void before(Method method, Object[] args, Object target) throws Throwable {
+        System.out.println("Before");
+    }
+}
+注意：这个类实现了 org.springframework.aop.MethodBeforeAdvice 接口，我们将需要增强的代码放入其中。
+再来一个后置增强类吧：
+public class GreetingAfterAdvice implements AfterReturningAdvice {
+
+    @Override
+    public void afterReturning(Object result, Method method, Object[] args, Object target) throws Throwable {
+        System.out.println("After");
+    }
+}
+类似地，这个类实现了 org.springframework.aop.AfterReturningAdvice 接口。
+最后用一个客户端来把它们集成起来，看看如何调用吧：
+public class Client {
+
+    public static void main(String[] args) {
+        ProxyFactory proxyFactory = new ProxyFactory();     // 创建代理工厂
+        proxyFactory.setTarget(new GreetingImpl());         // 射入目标类对象
+        proxyFactory.addAdvice(new GreetingBeforeAdvice()); // 添加前置增强
+        proxyFactory.addAdvice(new GreetingAfterAdvice());  // 添加后置增强 
+
+        Greeting greeting = (Greeting) proxyFactory.getProxy(); // 从代理工厂中获取代理
+        greeting.sayHello("Jack");                              // 调用代理的方法
+    }
+}
+请仔细阅读以上代码及其注释，您会发现，其实 Spring AOP 还是挺简单的，对吗？
+当然，我们完全可以只定义一个增强类，让它同时实现 MethodBeforeAdvice 与 AfterReturningAdvice 这两个接口，如下：
+public class GreetingBeforeAndAfterAdvice implements MethodBeforeAdvice, AfterReturningAdvice {
+
+    @Override
+    public void before(Method method, Object[] args, Object target) throws Throwable {
+        System.out.println("Before");
+    }
+
+    @Override
+    public void afterReturning(Object result, Method method, Object[] args, Object target) throws Throwable {
+        System.out.println("After");
+    }
+}
+这样我们只需要使用一行代码，同时就可以添加前置与后置增强：
+proxyFactory.addAdvice(new GreetingBeforeAndAfterAdvice());
+刚才有提到“环绕增强”，其实这个东西可以把“前置增强”与“后置增强”的功能给合并起来，无需让我们同时实现以上两个接口。
+public class GreetingAroundAdvice implements MethodInterceptor {
+
+    @Override
+    public Object invoke(MethodInvocation invocation) throws Throwable {
+        before();
+        Object result = invocation.proceed();
+        after();
+        return result;
+    }
+
+    private void before() {
+        System.out.println("Before");
+    }
+
+    private void after() {
+        System.out.println("After");
+    }
+}
+环绕增强类需要实现 org.aopalliance.intercept.MethodInterceptor 接口。注意，这个接口不是 Spring 提供的，它是 AOP 联盟（一个很牛逼的联盟）写的，Spring 只是借用了它。
+在客户端中同样也需要将该增强类的对象添加到代理工厂中：
+proxyFactory.addAdvice(new GreetingAroundAdvice());
+好了，这就是 Spring AOP 的基本用法，但这只是“编程式”而已。Spring AOP 如果只是这样，那就太傻逼了，它曾经也是一度宣传用 Spring 配置文件的方式来定义 Bean 对象，把代码中的 new 操作全部解脱出来。
+6.   Spring AOP：前置增强、后置增强、环绕增强（声明式）
+先看 Spring 配置文件是如何写的吧：
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+
+http://www.springframework.org/schema/beans/spring-beans.xsd
+
+
+http://www.springframework.org/schema/context
+
+
+http://www.springframework.org/schema/context/spring-context.xsd">
+
+    <!-- 扫描指定包（将 @Component 注解的类自动定义为 Spring Bean） -->
+    <context:component-scan base-package="aop.demo"/>
+
+    <!-- 配置一个代理 -->
+    <bean id="greetingProxy" class="org.springframework.aop.framework.ProxyFactoryBean">
+        <property name="interfaces" value="aop.Greeting"/> <!-- 需要代理的接口 -->
+        <property name="target" ref="greetingImpl"/>       <!-- 接口实现类 -->
+        <property name="interceptorNames">                 <!-- 拦截器名称（也就是增强类名称，Spring Bean 的 id） -->
+            <list>
+                <value>greetingAroundAdvice</value>
+            </list>
+        </property>
+    </bean>
+
+</beans>
+一定要阅读以上代码的注释，其实使用 ProxyFactoryBean 就可以取代前面的 ProxyFactory，其实它们俩就一回事儿。我认为 interceptorNames 应该改名为 adviceNames 或许会更容易让人理解，不就是往这个属性里面添加增强类吗？
+此外，如果只有一个增强类，可以使用以下方法来简化：
+...
+
+    <bean id="greetingProxy" class="org.springframework.aop.framework.ProxyFactoryBean">
+        <property name="interfaces" value="aop.Greeting"/>
+        <property name="target" ref="greetingImpl"/>
+        <property name="interceptorNames" value="greetingAroundAdvice"/> <!-- 注意这行配置 -->
+    </bean>
+
+...
+还需要注意的是，这里使用了 Spring 2.5+ 的特性“Bean 扫描”，这样我们就无需在 Spring 配置文件里不断地定义 <bean id=”xxx”/> 了，从而解脱了我们的双手。
+看看这是有多么的简单：
+@Component
+public class GreetingImpl implements Greeting {
+
+    ...
+}
+@Component
+public class GreetingAroundAdvice implements MethodInterceptor {
+
+    ...
+}
+最后看看客户端吧：
+public class Client {
+
+    public static void main(String[] args) {
+        ApplicationContext context = new ClassPathXmlApplicationContext("aop/demo/spring.xml"); // 获取 Spring Context
+        Greeting greeting = (Greeting) context.getBean("greetingProxy");                        // 从 Context 中根据 id 获取 Bean 对象（其实就是一个代理）
+        greeting.sayHello("Jack");                                                              // 调用代理的方法
+    }
+}
+代码量确实少了，我们将配置性的代码放入配置文件，这样也有助于后期维护。更重要的是，代码只关注于业务逻辑，而将配置放入文件中。这是一条最佳实践！
+除了上面提到的那三类增强以外，其实还有两类增强也需要了解一下，关键的时候您要能想得到它们才行。
+7. Spring AOP：抛出增强
+程序报错，抛出异常了，一般的做法是打印到控制台或日志文件中，这样很多地方都得去处理，有没有一个一劳永逸的方法呢？那就是 Throws Advice（抛出增强），它确实很强，不信你就继续往下看：
+@Component
+public class GreetingImpl implements Greeting {
+
+    @Override
+    public void sayHello(String name) {
+        System.out.println("Hello! " + name);
+
+        throw new RuntimeException("Error"); // 故意抛出一个异常，看看异常信息能否被拦截到
+    }
+}
+下面是抛出增强类的代码：
+@Component
+public class GreetingThrowAdvice implements ThrowsAdvice {
+
+    public void afterThrowing(Method method, Object[] args, Object target, Exception e) {
+        System.out.println("---------- Throw Exception ----------");
+        System.out.println("Target Class: " + target.getClass().getName());
+        System.out.println("Method Name: " + method.getName());
+        System.out.println("Exception Message: " + e.getMessage());
+        System.out.println("-------------------------------------");
+    }
+}
+抛出增强类需要实现 org.springframework.aop.ThrowsAdvice 接口，在接口方法中可获取方法、参数、目标对象、异常对象等信息。我们可以把这些信息统一写入到日志中，当然也可以持久化到数据库中。
+这个功能确实太棒了！但还有一个更厉害的增强。如果某个类实现了 A 接口，但没有实现 B 接口，那么该类可以调用 B 接口的方法吗？如果您没有看到下面的内容，一定不敢相信原来这是可行的！
+8. Spring AOP：引入增强
+以上提到的都是对方法的增强，那能否对类进行增强呢？用 AOP 的行话来讲，对方法的增强叫做 Weaving（织入），而对类的增强叫做 Introduction（引入）。而 Introduction Advice（引入增强）就是对类的功能增强，它也是 Spring AOP 提供的最后一种增强。建议您一开始千万不要去看《Spring Reference》，否则您一定会后悔的。因为当您看了以下的代码示例后，一定会彻底明白什么才是引入增强。
+定义了一个新接口 Apology（道歉）：
+public interface Apology {
+
+    void saySorry(String name);
+}
+但我不想在代码中让 GreetingImpl 直接去实现这个接口，我想在程序运行的时候动态地实现它。因为假如我实现了这个接口，那么我就一定要改写 GreetingImpl 这个类，关键是我不想改它，或许在真实场景中，这个类有1万行代码，我实在是不敢动了。于是，我需要借助 Spring 的引入增强。这个有点意思了！
+@Component
+public class GreetingIntroAdvice extends DelegatingIntroductionInterceptor implements Apology {
+
+    @Override
+    public Object invoke(MethodInvocation invocation) throws Throwable {
+        return super.invoke(invocation);
+    }
+
+    @Override
+    public void saySorry(String name) {
+        System.out.println("Sorry! " + name);
+    }
+}
+以上定义了一个引入增强类，扩展了 org.springframework.aop.support.DelegatingIntroductionInterceptor 类，同时也实现了新定义的 Apology 接口。在类中首先覆盖了父类的 invoke() 方法，然后实现了 Apology 接口的方法。我就是想用这个增强类去丰富 GreetingImpl 类的功能，那么这个 GreetingImpl 类无需直接实现 Apology 接口，就可以在程序运行的时候调用 Apology 接口的方法了。这简直是太神奇的！
+看看是如何配置的吧：
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+
+http://www.springframework.org/schema/beans/spring-beans.xsd
+
+
+http://www.springframework.org/schema/context
+
+
+http://www.springframework.org/schema/context/spring-context.xsd">
+
+    <context:component-scan base-package="aop.demo"/>
+
+    <bean id="greetingProxy" class="org.springframework.aop.framework.ProxyFactoryBean">
+        <property name="interfaces" value="aop.demo.Apology"/>          <!-- 需要动态实现的接口 -->
+        <property name="target" ref="greetingImpl"/>                    <!-- 目标类 -->
+        <property name="interceptorNames" value="greetingIntroAdvice"/> <!-- 引入增强 -->
+        <property name="proxyTargetClass" value="true"/>                <!-- 代理目标类（默认为 false，代理接口） -->
+    </bean>
+
+</beans>
+需要注意 proxyTargetClass 属性，它表明是否代理目标类，默认为 false，也就是代理接口了，此时 Spring 就用 JDK 动态代理。如果为 true，那么 Spring 就用 CGLib 动态代理。这简直就是太方便了！Spring 封装了这一切，让程序员不在关心那么多的细节。我们要向老罗同志致敬，您是我们心中永远的 idol！
+当您看完下面的客户端代码，一定会完全明白以上的这一切：
+public class Client {
+
+    public static void main(String[] args) {
+        ApplicationContext context = new ClassPathXmlApplicationContext("aop/demo/spring.xml");
+        GreetingImpl greetingImpl = (GreetingImpl) context.getBean("greetingProxy"); // 注意：转型为目标类，而并非它的 Greeting 接口
+        greetingImpl.sayHello("Jack");
+
+        Apology apology = (Apology) greetingImpl; // 将目标类强制向上转型为 Apology 接口（这是引入增强给我们带来的特性，也就是“接口动态实现”功能）
+        apology.saySorry("Jack");
+    }
+}
+没想到 saySorry() 方法原来是可以被 greetingImpl 对象来直接调用的，只需将其强制转换为该接口即可。
+我们再次感谢 Spring AOP，感谢老罗给我们提供了这么强大的特性！
+其实，Spring AOP 还有很多精彩的地方，下一篇将介绍更多更有价值的 AOP 技术，让大家得到更多的收获。
+未完，待续…
+AOP 那点儿事（续集）
+源码下载
+
+
+</td></tr><tr><td>http://www.importnew.com/11449.html</td><td>Eclipse中的高效代码覆盖</td><td>
+本文由 ImportNew - 人晓 翻译自 javacodegeeks。欢迎加入翻译小组。转载请见文末要求。
+有句谚语说：使用工具的笨蛋仍然是个笨蛋。但是，我对如何有效的使用工具并不十分敏感。由于这个原因通常我会花一些时间学习新的技术[1]，以保证在不影响质量的前提下提高工作速度。在这个过程中我发现了EclEmma。它是一个适用于Eclipse IDE的代码覆盖工具，对于实现全面的测试用例非常有用。
+覆盖
+通常，测试覆盖是一种用来发现代码库中未被测试的代码的工具，因为正如Martin Fowler[2]所说，测试驱动开发是一种能够帮助你实现良好测试的实用工具，但并不完美。基于这个原因，查找代码库中未被测试的部分最有效的方法无非是时常执行合适的测试工具程序，或自动生成报告，例如使用每日构建方式。
+然而，第一种方式似乎显得有点不负责任，而第二种涵盖了过多的东西从而会影响测试质量[3]。更不用说花费在上下文转化中的代价，扩展覆盖需要测试你在几天前或几周前写的代码。
+因此，Paul Johnson建议在开发过程中尽早使用测试工具，定期的使用代码覆盖测试程序[4]。但是，到底什么时候算是尽早呢？对于第二种方法我认为最佳的时刻是在完成单元测试之前。因为这个时刻所有的单元测试都会被写入，所有的重构也应该完成，此时进行快速覆盖能够检查出代码被忽略的部分。同时，如果在这个过程中修复代码会花费最小的代价，因为这时并不涉及上下文切换。
+当然，在上一段中最重要的一个词就是“快”，这也就意味着这种方式只有在覆盖数据能够快速被收集、结果非常容易检查的情况下才适用。幸运的是EclEmma可以无缝的整合在Ecelipse中，通过提供启动配置，合适的快捷方式以及代码的高亮显示能很好的满足以上的要求，并不会给开发者增加代码处理的负担。
+EclEmma
+在Eclipse中若干种快速运行测试用例的方法[5]。但EclEmma可以使用快捷键Ctrl+Shift+F11重新启动最近一次的测试程序。由于测试驱动开发要求测试用例运行速度很快，其相关的测试数据收集也需要很快。这意味着能够在测试过程中检测单元测试的覆盖真的很快。
+一旦数据收集完成，覆盖统计就会在结果中显示出来。但是仅仅运行一个或几个测试用例，整体的结果会很糟糕。最有趣的是代码编辑器中的高亮显示：
+ 高亮显示
+该图片显示了所谓的最好测试用例，所有的说明都和分支都被覆盖了。但是这不足以说明全覆盖对底层的测试一无所知[6]。唯一合理的结论是：如果代码编写过程中考虑的详尽周到，应该没有明显的未覆盖盲区，该单元的开发可能宣布完成。
+但是，如果我们得到的结果如下图所示，该模块一定没有完成：
+
+正如你所看到了的测试并没有覆盖所有的分支，而且完全遗漏了一个声明，这意味着我们还有未完成的工作。最好的解决办法就是添加一些新的测试消除这些盲区。但是，根据Brain Marick的说法，这些盲区可能意味着你的测试用例里有更多的基础问题，被称为“忽略错误”[7]。所以，最好还是重新考虑一下测试用例。
+有时你可能需要除了指令和分支计数器以外的方式度量测试结果。这种情况下，你只需要点击当前类中的报告视图即可查看各种覆盖指标，具体如下图所示：
+
+结论
+关于代码覆盖以及如何解释报告还有很多东西可讲，我在这里就不多说了。请大家参考文章注脚中提到的参考文献。总结的说，全覆盖是良好测试的一个必要但非充分条件。但值得注意的是，全覆盖并不总是可以实现，或者因为其不合理的代价无法实现。所以要记住，不要过度的苛求全覆盖，或者说再次引述Martin Fowler的话：我怀疑完美的东西，比如人们写测试用例提高覆盖数量，但却并不知道他们在做什么[2]。
+使用最后提到的这种方法，通常使得项目的覆盖率低于90%[8]。鉴于此，你的同事们也需要使用相同的模型和规则，至少在一段时间内，我的同事们是这样做的。
+1.软件开发过程中的场景包括方法、开发技术、框架、类库以及工具。
+2.测试覆盖Martin Fowler, 4/17/2012
+3、参考Dashboards promote ingnorance Sriram Narayan,4/11/2011
+4、测试及代码覆盖   Paul Johnson 2002
+5、参考Eclipse中高效的使用JUnit
+6、为了说明这点，将产生全覆盖测试用例中的断言和验证信息注释掉。这样做通常不会影响测试报告，这时候测试用例已经没有意义了。
+7、Brian Marick写的如何错误的使用了代码覆盖
+8、记住我们的指标取决于选定的标准，通常路径比分支覆盖小，分支覆盖可以小于语句覆盖。
+
+        
+        原文链接： javacodegeeks    翻译：  ImportNew.com  - 人晓译文链接： http://www.importnew.com/11449.html[ 转载请保留原文出处、译者和译文链接。]
+
+
+
+	关于作者： 人晓
+
+
+
+
+
+（新浪微博：@人晓）
+
+查看人晓的更多文章 >> 
+
+
+
+
+</td></tr></table></body></html>
