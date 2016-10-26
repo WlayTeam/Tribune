@@ -39,16 +39,6 @@
 				</ul>
 			</div>
 		<!--</div>-->
-
-
-<!-- branch test123       -->
-
-<!-- branch test12445      -->
-
-=======
-<!-- branch test1244 a     -->
->>>>>>> refs/heads/tc
-=======
 <!-- branch test1244 abc     -->
 >>>>>>> refs/heads/tc
 		<br /> <br />
