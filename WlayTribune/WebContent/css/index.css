@@ -29,89 +29,94 @@ a:active {
 	text-decoration: none;
 }
 
-/* 页面总的 样式 */
+/* 椤甸潰鎬荤殑 鏍峰紡 */
 .main_div {
 	width: 100%;
 	height: 1500px;
 }
-
-/* 图片logo外层div样式 */
+.main_style{
+	width:1000px;
+	height:1500px;
+	border:1px solid red;
+	margin:0 auto;
+}
+/* 鍥剧墖logo澶栧眰div鏍峰紡 */
 .image-style {
 	width: 1000px;
 	height: 85px;
 	margin: 0 auto;
 }
 
-/* 图片样式 */
+/* 鍥剧墖鏍峰紡 */
 .inner_image {
-	width: 1000px; /*--宽度必须的--*/
+	width: 1000px; /*--瀹藉害蹇呴』鐨�--*/
 	text-align: left;
 	height: 85px;
 	margin: 0 20px;
 }
-/* 导航栏样式 */
+/* 瀵艰埅鏍忔牱寮� */
 .title-style {
 	width: 1000px;
 	height: 30px;
 	margin: 0 auto;
 }
 
-/* 导航栏内部样式 */
+/* 瀵艰埅鏍忓唴閮ㄦ牱寮� */
 .inner_title {
-	width: 1000px; /*--宽度必须的--*/
+	width: 1000px; /*--瀹藉害蹇呴』鐨�--*/
 	text-align: center;
 	height: 30px;
 	margin: 0 10px;
 }
 
-/* 文章总样式 */
+/* 鏂囩珷鎬绘牱寮� */
 .content-style {
-	margin: 0 auto; /*--居中 --*/
-	width: 1000px; /*--宽度必须的--*/
+	margin: 0 auto; /*--灞呬腑 --*/
+	width: 1000px; /*--瀹藉害蹇呴』鐨�--*/
 	text-align: left;
 	height: 1500px;
 }
 
-/* 推荐阅读样式 */
+/* 鎺ㄨ崘闃呰鏍峰紡 */
 .suggestedreading {
-	width: 700px; /*--宽度必须的--*/
+	width: 700px; /*--瀹藉害蹇呴』鐨�--*/
 	text-align: left;
 	height: 360px;
 }
 
-/* 最新文章 */
+/* 鏈�鏂版枃绔� */
 .new_article {
-	width: 350px; /*--宽度必须的--*/
+	width: 350px; /*--瀹藉害蹇呴』鐨�--*/
 	text-align: left;
 	height: 360px;
 	float: left;
 }
 
-/* java干货 */
+/* java骞茶揣 */
 .java {
-	width: 350px; /*--宽度必须的--*/
+	width: 350px; /*--瀹藉害蹇呴』鐨�--*/
 	height: 360px;
 	float: left;
 	margin: 0 -40px;
 }
 
-/* 业界动态 */
+/* 涓氱晫鍔ㄦ�� */
 .industry_dynamics {
-	width: 700px; /*--宽度必须的--*/
+	width: 700px; /*--瀹藉害蹇呴』鐨�--*/
 	text-align: left;
 	height: 360px;
 	float: left;
 }
 
-/* 基础技术 */
+/* 鍩虹鎶�鏈� */
 .base_tic {
-	width: 700px; /*--宽度必须的--*/
+	width: 700px; /*--瀹藉害蹇呴』鐨�--*/
 	text-align: left;
 	height: 360px;
 	float: left;
 }
 
-/* 文章内容内部样式 */
+/* 鏂囩珷鍐呭鍐呴儴鏍峰紡 */
 .inner_content {
 	width: 700px;
 	text-align: left;
@@ -120,7 +125,7 @@ a:active {
 	
 }
 
-/* 右侧显示栏样式 */
+/* 鍙充晶鏄剧ず鏍忔牱寮� */
 .right-display {
 	width: 300px;
 	float: right;

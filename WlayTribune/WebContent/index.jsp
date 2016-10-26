@@ -14,15 +14,15 @@
 </head>
 <body>
 	<div class="main_style">
-		<div class="image-style">
+		<!--  <div class="image-style">-->
 			<div class="inner_image">
 				<a href="http://www.bing.com/"> <img src="image/logo1.png"
 					alt="WlayTeam" width="137px" height="85px">
 
 				</a>
 			</div>
-		</div>
-		<div align="center" class="title-style">
+		<!--  </div>-->
+		<!--<div align="center" class="title-style">-->
 			<div class="inner_title">
 				<ul class="list">
 					<li><a href="#">首页</a></li>
@@ -38,10 +38,10 @@
 					<li><a href="http://hao.jobbole.com/?catid=32" target="_blank">工具资源</a></li>
 				</ul>
 			</div>
-		</div>
+		<!--</div>-->
 
 		<br /> <br />
-		<div class="content-style">
+		<!--<div class="content-style">-->
 			<!-- 右边的栏位 预留 -->
 			<div class="right-display">
 				<div>
@@ -92,7 +92,7 @@
 					</div>
 					<div class="contet-mostbottom"></div>
 				</div>
-			</div>
+			<!--</div>-->
 
 		</div>
 
