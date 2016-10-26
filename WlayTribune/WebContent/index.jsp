@@ -39,8 +39,7 @@
 				</ul>
 			</div>
 		<!--</div>-->
-<<<<<<< HEAD
-<<<<<<< HEAD
+
 
 <!-- branch test123       -->
 
