@@ -39,11 +39,15 @@
 				</ul>
 			</div>
 		<!--</div>-->
+<<<<<<< HEAD
 
 <!-- branch test123       -->
 
 <!-- branch test12445      -->
 
+=======
+<!-- branch test1244 a     -->
+>>>>>>> refs/heads/tc
 		<br /> <br />
 		<!--<div class="content-style">-->
 			<!-- 右边的栏位 预留 -->
