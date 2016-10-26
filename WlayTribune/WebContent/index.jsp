@@ -40,6 +40,7 @@
 			</div>
 		<!--</div>-->
 <<<<<<< HEAD
+<<<<<<< HEAD
 
 <!-- branch test123       -->
 
@@ -47,6 +48,9 @@
 
 =======
 <!-- branch test1244 a     -->
+>>>>>>> refs/heads/tc
+=======
+<!-- branch test1244 abc     -->
 >>>>>>> refs/heads/tc
 		<br /> <br />
 		<!--<div class="content-style">-->
