@@ -29,11 +29,12 @@ class SpiderManager(object):
                 print("第", count, "个url " + new_url)
                 html_cont = self.downloader.download(new_url)
                 new_urls, new_data = self.parser.parse(new_url, html_cont)
+                self.urls.add_old_url(new_url)
                 print("title:",new_data.get('title'))
                 print("summary:",new_data.get('summary'))
                 self.urls.add_new_urls(new_urls)
                 self.outputer.collect_data(new_data)
-                if count == 10:
+                if count == 1000:
                     break
                 count += 1
             except :

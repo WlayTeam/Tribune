@@ -4,7 +4,6 @@ Created on 2016年10月25日
 输出到页面
 @author: ashin
 '''
-import os
 
 class htmlOutput(object):
     def __init__(self):
