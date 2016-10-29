@@ -11,24 +11,23 @@
 <script type="text/javascript" src="js/jquery.js"></script>
 <script src="js/bootstrap/bootstrap.min.js"></script>
 <style type="text/css">
-@IMPORT url("css/index.css");
 @IMPORT url("css/bootstrap/bootstrap.min.css");
+@IMPORT url("css/index.css");
 </style>
 </head>
 <div id="tp-weather-widget"></div>
 <script>(function(T,h,i,n,k,P,a,g,e){g=function(){P=h.createElement(i);a=h.getElementsByTagName(i)[0];P.src=k;P.charset="utf-8";P.async=1;a.parentNode.insertBefore(P,a)};T["ThinkPageWeatherWidgetObject"]=n;T[n]||(T[n]=function(){(T[n].q=T[n].q||[]).push(arguments)});T[n].l=+new Date();if(T.attachEvent){T.attachEvent("onload",g)}else{T.addEventListener("load",g,false)}}(window,document,"script","tpwidget","//widget.thinkpage.cn/widget/chameleon.js"))</script>
 <script>tpwidget("init", {
-    "flavor": "slim",
+    "flavor": "bubble",
     "location": "WTW3SJ5ZBJUY",
     "geolocation": "enabled",
-    "language": "zh-chs",
+    "position": "top-right",
+    "margin": "0px 0px",
+    "language": "en",
     "unit": "c",
-    "theme": "chameleon",
-    "container": "tp-weather-widget",
-    "bubble": "enabled",
-    "alarmType": "badge",
+    "theme": "black",
     "uid": "UD7A00585E",
-    "hash": "e11ef72ce96db5eed93e6bc41cb29187"
+    "hash": "445f809d426a797f237b28ce39fe8877"
 });
 tpwidget("show");</script>
 <body>
@@ -93,7 +92,6 @@ tpwidget("show");</script>
 <!-- 			</div> -->
 		<!--</div>-->
 
-		<br /> <br />
 		<!--<div class="content-style">-->
 			<!-- 右边的栏位 预留 -->
 			<div class="right-display">
@@ -101,6 +99,8 @@ tpwidget("show");</script>
 					<c:import url="right-display.jsp" />
 				</div>
 			</div>
+
+			<div class="menubar"></div>
 			<div class="inner_content">
 
 

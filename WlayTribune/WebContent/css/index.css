@@ -29,20 +29,22 @@ a:active {
 	text-decoration: none;
 }
 
-
 /* .main_div { */
 /* 	width: 100%; */
 /* 	height: 1500px; */
 /* } */
 
-
+/*cover bootstrap navbar*/
+.navbar {	
+	min-height: 56px;
+}
 
 /*main div style of page*/
-.main_style{
-	width:1000px;
-	height:2500px;
-	border:1px solid red;
-	margin:0 auto;
+.main_style {
+	width: 1000px;
+	height: 2500px;
+	border: 1px solid red;
+	margin: 0 auto;
 }
 /*logo div style*/
 .image-style {
@@ -53,7 +55,7 @@ a:active {
 
 /*logo image style*/
 .inner_image {
-	width: 1000px; 
+	width: 1000px;
 	text-align: left;
 	height: 85px;
 	margin: 0 20px;
@@ -75,8 +77,8 @@ a:active {
 
 /* content style*/
 .content-style {
-	margin: 0 auto; 
-	width: 1000px; 
+	margin: 0 auto;
+	width: 1000px;
 	text-align: left;
 	height: 1500px;
 }
@@ -88,14 +90,14 @@ a:active {
 }
 
 .new_article {
-	width: 350px; 
+	width: 350px;
 	text-align: left;
 	height: 360px;
 	float: left;
 }
 
 .java {
-	width: 350px; 
+	width: 350px;
 	height: 360px;
 	float: left;
 	margin: 0 -40px;
@@ -109,18 +111,21 @@ a:active {
 }
 
 .base_tic {
-	width: 700px; 
+	width: 700px;
 	text-align: left;
 	height: 360px;
 	float: left;
 }
 
+.menubar{
+	height:70px;
+}
+
 .inner_content {
 	width: 700px;
 	text-align: left;
-	height:1500px;
+	height: 1500px;
 	margin: 0 40px;
-	
 }
 
 .right-display {
