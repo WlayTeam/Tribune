@@ -8,8 +8,11 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <link rel="shortcut icon" href="image/head.ico" />
 <title>WlayTeam Tribune</title>
+<script type="text/javascript" src="js/jquery.js"></script>
+<script src="js/bootstrap/bootstrap.min.js"></script>
 <style type="text/css">
 @IMPORT url("css/index.css");
+@IMPORT url("css/bootstrap/bootstrap.min.css");
 </style>
 </head>
 <div id="tp-weather-widget"></div>
@@ -29,31 +32,65 @@
 });
 tpwidget("show");</script>
 <body>
-	<div class="main_style">
-		<!--  <div class="image-style">-->
+<!-- 	<div class="main_style">
+		 <div class="image-style">
 			<div class="inner_image">
 				<a href="http://www.bing.com/"> <img src="image/logo1.png"
 					alt="WlayTeam" width="137px" height="85px">
 
 				</a>
-			</div>
+			</div> -->
 		<!--  </div>-->
 		<!--<div align="center" class="title-style">-->
-			<div class="inner_title">
-				<ul class="list">
-					<li><a href="#">首页</a></li>
-					<li><a href="${pageContext.request.contextPath }/allArticle">所有文章</a></li>
-					<li><a href="#">资讯</a></li>
-					<li><a href="#">web</a></li>
-					<li><a href="#">架构</a></li>
-					<li><a href="#">基础技术</a></li>
-					<li><a href="#">书籍</a></li>
-					<li><a href="#">教程</a></li>
-					<li><a href="http://group.jobbole.com/category/tech/java/"
-						target="_blank">java小组</a></li>
-					<li><a href="http://hao.jobbole.com/?catid=32" target="_blank">工具资源</a></li>
-				</ul>
-			</div>
+		<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="#">WlayTeam</a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+          <ul class="nav navbar-nav">
+            <li class="active"><a href="#">Home</a></li>
+            <li><a href="${pageContext.request.contextPath }/allArticle">Article</a></li>
+            <li><a href="#News">News</a></li>
+             <li><a href="#Web">web</a></li>
+              <li><a href="#Books">Books</a></li>
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown">Code <span class="caret"></span></a>
+              <ul class="dropdown-menu" role="menu">
+                <li><a href="#">Java</a></li>
+                <li><a href="#">Python</a></li>
+                <li><a href="#">Java Script</a></li>
+                <li class="divider"></li>
+                <li class="dropdown-header">Nav header</li>
+                <li><a href="#">Separated link</a></li>
+                <li><a href="#">One more separated link</a></li>
+              </ul>
+            </li>
+          </ul>
+        </div><!--/.nav-collapse -->
+      </div>
+    </nav>
+<!-- 			<div class="inner_title"> -->
+<!-- 				<ul class="list"> -->
+<!-- 					<li><a href="#">首页</a></li> -->
+<%-- 					<li><a href="${pageContext.request.contextPath }/allArticle">所有文章</a></li> --%>
+<!-- 					<li><a href="#">资讯</a></li> -->
+<!-- 					<li><a href="#">web</a></li> -->
+<!-- 					<li><a href="#">架构</a></li> -->
+<!-- 					<li><a href="#">基础技术</a></li> -->
+<!-- 					<li><a href="#">书籍</a></li> -->
+<!-- 					<li><a href="#">教程</a></li> -->
+<!-- 					<li><a href="http://group.jobbole.com/category/tech/java/" -->
+<!-- 						target="_blank">java小组</a></li> -->
+<!-- 					<li><a href="http://hao.jobbole.com/?catid=32" target="_blank">工具资源</a></li> -->
+<!-- 				</ul> -->
+<!-- 			</div> -->
 		<!--</div>-->
 
 		<br /> <br />
