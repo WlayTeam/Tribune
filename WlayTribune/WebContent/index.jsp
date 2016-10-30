@@ -93,6 +93,7 @@ tpwidget("show");</script>
 		<!--</div>-->
 
 		<div class="content-style">
+		<div class="menubar"></div>
 			<!-- 右边的栏位 预留 -->
 			<div class="right-display">
 				<div>
