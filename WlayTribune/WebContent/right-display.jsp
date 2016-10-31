@@ -125,10 +125,17 @@
 </head>
 <body>
 	<div class="main">
-		<div class="search-swapper">
-			<input type="text" id="search-input" placeholder="search" /> <input
-				type="submit" value="" id="search-submit" />
-		</div>
+	<!-- search label  annonation by ashin-->
+		 <form class="navbar-form navbar-left" role="search">
+            <div class="form-group">
+                <input type="text" class="form-control" placeholder="Search">
+            </div>
+            <button type="submit" class="btn btn-default">Submit</button>
+        </form>
+<!-- 		<div class="search-swapper"> -->
+<!-- 			<input type="text" id="search-input" placeholder="search" /> <input -->
+<!-- 				type="submit" value="" id="search-submit" /> -->
+<!-- 		</div> -->
 		<div class="right-image"></div>
 		<ul class="right-ul" id="right-ul">
 			<li class="ulActive">本周热门文章</li>
