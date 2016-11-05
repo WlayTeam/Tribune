@@ -119,7 +119,7 @@ tpwidget("show");</script>
 							我们这样做其实已经落后于计划了。然而，经过大量测试之后，我们确信 Ghost 可以在 Node.js v4
 							平台上流畅的运行并且内存消耗比原来也减少了。目前，Ghost(Pro) 上托</p>
 					</div>
-					<div class="post-permalink">
+					<div class="post-permalink" style="float: right">
 						<a href="/moving-to-node-js-v4-lts/" class="btn btn-primary">阅读全文</a>
 					</div>
 
@@ -156,7 +156,7 @@ tpwidget("show");</script>
 							Ghost 0.7.0 版本发布以来，Gh</p>
 					</div>
 					<div class="post-permalink">
-						<a href="/ghost-0-7-4-released/" class="btn btn-primary">阅读全文</a>
+						<a href="/ghost-0-7-4-released/" class="btn btn-primary" style="float: right">阅读全文</a>
 					</div>
 
 
