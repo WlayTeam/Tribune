@@ -17,39 +17,6 @@
 	margin: 0 auto;
 }
 
-.search-swapper {
-	margin-left: 5px;
-	margin-top: 20px;
-	position: relative;
-	background: #f8f8f8;
-	padding: 5px;
-	margin-top: 20px;
-}
-
-#search-input {
-	border: 1px solid #e8e8e8;
-	width: 275px;
-	height: 28px;
-	line-height: 28px;
-	padding: 0 4px;
-}
-
-#search-submit {
-	border: 1px solid #e8e8e8;
-	border-left: none;
-	display: block;
-	border: none;
-	position: absolute;
-	width: 27px;
-	height: 27px;
-	right: 6px;
-	top: 6px;
-	background-color: #0099cc;
-	backgroun-position:right;
-	background-image: url(image/search.png);
-	display: block;
-}
-
 #search-submit:hover {
 	cursor: pointer;
 	background-color: #c32020;
@@ -58,14 +25,14 @@
 .right-image {
 	width: 300px;
 	height: 120px;
-	margin-top: 20px;
+	margin-top: 10px;
 	background: url(image/right-image.jpg);
 }
 
 .right-ul {
 	margin-top: 20px;
 }
- 
+
 .right-ul li {
 	position: relative;
 	list-style: none;
@@ -74,7 +41,7 @@
 	float: left;
 	background: #fff;
 }
-     
+
 .ulActive {
 	border: 1px solid #e8e8e8;
 	background: #fff;
@@ -83,19 +50,31 @@
 
 .right-title-swapper {
 	clear: both;
-	height: 358px;
+	height: 330px;
 	border: 1px solid #e8e8e8;
 	width: 300px;
 }
 
 .right-title-swapper div {
 	float: left;
-	width: 270px;
+	width: 300px;
 	height: 330px;
+	background:#fff;
 	opacity: 0;
+	
 }
-.right-title-swapper div{
-	position:absolute;
+
+.right-title-swapper div {
+	position: absolute;
+}
+
+.search-swapper {
+	width: 302px;
+	height: 50px;
+}
+
+.right-list{
+	margin-top:20px;
 }
 </style>
 <script type="text/javascript" src="js/jquery.js"></script>
@@ -105,7 +84,6 @@
 		var oLi = oUl.getElementsByTagName("li");
 		var oCon = document.getElementById("right-content");
 		var oCons = oCon.getElementsByTagName("div");
-		
 		for (var i = 0; i < oLi.length; i++) {
 			oLi[i].index = i;
 			oLi[i].onclick = function() {
@@ -114,33 +92,35 @@
 		}
 		function show(index) {
 			for (var j = 0; j < oLi.length; j++) {
-				oLi[j].setAttribute("class","");
+				oLi[j].setAttribute("class", "");
 				oCons[j].style.opacity = 0;
 			}
-			oLi[index].setAttribute("class","ulActive");
-			oCons[index].style.opacity = 1; 
+			/* oLi[index].addClass("active"); */
+			oLi[index].setAttribute("class", "active"); 
+			oCons[index].style.opacity = 1;
 		}
 	}
 </script>
 </head>
 <body>
 	<div class="main">
-	<!-- search label  annonation by ashin-->
-		 <form class="navbar-form navbar-left" role="search">
-            <div class="form-group">
-                <input type="text" class="form-control" placeholder="Search">
-            </div>
-            <button type="submit" class="btn btn-default">Submit</button>
-        </form>
-<!-- 		<div class="search-swapper"> -->
-<!-- 			<input type="text" id="search-input" placeholder="search" /> <input -->
-<!-- 				type="submit" value="" id="search-submit" /> -->
-<!-- 		</div> -->
+		<!-- search label  annonation by ashin-->
+		<div class="search-swapper">
+			<form class="navbar-form navbar-left" role="search"
+				style="display: block;">
+				<div class="form-group">
+					<input type="text" class="form-control input-default"
+						placeholder="Search">
+				</div>
+				<button type="submit" class="btn btn-default btn-default">Submit</button>
+			</form>
+		</div>
 		<div class="right-image"></div>
-		<ul class="right-ul" id="right-ul">
-			<li class="ulActive">本周热门文章</li>
-			<li>本月热门</li>
-			<li>热门标签</li>
+		<div class="right-list">
+			<ul class="nav nav-pills" role="tablist" id="right-ul">
+			<li role="presentation" class="active "><a href="#">本周热门文章</a></li>
+			<li role="presentation" class=""><a href="#">本月热门</a></li>
+			<li role="presentation" class=""><a href="#">热门标签</a></li>
 		</ul>
 		<div class="right-title-swapper" id="right-content">
 			<div class="hot-article" style="opacity: 1;">
@@ -149,6 +129,8 @@
 			<div class="month-hot">222222</div>
 			<div class="label-hot">33333</div>
 		</div>
+		</div>
+		
 	</div>
 
 </body>
