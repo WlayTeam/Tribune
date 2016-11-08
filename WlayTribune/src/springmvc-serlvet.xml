@@ -25,5 +25,9 @@
 		<property name="prefix" value="/WEB-INF/jsp/"/>
 		<property name="suffix" value=".jsp"/>
 	</bean>
+	
+	
+	<!-- ===================databean==================== --> 
+	<bean id="articleDataBean" class="com.wlayteam.model.ArticleDataBean"/>
 
 </beans>
