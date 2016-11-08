@@ -15,13 +15,20 @@
 			<param-name>contextConfigLocation</param-name>
 			<param-value>classpath:springmvc-serlvet.xml</param-value>
 		</init-param>
+
+
 		<load-on-startup>1</load-on-startup>
 
 	</servlet>
-
+	<error-page>
+		<error-code>404</error-code>
+		<location>/404.html</location>
+	</error-page>
 
 	<servlet-mapping>
 		<servlet-name>WlayTribune</servlet-name>
 		<url-pattern>/</url-pattern>
+
+
 	</servlet-mapping>
 </web-app>
