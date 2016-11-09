@@ -6,24 +6,37 @@
  */
 package com.wlayteam.service.impl;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
+import java.sql.SQLException;
+
+import javax.annotation.Resource;
+import org.springframework.stereotype.Service;
+import com.mysql.jdbc.Connection;
+import com.wlayteam.dao.impl.LatestArticleDaoImpl;
 import com.wlayteam.model.ArticleDataBean;
 import com.wlayteam.service.LatestArticleService;
+import com.wlayteam.utils.DBConnectionUtil;
 
+/**
+ * @function search the latest article
+ * @author ashin
+ *
+ */
+@Service
 public class LatestArticleServiceImpl implements LatestArticleService {
-	
-	@Autowired
-	@Qualifier(value = "articleDataBean")
+
+	@Resource(name = "articleDataBean")
 	private ArticleDataBean articleDataBean;
 
+	@Resource(name = "dbConnectionUtil")
+	private DBConnectionUtil dbConnectionUtil;
+
+	@Resource(name = "latestArticleDaoImpl")
+	private LatestArticleDaoImpl latestArticleDaoImpl;
+
 	@Override
-	public ArticleDataBean findLatestArticle() {
-
-		/**
-		 * not yet written
-		 */
-
+	public ArticleDataBean findLatestArticle() throws SQLException {
+		Connection connection = dbConnectionUtil.getConnection();
+		articleDataBean = latestArticleDaoImpl.findLatestArticle(connection);
 		return articleDataBean;
 	}
 

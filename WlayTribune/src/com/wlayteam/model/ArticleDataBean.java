@@ -49,4 +49,10 @@ public class ArticleDataBean {
 		this.summary = summary;
 	}
 
+	@Override
+	public String toString() {
+		return "ArticleDataBean [title=" + title + ", author=" + author + ", uTime=" + uTime + ", summary=" + summary
+				+ "]";
+	}
+
 }

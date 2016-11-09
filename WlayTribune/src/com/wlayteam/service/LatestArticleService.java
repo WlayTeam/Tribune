@@ -13,6 +13,6 @@ import com.wlayteam.model.ArticleDataBean;
  *
  */
 public interface LatestArticleService {
-	public ArticleDataBean findLatestArticle();
+	public ArticleDataBean findLatestArticle() throws Exception;
 
 }
