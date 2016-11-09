@@ -12,24 +12,49 @@
 <script src="./js/bootstrap/bootstrap.min.js"></script>
 <style type="text/css">
 @IMPORT url("./css/bootstrap/bootstrap.min.css");
+
 @IMPORT url("./css/index.css");
 </style>
 </head>
 <div id="tp-weather-widget"></div>
-<script>(function(T,h,i,n,k,P,a,g,e){g=function(){P=h.createElement(i);a=h.getElementsByTagName(i)[0];P.src=k;P.charset="utf-8";P.async=1;a.parentNode.insertBefore(P,a)};T["ThinkPageWeatherWidgetObject"]=n;T[n]||(T[n]=function(){(T[n].q=T[n].q||[]).push(arguments)});T[n].l=+new Date();if(T.attachEvent){T.attachEvent("onload",g)}else{T.addEventListener("load",g,false)}}(window,document,"script","tpwidget","//widget.thinkpage.cn/widget/chameleon.js"))</script>
-<script>tpwidget("init", {
-    "flavor": "bubble",
-    "location": "WTW3SJ5ZBJUY",
-    "geolocation": "enabled",
-    "position": "top-right",
-    "margin": "0px 0px",
-    "language": "en",
-    "unit": "c",
-    "theme": "black",
-    "uid": "UD7A00585E",
-    "hash": "445f809d426a797f237b28ce39fe8877"
-});
-tpwidget("show");</script>
+<script>
+	(function(T, h, i, n, k, P, a, g, e) {
+		g = function() {
+			P = h.createElement(i);
+			a = h.getElementsByTagName(i)[0];
+			P.src = k;
+			P.charset = "utf-8";
+			P.async = 1;
+			a.parentNode.insertBefore(P, a)
+		};
+		T["ThinkPageWeatherWidgetObject"] = n;
+		T[n] || (T[n] = function() {
+			(T[n].q = T[n].q || []).push(arguments)
+		});
+		T[n].l = +new Date();
+		if (T.attachEvent) {
+			T.attachEvent("onload", g)
+		} else {
+			T.addEventListener("load", g, false)
+		}
+	}(window, document, "script", "tpwidget",
+			"//widget.thinkpage.cn/widget/chameleon.js"))
+</script>
+<script>
+	tpwidget("init", {
+		"flavor" : "bubble",
+		"location" : "WTW3SJ5ZBJUY",
+		"geolocation" : "enabled",
+		"position" : "top-right",
+		"margin" : "0px 0px",
+		"language" : "en",
+		"unit" : "c",
+		"theme" : "black",
+		"uid" : "UD7A00585E",
+		"hash" : "445f809d426a797f237b28ce39fe8877"
+	});
+	tpwidget("show");
+</script>
 <body>
 <body>
 	<!-- 	<div class="main_style">
@@ -156,12 +181,25 @@ tpwidget("show");</script>
 							Ghost 0.7.0 版本发布以来，Gh</p>
 					</div>
 					<div class="post-permalink">
-						<a href="/ghost-0-7-4-released/" class="btn btn-primary" style="float: right">阅读全文</a>
+						<a href="/ghost-0-7-4-released/" class="btn btn-primary"
+							style="float: right">阅读全文</a>
 					</div>
 
 
 				</article>
-
+				
+				<nav style="text-align: center;">
+					<ul class="pagination">
+						<li class="disabled"><a href="#">&laquo;</a></li>
+						<li class="active"><a href="#">1 <span class="sr-only">(current)</span></a></li>
+						<li class=""><a href="#">2 <span class="sr-only">(current)</span></a></li>
+						<li class=""><a href="#">3 <span class="sr-only">(current)</span></a></li>
+						<li class=""><a href="#">4 <span class="sr-only">(current)</span></a></li>
+						<li class=""><a href="#">5<span class="sr-only">(current)</span></a></li>
+						<li><a href="#">&raquo;</a></li>
+					</ul>
+				</nav>
+s
 
 			</div>
 			<div class="col-md-4 sidebar">
