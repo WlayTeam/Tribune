@@ -12,22 +12,33 @@
   http://www.springframework.org/schema/context/spring-context.xsd
   http://www.springframework.org/schema/mvc
   http://www.springframework.org/schema/mvc/spring-mvc.xsd">
-
+	<!-- annotation enable to use -->
 	<mvc:annotation-driven />
 	<mvc:default-servlet-handler />
+	<!-- auto package's scan -->
+	<context:component-scan base-package="com.wlayteam">
 
-	<context:component-scan base-package="com.wlayteam.controller">
 	</context:component-scan>
-	
-	<mvc:view-controller path="/" view-name="forward:/toIndex"/>
-	
-	<bean  id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
-		<property name="prefix" value="/WEB-INF/jsp/"/>
-		<property name="suffix" value=".jsp"/>
-	</bean>
-	
-	
-	<!-- ===================databean==================== --> 
-	<bean id="articleDataBean" class="com.wlayteam.model.ArticleDataBean"/>
+	<!-- forward to the idnexpage -->
+	<mvc:view-controller path="/" view-name="forward:/toIndex" />
 
+	<!-- springMVC viewResolver -->
+	<bean id="viewResolver"
+		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<property name="prefix" value="/WEB-INF/jsp/" />
+		<property name="suffix" value=".jsp" />
+	</bean>
+
+
+	<!--===================utils==================== -->
+	<bean id="dbConnectionUtil" class="com.wlayteam.utils.DBConnectionUtil"></bean>
+
+	<!-- ===================databean==================== -->
+	<bean id="articleDataBean" class="com.wlayteam.model.ArticleDataBean" />
+
+	<!-- ====================service==================== -->
+	<bean id="latestArticleServiceImpl" class="com.wlayteam.service.impl.LatestArticleServiceImpl"></bean>
+
+	<!-- ======================dao===================== -->
+	<bean id="latestArticleDaoImpl" class="com.wlayteam.dao.impl.LatestArticleDaoImpl" />
 </beans>
