@@ -24,10 +24,15 @@
         http://www.springframework.org/schema/util/spring-util.xsd">
 
 	<!-- =============aspests============================= -->
+
+	<!-- proxy-target-class="true" is important if not configured will throws 
+		exceptions -->
 	<aop:aspectj-autoproxy proxy-target-class="true" />
+	
+	<!-- aspect bean -->
 	<bean id="tribuneAspect" class="com.wlayteam.utils.TribuneAspect" />
-	
-	
-	
-	
+
+
+
+
 </beans>
