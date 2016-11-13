@@ -24,7 +24,7 @@
         http://www.springframework.org/schema/util/spring-util.xsd">
 
 	<!-- auto product proxy -->
-<!-- 	<aop:aspectj-autoproxy /> -->
+	<import resource="classpath:spring-aspects.xml"/>
 
 	<!-- annotation enable to use -->
 	<mvc:annotation-driven />
@@ -49,7 +49,7 @@
 
 	<!--===================utils==================== -->
 	<bean id="dbConnectionUtil" class="com.wlayteam.utils.DBConnectionUtil"></bean>
-	<bean id="tribuneAspect" class="com.wlayteam.utils.TribuneAspect"/>
+	
 	<!-- ===================databean==================== -->
 	<bean id="articleDataBean" class="com.wlayteam.model.ArticleDataBean" />
 
