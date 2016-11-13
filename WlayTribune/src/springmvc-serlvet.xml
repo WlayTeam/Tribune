@@ -22,20 +22,19 @@
         http://www.springframework.org/schema/aop/spring-aop.xsd  
         http://www.springframework.org/schema/util  
         http://www.springframework.org/schema/util/spring-util.xsd">
-
-	<!-- auto product proxy -->
-	<import resource="classpath:spring-aspects.xml"/>
+	
+	<import resource="spring-aspects.xml"></import>
 
 	<!-- annotation enable to use -->
 	<mvc:annotation-driven />
-	
+
 	<mvc:default-servlet-handler />
-	
+
 	<!-- auto package's scan -->
 	<context:component-scan base-package="com.wlayteam">
 
 	</context:component-scan>
-	
+
 	<!-- forward to the idnexpage -->
 	<mvc:view-controller path="/" view-name="forward:/toIndex" />
 
@@ -46,10 +45,10 @@
 		<property name="suffix" value=".jsp" />
 	</bean>
 
-
+	
 	<!--===================utils==================== -->
 	<bean id="dbConnectionUtil" class="com.wlayteam.utils.DBConnectionUtil"></bean>
-	
+
 	<!-- ===================databean==================== -->
 	<bean id="articleDataBean" class="com.wlayteam.model.ArticleDataBean" />
 

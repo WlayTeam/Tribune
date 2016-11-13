@@ -1,20 +1,18 @@
 package com.wlayteam.utils;
 
-import org.aspectj.lang.JoinPoint;
-import org.aspectj.lang.annotation.After;
+import org.aspectj.lang.ProceedingJoinPoint;
+import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
-import org.aspectj.lang.annotation.Before;
 
 @Aspect
 public class TribuneAspect {
 	
-	@Before(value="execution (* com.wlayteam.controller..*.*(..))")
-	public void beforefMthodExecute(JoinPoint joinPoint){
-		System.out.println("the method will be executed: "+joinPoint);
+	@Around(value="execution (* com.wlayteam..*.*(..))")
+	public Object aroundMethodExecute(ProceedingJoinPoint proceedingJoinPoint) throws Throwable{
+		System.out.println("the method will be executed: "+proceedingJoinPoint);
+		Object object = proceedingJoinPoint.proceed();
+		System.out.println("the method has executed: "+proceedingJoinPoint);
+		return object;
 	}
 	
-	@After(value="execution (* com.wlayteam.controller..*.*(..))")
-	public void afterMethodExecute(JoinPoint joinPoint){
-		System.out.println("the method has executed: "+joinPoint);
-	}
 }
