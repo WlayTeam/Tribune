@@ -24,7 +24,7 @@
         http://www.springframework.org/schema/util/spring-util.xsd">
 
 	<!-- auto product proxy -->
-	<aop:aspectj-autoproxy />
+<!-- 	<aop:aspectj-autoproxy /> -->
 
 	<!-- annotation enable to use -->
 	<mvc:annotation-driven />
