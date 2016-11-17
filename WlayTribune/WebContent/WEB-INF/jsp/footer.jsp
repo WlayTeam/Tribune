@@ -106,10 +106,10 @@ border-top:1px solid #303030;
 					</div>
 				</div>
 				<div class="col-sm-4">
-					<h4 class="title">联系我们</h4> 
+					<h4 class="title">联系我们</h4>
 					<div class="content recent-post">
 						<p style="padding-left:25px;">StackTc&nbsp;&nbsp;&nbsp;353071437@qq.com</p>
-						<p style="padding-left:25px;">LxAshin&nbsp;&nbsp;&nbsp;1965654332@qq.com</p>
+						<p style="padding-left:25px;">StackTc&nbsp;&nbsp;&nbsp;353071437@qq.com</p>
 					</div>
 				</div>
 			</div>
@@ -117,7 +117,7 @@ border-top:1px solid #303030;
 	</div>
 	
 	<div class="copyright">
-		<div class="container"> 
+		<div class="container">
 			<div class="row">
 				<div class="col-sm-12">
 					<span style="padding-right:10px;">Copyright © Laravel 中文网</span>|
