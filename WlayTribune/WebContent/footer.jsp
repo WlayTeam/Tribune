@@ -18,7 +18,7 @@
 a {
 	
 }
-
+<!-- reset test-->
 .main-footer {
 	background: #202020;
 	padding: 35px 0 0;
