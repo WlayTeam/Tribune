@@ -7,6 +7,7 @@
 package com.wlayteam.controller;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 import javax.annotation.Resource;
 import org.springframework.stereotype.Controller;
@@ -17,12 +18,10 @@ import com.wlayteam.service.impl.LatestArticleServiceImpl;
 
 @Controller
 public class IndexPageController {
-	/** instantiate article databean object */
-	@Resource(name = "articleDataBean")
-	private ArticleDataBean articleDataBean;
 	/** instantiate service object */
 	@Resource(name = "latestArticleServiceImpl")
 	private LatestArticleServiceImpl latestArticleServiceImpl;
+	private ArrayList<ArticleDataBean> arrticleList;
 
 	/**
 	 * display index page and diaplay the latest article
@@ -33,12 +32,24 @@ public class IndexPageController {
 	@RequestMapping(value = "toIndex")
 	public ModelAndView toIndex(ModelAndView modelAndView) {
 		try {
+			
+			arrticleList = latestArticleServiceImpl.findLatestArticle();
+		
+			modelAndView.addObject("arrticleList",arrticleList);
 			modelAndView.setViewName("index");
-			articleDataBean = latestArticleServiceImpl.findLatestArticle();
-			System.out.println("articleDataBean:"+articleDataBean);
+			System.out.println(modelAndView);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 		return modelAndView;
+	}
+
+	@RequestMapping(value = "showArticle")
+	public ModelAndView showArticle(ModelAndView modelAndView) {
+
+		System.out.println("show article");
+		modelAndView.setViewName("showArticle");
+		return modelAndView;
+
 	}
 }

@@ -5,6 +5,8 @@
  */
 package com.wlayteam.dao;
 
+import java.util.ArrayList;
+
 import com.mysql.jdbc.Connection;
 import com.wlayteam.model.ArticleDataBean;
 
@@ -14,5 +16,5 @@ import com.wlayteam.model.ArticleDataBean;
  *
  */
 public interface LatestArticleDao {
-	public ArticleDataBean findLatestArticle(Connection connection) throws Exception;
+	public ArrayList<ArticleDataBean> findLatestArticle(Connection connection) throws Exception;
 }

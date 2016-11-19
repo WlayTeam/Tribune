@@ -5,14 +5,17 @@
  */
 package com.wlayteam.service;
 
+import java.util.ArrayList;
+
 import com.wlayteam.model.ArticleDataBean;
 
 /**
  * find the latest article
+ * 
  * @author ashin
  *
  */
 public interface LatestArticleService {
-	public ArticleDataBean findLatestArticle() throws Exception;
+	public ArrayList<ArticleDataBean> findLatestArticle() throws Exception;
 
 }
