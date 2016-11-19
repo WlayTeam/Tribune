@@ -199,8 +199,6 @@
 						<li><a href="#">&raquo;</a></li>
 					</ul>
 				</nav>
-s
-
 			</div>
 			<div class="col-md-4 sidebar">
 				<c:import url="right-display.jsp" />
@@ -258,7 +256,6 @@ s
 
 
 	</div>
-
 
 <c:import url="footer.jsp" />
 </body>
