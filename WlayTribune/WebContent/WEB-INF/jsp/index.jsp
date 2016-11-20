@@ -123,7 +123,7 @@
 		</nav>
 
 
-		<div style="height: 80px;"></div>
+		<div style="height: 24px;"></div>
 
 
 		<div class="container">

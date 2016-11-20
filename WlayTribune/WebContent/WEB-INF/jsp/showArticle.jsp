@@ -114,396 +114,170 @@
 
 
 		<div class="row">
+
 			<div class="col-md-8 main-content">
 				<article class="post">
 					<div class="post-head">
 						<div class="post-title">
 							<h1>
-								<a href="">深入解析OutOfMemoryError</a>
+								<a href="">对Java意义重大的7个性能指标</a>
 							</h1>
 						</div>
 					</div>
-
-					<div class="post-meta">
-						<span class="author">作者：<a href="#">XX</a></span> &bull;
-						<time class="post-date" datetime="2016年7月26日星期二上午9点54分"
-							title="2016年7月26日星期二上午9点54分">2016年7月26日</time>
+					<div class="copyright-area" style="text-align: center;">
+						原文出处： <a
+							href="https://www.evget.com/article/2015/11/16/22990.html"
+							ref="nofollow" target="_blank"> 王韵菲 </a>
 					</div>
-					<div class="post-content">
-						<p>从这周起，我们将 Ghost 推荐 Node.js 版本升级为 Node.js v4 LTS。
-							我们这样做其实已经落后于计划了。然而，经过大量测试之后，我们确信 Ghost 可以在 Node.js v4
-							平台上流畅的运行并且内存消耗比原来也减少了。目前，Ghost(Pro) 上托</p>
-						<p>从这周起，我们将 Ghost 推荐 Node.js 版本升级为 Node.js v4 LTS。
-							我们这样做其实已经落后于计划了。然而，经过大量测试之后，我们确信 Ghost 可以在 Node.js v4
-							平台上流畅的运行并且内存消耗比原来也减少了。目前，Ghost(Pro) 上托</p>
-						<p>从这周起，我们将 Ghost 推荐 Node.js 版本升级为 Node.js v4 LTS。
-							我们这样做其实已经落后于计划了。然而，经过大量测试之后，我们确信 Ghost 可以在 Node.js v4
-							平台上流畅的运行并且内存消耗比原来也减少了。目前，Ghost(Pro) 上托</p>
-						<p>从这周起，我们将 Ghost 推荐 Node.js 版本升级为 Node.js v4 LTS。
-							我们这样做其实已经落后于计划了。然而，经过大量测试之后，我们确信 Ghost 可以在 Node.js v4
-							平台上流畅的运行并且内存消耗比原来也减少了。目前，Ghost(Pro) 上托</p>
-						<p>从这周起，我们将 Ghost 推荐 Node.js 版本升级为 Node.js v4 LTS。
-							我们这样做其实已经落后于计划了。然而，经过大量测试之后，我们确信 Ghost 可以在 Node.js v4
-							平台上流畅的运行并且内存消耗比原来也减少了。目前，Ghost(Pro) 上托</p>
-						<p>从这周起，我们将 Ghost 推荐 Node.js 版本升级为 Node.js v4 LTS。
-							我们这样做其实已经落后于计划了。然而，经过大量测试之后，我们确信 Ghost 可以在 Node.js v4
-							平台上流畅的运行并且内存消耗比原来也减少了。目前，Ghost(Pro) 上托</p>
-						<p>从这周起，我们将 Ghost 推荐 Node.js 版本升级为 Node.js v4 LTS。
-							我们这样做其实已经落后于计划了。然而，经过大量测试之后，我们确信 Ghost 可以在 Node.js v4
-							平台上流畅的运行并且内存消耗比原来也减少了。目前，Ghost(Pro) 上托</p>
-						<p>从这周起，我们将 Ghost 推荐 Node.js 版本升级为 Node.js v4 LTS。
-							我们这样做其实已经落后于计划了。然而，经过大量测试之后，我们确信 Ghost 可以在 Node.js v4
-							平台上流畅的运行并且内存消耗比原来也减少了。目前，Ghost(Pro) 上托</p>
-						<p>从这周起，我们将 Ghost 推荐 Node.js 版本升级为 Node.js v4 LTS。
-							我们这样做其实已经落后于计划了。然而，经过大量测试之后，我们确信 Ghost 可以在 Node.js v4
-							平台上流畅的运行并且内存消耗比原来也减少了。目前，Ghost(Pro) 上托</p>
-						<p>从这周起，我们将 Ghost 推荐 Node.js 版本升级为 Node.js v4 LTS。
-							我们这样做其实已经落后于计划了。然而，经过大量测试之后，我们确信 Ghost 可以在 Node.js v4
-							平台上流畅的运行并且内存消耗比原来也减少了。目前，Ghost(Pro) 上托</p>
-						<p>从这周起，我们将 Ghost 推荐 Node.js 版本升级为 Node.js v4 LTS。
-							我们这样做其实已经落后于计划了。然而，经过大量测试之后，我们确信 Ghost 可以在 Node.js v4
-							平台上流畅的运行并且内存消耗比原来也减少了。目前，Ghost(Pro) 上托</p>
-						<p>从这周起，我们将 Ghost 推荐 Node.js 版本升级为 Node.js v4 LTS。
-							我们这样做其实已经落后于计划了。然而，经过大量测试之后，我们确信 Ghost 可以在 Node.js v4
-							平台上流畅的运行并且内存消耗比原来也减少了。目前，Ghost(Pro) 上托</p>
-
-
-					</div>
-
-
-
-
-
-					<div class="copyright-area">
-						原文出处： <a ref="nofollow" target="_blank"
-							href="https://www.evget.com/article/2015/11/19/23028.html">回忆和感动</a>
-					</div>
-					<p>这是我们今天要讨论的话题，因为我觉得它非常的有趣。</p>
-					<p>如果你运行如下代码：</p>
+					<p>
+						本文中，小编搜集了7个最有影响的衡量标注，让你可以不依赖日志文件来了解应用程序。现在，让我们看看这些性能指标，并了解如何查看并收集它们：
+					</p>
+					<h2>
+						<strong> 1.响应时间和吞吐量 </strong>
+					</h2>
+					<p>
+						根据应用程序的响应时间可以知道程序完成传输数据所用的时间。也可以从HTTP请求级别，或者成为数据库级别来看。对那些缓慢的查询你需要做一些优化来缩短时间。吞吐量是另一个角度衡量传输数据的指标，是指单位时间内系统处理的客户请求的数量。
+					</p>
+					<p>我们可以使用APMs（例如New
+						Relic或AppDynamics）来衡量这些指标。使用这些工具，你可以在主报告仪表板中将平均响应时间与昨天的甚至上周的直接进行对比。这有助于我们观察新的部署是否会影响到我们的应用程序。你可以看到网络传输的百分比，测量HTTP完成请求需要多长时间。
+					</p>
+					<p>推荐工具：</p>
+					<ul>
+						<li><a class="external" href="http://www.appdynamics.com/"
+							rel="nofollow" target="_blank"> <strong> AppDynamics
+							</strong>
+						</a></li>
+						<li><a class="external" href="http://newrelic.com/"
+							rel="nofollow" target="_blank"> <strong> New Relic </strong>
+						</a></li>
+						<li><a class="external" href="https://ruxit.com/"
+							rel="nofollow" target="_blank"> <strong> Ruxit </strong>
+						</a></li>
+					</ul>
 					<div>
-						<div id="highlighter_917523"
-							class="syntaxhighlighter notranslate java">
-							<table cellspacing="0" cellpadding="0" border="0">
-								<tbody>
-									<tr>
-										<td class="gutter"><div class="line number1 index0 alt2">1</div>
-											<div class="line number2 index1 alt1">2</div>
-											<div class="line number3 index2 alt2">3</div>
-											<div class="line number4 index3 alt1">4</div></td>
-										<td class="code"><div class="container">
-												<div class="line number1 index0 alt2">
-													<code class="java plain">Integer a = </code>
-													<code class="java value">1000</code>
-													<code class="java plain">, b = </code>
-													<code class="java value">1000</code>
-													<code class="java plain">; </code>
-												</div>
-												<div class="line number2 index1 alt1">
-													<code class="java plain">System.out.println(a == b);</code>
-													<code class="java comments">//1</code>
-												</div>
-												<div class="line number3 index2 alt2">
-													<code class="java plain">Integer c = </code>
-													<code class="java value">100</code>
-													<code class="java plain">, d = </code>
-													<code class="java value">100</code>
-													<code class="java plain">; </code>
-												</div>
-												<div class="line number4 index3 alt1">
-													<code class="java plain">System.out.println(c == d);</code>
-													<code class="java comments">//2</code>
-												</div>
-											</div></td>
-									</tr>
-								</tbody>
-							</table>
-						</div>
+						<img alt="响应时间和吞吐量"
+							src="http://evgetimg.oss-cn-hangzhou.aliyuncs.com/Content/files/2015/11/16/b6ffed055e5747688fd094526df5cad4635832725533427650.jpg" />
 					</div>
-					<p>你会得到以下运行结果：</p>
+					<p>New Relic报告：Web传输百分比和吞吐量</p>
+					<h2>
+						<strong> 2.平均负载 </strong>
+					</h2>
+					<p>
+						第二个应用广泛的指标是平均负载。我们习惯上会把平均负载分为这三步测量，分别是第5分钟、第15分钟和最后1分钟。要保证数量低于机器的内核数。一旦超过内核数，机器就会运行在压力状态下。
+					</p>
+					<p>
+						除了简单测量CPU使用率，还需要关注每个内核的队列中有多少进程。在内核使用率都是100%的情况下，队列中只有1个任务和有6个任务有很大不同。因此，平均负载不能只考虑CPU使用率。
+					</p>
+					<p>推荐工具：</p>
+					<ul>
+						<li><a class="external" href="http://hisham.hm/htop/"
+							rel="nofollow" target="_blank"> <strong> htop </strong>
+						</a></li>
+					</ul>
 					<div>
-						<div id="highlighter_276384"
-							class="syntaxhighlighter notranslate java">
-							<table cellspacing="0" cellpadding="0" border="0">
-								<tbody>
-									<tr>
-										<td class="gutter"><div class="line number1 index0 alt2">1</div>
-											<div class="line number2 index1 alt1">2</div></td>
-										<td class="code"><div class="container">
-												<div class="line number1 index0 alt2">
-													<code class="java keyword">false</code>
-												</div>
-												<div class="line number2 index1 alt1">
-													<code class="java keyword">true</code>
-												</div>
-											</div></td>
-									</tr>
-								</tbody>
-							</table>
-						</div>
+						<img alt="平均负载"
+							src="http://evgetimg.oss-cn-hangzhou.aliyuncs.com/Content/files/2015/11/16/461fad9870ac4508a46cbebd07649380635832726056107546.jpg" />
 					</div>
-					<p>我们知道，如果两个引用指向同一个对象，那么==就成立；反之，如果两个引用指向的不是同一个对象，那么==就不成立，即便两个引用的内容是一样的。因此，结果就会出现false。</p>
-					<p>这是非常有趣的地方。如果你查看Integer.java类，你会找到IntegerCache.java这个内部私有类，它为-128到127之间的所有整数对象提供缓存。</p>
-					<p>这个东西为那些数值比较小的整数提供内部缓存，当进行如此声明时：</p>
+					<h2></h2>
+					<h2>
+						<strong> 3.错误率 </strong>
+					</h2>
+					<p>
+						大多数开发人员判断错误率是根据HTTP传输总失败百分比。但是他们忽略了一个更深层的东西：特定传输的错误率。这直接影响到您应用程序的运行状况。这可以显示出代码方法的错误以及错误或异常出现的次数。
+					</p>
 					<div>
-						<div id="highlighter_646347">
-							<div>
-								<div id="highlighter_597335"
-									class="syntaxhighlighter notranslate java">
-									<table cellspacing="0" cellpadding="0" border="0">
-										<tbody>
-											<tr>
-												<td class="gutter"><div
-														class="line number1 index0 alt2">1</div></td>
-												<td class="code"><div class="container">
-														<div class="line number1 index0 alt2">
-															<code class="java plain">Integer c = </code>
-															<code class="java value">100</code>
-															<code class="java plain">;</code>
-														</div>
-													</div></td>
-											</tr>
-										</tbody>
-									</table>
-								</div>
-							</div>
-						</div>
+						<img alt="错误率"
+							src="http://evgetimg.oss-cn-hangzhou.aliyuncs.com/Content/files/2015/11/16/078acb723ae74f168fb3766dc24ca305635832726366795316.jpg" />
 					</div>
-					<p>它的内部就是这样的：</p>
+					<p>
+						但单纯的错误率数据对我们没有多大帮助。最重要的是我们要找到它们的根源并解决问题。随着Takipi的运行，我们要在日志文件中需找线索。你可以找到所有关于服务器状态的信息，包括堆栈跟踪、源代码和变量值。
+					</p>
+					<p>推荐工具：</p>
+					<ul>
+						<li><a class="external" href="http://www.takipi.com/"
+							rel="nofollow" target="_blank"> <strong> Takipi </strong>
+						</a></li>
+					</ul>
 					<div>
-						<div id="highlighter_39960">
-							<div>
-								<div id="highlighter_508740"
-									class="syntaxhighlighter notranslate java">
-									<table cellspacing="0" cellpadding="0" border="0">
-										<tbody>
-											<tr>
-												<td class="gutter"><div
-														class="line number1 index0 alt2">1</div></td>
-												<td class="code"><div class="container">
-														<div class="line number1 index0 alt2">
-															<code class="java plain">Integer i =
-																Integer.valueOf(</code>
-															<code class="java value">100</code>
-															<code class="java plain">);</code>
-														</div>
-													</div></td>
-											</tr>
-										</tbody>
-									</table>
-								</div>
-							</div>
-						</div>
+						<img alt="Takipi"
+							src="http://evgetimg.oss-cn-hangzhou.aliyuncs.com/Content/files/2015/11/16/932909f574c24083836cbb5d28447fdd635832726726735903.jpg" />
 					</div>
-					<p>如果我们观察valueOf()类函数，我们可以看到</p>
+					<h2></h2>
+					<h2>
+						<strong> 4.GC率和暂停时间 </strong>
+					</h2>
+					<p>
+						异常行为垃圾收集器应用程序的吞吐量和响应时间采取深潜的主要原因之一。了解GC暂停频率和持续时间的关键是分析GC日志文件。要分析它们，你需要收集GC日志和JVM参数。你要注意观察不同指标之间的数据是如何相互影响的。
+					</p>
+					<p>推荐工具：</p>
+					<ul>
+						<li><a class="external"
+							href="http://www.jclarity.com/censum/" rel="nofollow"
+							target="_blank"> <strong> jClarity Censum </strong>
+						</a></li>
+						<li><a class="external"
+							href="https://github.com/chewiebug/GCViewer" rel="nofollow"
+							target="_blank"> <strong> GCViewer </strong>
+						</a></li>
+					</ul>
+					<h2>
+						<strong> 5.业务指标 </strong>
+					</h2>
+					<p>应用程序的性能不完全取决于响应时间和错误率。业务指标也是一方面，例如收益、用户数。</p>
+					<p>推荐工具：</p>
+					<ul>
+						<li><a class="external" href="http://grafana.org/"
+							rel="nofollow" target="_blank"> <strong> Grafana </strong>
+						</a></li>
+						<li><a class="external" href="https://www.elastic.co/"
+							rel="nofollow" target="_blank"> <strong> The ELK
+									stack </strong>
+						</a></li>
+						<li><a class="external" href="https://www.datadoghq.com/"
+							rel="nofollow" target="_blank"> <strong> Datadog </strong>
+						</a></li>
+						<li><a class="external" href="https://www.librato.com/"
+							rel="nofollow" target="_blank"> <strong> Librato </strong>
+						</a></li>
+					</ul>
+					<h2>
+						<strong> 6.正常运行时间和服务运行状态 </strong>
+					</h2>
+					<p>
+						这一指标奠定了整个应用程序性能的基础。不仅可以当做一个提醒指标，也可以让你定义一段时间内的SKA。我们可以使用Pingdom的servlet功能进行运行状态检查。我们可以查到应用程序的所有传输，包括数据库和S3。
+					</p>
+					<p>推荐工具：</p>
+					<ul>
+						<li><a class="external" href="https://www.pingdom.com/"
+							rel="nofollow" target="_blank"> <strong> Pingdom </strong>
+						</a></li>
+					</ul>
 					<div>
-						<div id="highlighter_584096">
-							<div>
-								<div id="highlighter_634009"
-									class="syntaxhighlighter notranslate java">
-									<table cellspacing="0" cellpadding="0" border="0">
-										<tbody>
-											<tr>
-												<td class="gutter"><div
-														class="line number1 index0 alt2">1</div>
-													<div class="line number2 index1 alt1">2</div>
-													<div class="line number3 index2 alt2">3</div>
-													<div class="line number4 index3 alt1">4</div>
-													<div class="line number5 index4 alt2">5</div></td>
-												<td class="code"><div class="container">
-														<div class="line number1 index0 alt2">
-															<code class="java keyword">public</code>
-															<code class="java keyword">static</code>
-															<code class="java plain">Integer valueOf(</code>
-															<code class="java keyword">int</code>
-															<code class="java plain">i) {</code>
-														</div>
-														<div class="line number2 index1 alt1">
-															<code class="java spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code>
-															<code class="java keyword">if</code>
-															<code class="java plain">(i &gt;= IntegerCache.low
-																&amp;&amp; i</code>
-														</div>
-														<div class="line number3 index2 alt2">
-															<code class="java spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code>
-															<code class="java keyword">return</code>
-															<code class="java plain">IntegerCache.cache[i +
-																(-IntegerCache.low)];</code>
-														</div>
-														<div class="line number4 index3 alt1">
-															<code class="java spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code>
-															<code class="java keyword">return</code>
-															<code class="java keyword">new</code>
-															<code class="java plain">Integer(i);</code>
-														</div>
-														<div class="line number5 index4 alt2">
-															<code class="java spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code>
-															<code class="java plain">}</code>
-														</div>
-													</div></td>
-											</tr>
-										</tbody>
-									</table>
-								</div>
-							</div>
-						</div>
+						<img alt="服务运行状态"
+							src="http://evgetimg.oss-cn-hangzhou.aliyuncs.com/Content/files/2015/11/16/a0a85da214fb401bbffda8d29522d272635832727080706149.jpg" />
 					</div>
-					<p>如果值在-128到127之间，它就会返回该缓存的实例。</p>
-					<p>因此。。。</p>
-					<div>
-						<div id="highlighter_796931"
-							class="syntaxhighlighter notranslate java">
-							<table cellspacing="0" cellpadding="0" border="0">
-								<tbody>
-									<tr>
-										<td class="gutter"><div class="line number1 index0 alt2">1</div></td>
-										<td class="code"><div class="container">
-												<div class="line number1 index0 alt2">
-													<code class="java plain">Integer c = </code>
-													<code class="java value">100</code>
-													<code class="java plain">, d = </code>
-													<code class="java value">100</code>
-													<code class="java plain">;</code>
-												</div>
-											</div></td>
-									</tr>
-								</tbody>
-							</table>
-						</div>
-					</div>
-					<p>两者指向同样的对象。</p>
-					<p>这就是为什么这段代码的结果为true了：</p>
-					<div>
-						<div id="highlighter_210749"
-							class="syntaxhighlighter notranslate java">
-							<table cellspacing="0" cellpadding="0" border="0">
-								<tbody>
-									<tr>
-										<td class="gutter"><div class="line number1 index0 alt2">1</div></td>
-										<td class="code"><div class="container">
-												<div class="line number1 index0 alt2">
-													<code class="java plain">System.out.println(c == d);</code>
-												</div>
-											</div></td>
-									</tr>
-								</tbody>
-							</table>
-						</div>
-					</div>
-					<p>现在你可能会问，为什么会为-128到127之间的所有整数设置缓存？</p>
-					<p>这是因为在这个范围内的小数值整数在日常生活中的使用频率要比其它的大得多，多次使用相同的底层对象这一特性可以通过该设置进行有效的内存优化。你可以使用reflection
-						API任意使用这个功能。</p>
-					<p>运行下面的这段代码，你就会明白它的神奇所在了。</p>
-					<div>
-						<div id="highlighter_532853"
-							class="syntaxhighlighter notranslate java">
-							<table cellspacing="0" cellpadding="0" border="0">
-								<tbody>
-									<tr>
-										<td class="gutter"><div class="line number1 index0 alt2">1</div>
-											<div class="line number2 index1 alt1">2</div>
-											<div class="line number3 index2 alt2">3</div>
-											<div class="line number4 index3 alt1">4</div>
-											<div class="line number5 index4 alt2">5</div>
-											<div class="line number6 index5 alt1">6</div>
-											<div class="line number7 index6 alt2">7</div>
-											<div class="line number8 index7 alt1">8</div>
-											<div class="line number9 index8 alt2">9</div>
-											<div class="line number10 index9 alt1">10</div>
-											<div class="line number11 index10 alt2">11</div>
-											<div class="line number12 index11 alt1">12</div>
-											<div class="line number13 index12 alt2">13</div></td>
-										<td class="code"><div class="container">
-												<div class="line number1 index0 alt2">
-													<code class="java keyword">public</code>
-													<code class="java keyword">static</code>
-													<code class="java keyword">void</code>
-													<code class="java plain">main(String[] args) </code>
-													<code class="java keyword">throws</code>
-													<code class="java plain">NoSuchFieldException,
-														IllegalAccessException {</code>
-												</div>
-												<div class="line number2 index1 alt1">&nbsp;</div>
-												<div class="line number3 index2 alt2">
-													<code class="java spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code>
-													<code class="java plain">Class cache = Integer.</code>
-													<code class="java keyword">class</code>
-													<code class="java plain">.getDeclaredClasses()[</code>
-													<code class="java value">0</code>
-													<code class="java plain">]; </code>
-													<code class="java comments">//1</code>
-												</div>
-												<div class="line number4 index3 alt1">
-													<code class="java spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code>
-													<code class="java plain">Field myCache =
-														cache.getDeclaredField(</code>
-													<code class="java string">"cache"</code>
-													<code class="java plain">); </code>
-													<code class="java comments">//2</code>
-												</div>
-												<div class="line number5 index4 alt2">
-													<code class="java spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code>
-													<code class="java plain">myCache.setAccessible(</code>
-													<code class="java keyword">true</code>
-													<code class="java plain">);</code>
-													<code class="java comments">//3</code>
-												</div>
-												<div class="line number6 index5 alt1">&nbsp;</div>
-												<div class="line number7 index6 alt2">
-													<code class="java spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code>
-													<code class="java plain">Integer[] newCache =
-														(Integer[]) myCache.get(cache); </code>
-													<code class="java comments">//4</code>
-												</div>
-												<div class="line number8 index7 alt1">
-													<code class="java spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code>
-													<code class="java plain">newCache[</code>
-													<code class="java value">132</code>
-													<code class="java plain">] = newCache[</code>
-													<code class="java value">133</code>
-													<code class="java plain">]; </code>
-													<code class="java comments">//5</code>
-												</div>
-												<div class="line number9 index8 alt2">&nbsp;</div>
-												<div class="line number10 index9 alt1">
-													<code class="java spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code>
-													<code class="java keyword">int</code>
-													<code class="java plain">a = </code>
-													<code class="java value">2</code>
-													<code class="java plain">;</code>
-												</div>
-												<div class="line number11 index10 alt2">
-													<code class="java spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code>
-													<code class="java keyword">int</code>
-													<code class="java plain">b = a + a;</code>
-												</div>
-												<div class="line number12 index11 alt1">
-													<code class="java spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code>
-													<code class="java plain">System.out.printf(</code>
-													<code class="java string">"%d + %d = %d"</code>
-													<code class="java plain">, a, a, b); </code>
-													<code class="java comments">//</code>
-												</div>
-												<div class="line number13 index12 alt2">
-													<code class="java spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code>
-													<code class="java plain">}</code>
-												</div>
-											</div></td>
-									</tr>
-								</tbody>
-							</table>
-						</div>
-					</div>
-					<div></div>
-
-
-
+					<h2>
+						<strong> 7.日志大小 </strong>
+					</h2>
+					<p>日志有一个缺点，它是一直在增加的。当您的服务器启动塞满了垃圾，一切都慢下来。因此，我们需要密切的关注日志大小。</p>
+					<p>目前通常的解决办法是使用logstash划分使用日志，并将它们发送并存储在Splunk、ELK或其他的日志管理工具中。</p>
+					<p>推荐工具：</p>
+					<ul>
+						<li><a class="external" href="http://www.splunk.com/"
+							rel="nofollow" target="_blank"> <strong> Splunk </strong>
+						</a></li>
+						<li><a class="external" href="http://www.sumologic.com/"
+							rel="nofollow" target="_blank"> <strong> Sumo Logic
+							</strong>
+						</a></li>
+						<li><a class="external" href="https://www.loggly.com/"
+							rel="nofollow" target="_blank"> <strong> Loggly </strong>
+						</a></li>
+					</ul>
 					<!-- BEGIN #author-bio -->
-
-
 					<!-- END #author-bio -->
-
-				</article>
 			</div>
+			</article>
 			<div class="col-md-4 sidebar">
 				<c:import url="right-display.jsp" />
 			</div>
