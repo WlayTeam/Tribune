@@ -8,7 +8,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <link rel="shortcut icon" href="image/head.ico" />
 <title>WlayTeam Tribune</title>
-<script type="text/javascript" src="./js/jquery.js"></script>
+<script type="text/javascript" src="./js/jquery-2.1.4.min.js"></script>
 <script src="./js/bootstrap/bootstrap.min.js"></script>
 <style type="text/css">
 @IMPORT url("./css/bootstrap/bootstrap.min.css");

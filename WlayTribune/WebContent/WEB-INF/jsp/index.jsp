@@ -8,9 +8,12 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <link rel="shortcut icon" href="image/head.ico" />
 <title>WlayTeam Tribune</title>
-<script type="text/javascript" src="./js/jquery-1.8.3.min.js"></script>
+<script type="text/javascript" src="./js/jquery-2.1.4.min.js"></script>
 <script src="./js/bootstrap/bootstrap.min.js"></script>
 <style type="text/css">
+.navbar{
+	min-height：51px;
+}
 @IMPORT url("./css/bootstrap/bootstrap.min.css");
 
 @IMPORT url("./css/index.css");

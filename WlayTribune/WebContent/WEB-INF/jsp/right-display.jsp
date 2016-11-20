@@ -96,7 +96,6 @@
 	border-radius:4px;
 }
 </style>
-<script type="text/javascript" src="js/jquery.js"></script>
 <script type="text/javascript">
 	window.onload = function() {
 		var oUl = document.getElementById("right-ul");
