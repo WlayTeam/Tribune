@@ -8,7 +8,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <link rel="shortcut icon" href="image/head.ico" />
 <title>WlayTeam Tribune</title>
-<script type="text/javascript" src="./js/jquery.js"></script>
+<script type="text/javascript" src="./js/jquery-1.8.3.min.js"></script>
 <script src="./js/bootstrap/bootstrap.min.js"></script>
 <style type="text/css">
 @IMPORT url("./css/bootstrap/bootstrap.min.css");
@@ -67,6 +67,17 @@
 			</div> -->
 	<!--  </div>-->
 	<!--<div align="center" class="title-style">-->
+	<div class="dropdown">
+  <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown">
+    Dropdown
+    <span class="caret"></span>
+  </button>
+  <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
+    <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Action</a></li>
+    <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Another action</a></li>
+    <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Something else here</a></li>
+    <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Separated link</a></li>
+  </ul>
 	<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
 		<div class="container">
 			<div class="navbar-header">
@@ -87,7 +98,8 @@
 					<li><a href="#News">News</a></li>
 					<li><a href="#Web">web</a></li>
 					<li><a href="#Books">Books</a></li>
-					<li class="dropdown"><a href="#" class="dropdown-toggle"
+					<li class="dropdown">
+					<a href="#" class="dropdown-toggle"
 						data-toggle="dropdown">Code <span class="caret"></span></a>
 						<ul class="dropdown-menu" role="menu">
 							<li><a href="#">Java</a></li>
@@ -97,12 +109,28 @@
 							<li class="dropdown-header">Nav header</li>
 							<li><a href="#">Separated link</a></li>
 							<li><a href="#">One more separated link</a></li>
-						</ul></li>
+						</ul>
+						</li>
 				</ul>
 			</div>
 		</div>
 	</nav>
+	
+	
 	<div style="height: 80px;"></div>
+	
+	<div class="dropdown">
+  <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown">
+    Dropdown
+    <span class="caret"></span>
+  </button>
+  <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
+    <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Action</a></li>
+    <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Another action</a></li>
+    <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Something else here</a></li>
+    <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Separated link</a></li>
+  </ul>
+</div>
 	<div class="container">
 		<!-- 右边的栏位 预留 -->
 
