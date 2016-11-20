@@ -22,12 +22,17 @@ class htmlParser(object):
         res_data = {}
         linkre = re.compile(r'.+\d+\.html$')
         if re.match(linkre, page_url):
-            #url
+            # url
             res_data['url'] = page_url
-            #title
+            # title
             title_node = soup.find('div', class_='entry-header').find('h1')
+            
+            introduction = soup.find('div', class_='entry').find('p')
+            
+            res_data['introduction'] = introduction.get_text()
+            
             res_data['title'] = title_node.get_text()
-            #summary
+            # summary
             summary_node = soup.find('div', class_='entry')
             res_data['summary'] = summary_node.prettify()
         return res_data
@@ -40,7 +45,7 @@ class htmlParser(object):
         
         new_urls = self.get_new_urls(page_url, soup)
         new_data = self.get_new_data(page_url, soup)
-        return new_urls,new_data
+        return new_urls, new_data
     
 
 

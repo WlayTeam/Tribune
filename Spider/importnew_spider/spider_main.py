@@ -31,6 +31,7 @@ class SpiderManager(object):
                 new_urls, new_data = self.parser.parse(new_url, html_cont)
                 self.urls.add_old_url(new_url)
                 print("title:",new_data.get('title'))
+                print("introduction:",new_data.get('introduction'))
                 print("summary:",new_data.get('summary'))
                 self.urls.add_new_urls(new_urls)
                 self.outputer.collect_data(new_data)
