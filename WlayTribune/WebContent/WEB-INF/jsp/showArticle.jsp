@@ -82,7 +82,7 @@
 			<div id="navbar" class="navbar-collapse collapse">
 				<ul class="nav navbar-nav">
 					<li class="active"><a href="${pageContext.request.contextPath }/toIndex">Home</a></li>
-					<li><a href="${pageContext.request.contextPath }/allArticle">Article</a></li>
+					<li><a href="#">Article</a></li>
 					<li><a href="#News">News</a></li>
 					<li><a href="#Web">web</a></li>
 					<li><a href="#Books">Books</a></li>
