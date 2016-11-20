@@ -109,7 +109,7 @@ border-top:1px solid #303030;
 					<h4 class="title">联系我们</h4>
 					<div class="content recent-post">
 						<p style="padding-left:25px;">StackTc&nbsp;&nbsp;&nbsp;353071437@qq.com</p>
-						<p style="padding-left:25px;">Ashin&nbsp;&nbsp;&nbsp;http://www.github.com/LxAshin</p>
+						<p style="padding-left:25px;">Ashin&nbsp;&nbsp;&nbsp;<a href="https://github.com/LxAshin">https://github.com/LxAshin</a></p>
 					</div>
 				</div>
 			</div>
