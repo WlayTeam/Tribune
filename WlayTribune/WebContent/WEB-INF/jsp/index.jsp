@@ -12,6 +12,9 @@
 <script type="text/javascript" src="./js/bootstrap/bootstrap.js"></script>
 <script src="./js/bootstrap/bootstrap.min.js"></script>
 <style type="text/css">
+.navbar{
+	min-height：51px;
+}
 @IMPORT url("./css/bootstrap/bootstrap.min.css");
 
 @IMPORT url("./css/index.css");

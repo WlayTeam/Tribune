@@ -8,7 +8,6 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <link rel="shortcut icon" href="image/head.ico" />
 <title>WlayTeam Tribune</title>
-<script type="text/javascript" src="./js/jquery.js"></script>
 <script src="./js/bootstrap/bootstrap.min.js"></script>
 <style type="text/css">
 @IMPORT url("./css/bootstrap/bootstrap.min.css");
@@ -109,13 +108,13 @@ border-top:1px solid #303030;
 					<h4 class="title">联系我们</h4>
 					<div class="content recent-post">
 						<p style="padding-left:25px;">StackTc&nbsp;&nbsp;&nbsp;353071437@qq.com</p>
-						<p style="padding-left:25px;">Ashin&nbsp;&nbsp;&nbsp;<a href="https://github.com/LxAshin">https://github.com/LxAshin</a></p>
+						<p style="padding-left:25px;">Ashin&nbsp;&nbsp;&nbsp;<a href="https://github.com/LxAshin" target="_blank">https://github.com/LxAshin</a></p>
 					</div>
 				</div>
 			</div>
 		</div>
 	</div>
-	
+	 
 	<div class="copyright">
 		<div class="container">
 			<div class="row">
