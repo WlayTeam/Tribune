@@ -7,6 +7,7 @@
 package com.wlayteam.service.impl;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 import javax.annotation.Resource;
 import org.springframework.stereotype.Service;
@@ -24,8 +25,6 @@ import com.wlayteam.utils.DBConnectionUtil;
 @Service
 public class LatestArticleServiceImpl implements LatestArticleService {
 
-	@Resource(name = "articleDataBean")
-	private ArticleDataBean articleDataBean;
 
 	@Resource(name = "dbConnectionUtil")
 	private DBConnectionUtil dbConnectionUtil;
@@ -33,11 +32,13 @@ public class LatestArticleServiceImpl implements LatestArticleService {
 	@Resource(name = "latestArticleDaoImpl")
 	private LatestArticleDaoImpl latestArticleDaoImpl;
 
+	private ArrayList<ArticleDataBean> arrticleList;
+
 	@Override
-	public ArticleDataBean findLatestArticle() throws SQLException {
+	public ArrayList<ArticleDataBean> findLatestArticle() throws SQLException {
 		Connection connection = dbConnectionUtil.getConnection();
-		articleDataBean = latestArticleDaoImpl.findLatestArticle(connection);
-		return articleDataBean;
+		arrticleList = latestArticleDaoImpl.findLatestArticle(connection);
+		return arrticleList;
 	}
 
 }

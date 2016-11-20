@@ -8,6 +8,8 @@ package com.wlayteam.model;
 import java.util.Date;
 
 public class ArticleDataBean {
+	/*title id*/
+	private int tid;
 	/**article title*/
 	private String title;
 	/**article author*/
@@ -49,10 +51,20 @@ public class ArticleDataBean {
 		this.summary = summary;
 	}
 
+	public int getTid() {
+		return tid;
+	}
+
+	public void setTid(int tid) {
+		this.tid = tid;
+	}
+
 	@Override
 	public String toString() {
-		return "ArticleDataBean [title=" + title + ", author=" + author + ", uTime=" + uTime + ", summary=" + summary
-				+ "]";
+		return "ArticleDataBean [tid=" + tid + ", title=" + title + ", author=" + author + ", uTime=" + uTime
+				+ ", summary=" + summary + "]";
 	}
+
+	
 
 }

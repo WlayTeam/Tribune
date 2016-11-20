@@ -99,25 +99,8 @@
 						</ul></li>
 				</ul>
 			</div>
-			<!--/.nav-collapse -->
 		</div>
 	</nav>
-	<!-- 			<div class="inner_title"> -->
-	<!-- 				<ul class="list"> -->
-	<!-- 					<li><a href="#">首页</a></li> -->
-	<%-- 					<li><a href="${pageContext.request.contextPath }/allArticle">所有文章</a></li> --%>
-	<!-- 					<li><a href="#">资讯</a></li> -->
-	<!-- 					<li><a href="#">web</a></li> -->
-	<!-- 					<li><a href="#">架构</a></li> -->
-	<!-- 					<li><a href="#">基础技术</a></li> -->
-	<!-- 					<li><a href="#">书籍</a></li> -->
-	<!-- 					<li><a href="#">教程</a></li> -->
-	<!-- 					<li><a href="http://group.jobbole.com/category/tech/java/" -->
-	<!-- 						target="_blank">java小组</a></li> -->
-	<!-- 					<li><a href="http://hao.jobbole.com/?catid=32" target="_blank">工具资源</a></li> -->
-	<!-- 				</ul> -->
-	<!-- 			</div> -->
-	<!--</div>-->
 	<div style="height: 80px;"></div>
 	<div class="container">
 		<!-- 右边的栏位 预留 -->
@@ -125,69 +108,44 @@
 
 		<div class="row">
 			<div class="col-md-8 main-content">
-				<article id=98 class="post">
 
-					<div class="post-head">
-						<h1 class="post-title">
-							<a href="/moving-to-node-js-v4-lts/">Node.js v4 LTS 成为 Ghost
-								推荐版本</a>
-						</h1>
-						<div class="post-meta">
-							<span class="author">作者：<a href="/author/wangsai/">XX</a></span>
-							&bull;
-							<time class="post-date" datetime="2016年7月26日星期二上午9点54分"
-								title="2016年7月26日星期二上午9点54分">2016年7月26日</time>
+				<c:forEach items="${arrticleList }" var="art">
+
+
+					<article id=98 class="post">
+
+						<div class="post-head">
+							<h1 class="post-title">
+								<a href="#">${art.title}</a>
+							</h1>
+							<div class="post-meta">
+								<span class="author">作者：<a href="/author/wangsai/">XX</a></span>
+								&bull;
+								<time class="post-date" datetime="2016年7月26日星期二上午9点54分"
+									title="2016年7月26日星期二上午9点54分">2016年7月26日</time>
+							</div>
 						</div>
-					</div>
-					<div class="post-content">
-						<p>从这周起，我们将 Ghost 推荐 Node.js 版本升级为 Node.js v4 LTS。
-							我们这样做其实已经落后于计划了。然而，经过大量测试之后，我们确信 Ghost 可以在 Node.js v4
-							平台上流畅的运行并且内存消耗比原来也减少了。目前，Ghost(Pro) 上托</p>
-					</div>
-					<div class="post-permalink" style="float: right">
-						<a href="/moving-to-node-js-v4-lts/" class="btn btn-primary">阅读全文</a>
-					</div>
-
-					<footer class="post-footer clearfix">
-						<div class="pull-left tag-list">
-							<i class="fa fa-folder-open-o"></i>
-
+						<div class="post-content">
+							<p>从这周起，我们将 Ghost 推荐 Node.js 版本升级为 Node.js v4 LTS。
+								我们这样做其实已经落后于计划了。然而，经过大量测试之后，我们确信 Ghost 可以在 Node.js v4
+								平台上流畅的运行并且内存消耗比原来也减少了。目前，Ghost(Pro) 上托</p>
 						</div>
-						<div class="pull-right share"></div>
-					</footer>
-				</article>
-
-
-				<article id=94 class="post">
-					<div class="post-head">
-						<h1 class="post-title">
-							<a href="/ghost-0-7-4-released/">Ghost 0.7.4 正式发布</a>
-						</h1>
-						<div class="post-meta">
-							<span class="author">作者：<a href="/author/wangsai/">XX</a></span>
-							&bull;
-							<time class="post-date" datetime="2015年12月29日星期二凌晨12点01分"
-								title="2015年12月29日星期二凌晨12点01分">2015年12月29日</time>
+						<div class="post-permalink" style="float: right">
+							<a href="${pageContext.request.contextPath }/showArticle?tid=${art.tid}"
+								class="btn btn-primary">阅读全文</a>
 						</div>
-					</div>
-					<div class="featured-media">
-						<a href="/ghost-0-7-4-released/"><img
-							src="http://static.ghostchina.com/image/a/21/de1b2911072f5a4eff82abdb62632.png"
-							alt="Ghost 0.7.4 正式发布"></a>
-					</div>
-					<div class="post-content">
-						<p>紧随 Ghost 官方脚步，Ghost 0.7.4 中文正式版发布了！这一版本包含了自 Ghost 0.7.3
-							版本发布以来所修正的 bug，主要是针对开放 API 功能的改进。 0.7.1、0.7.2、0.7.3 这些版本哪去了？ 从
-							Ghost 0.7.0 版本发布以来，Gh</p>
-					</div>
-					<div class="post-permalink">
-						<a href="/ghost-0-7-4-released/" class="btn btn-primary"
-							style="float: right">阅读全文</a>
-					</div>
 
+						<footer class="post-footer clearfix">
+							<div class="pull-left tag-list">
+								<i class="fa fa-folder-open-o"></i>
 
-				</article>
-				
+							</div>
+							<div class="pull-right share"></div>
+						</footer>
+					</article>
+
+				</c:forEach>
+
 				<nav style="text-align: center;">
 					<ul class="pagination">
 						<li class="disabled"><a href="#">&laquo;</a></li>
@@ -199,8 +157,6 @@
 						<li><a href="#">&raquo;</a></li>
 					</ul>
 				</nav>
-s
-
 			</div>
 			<div class="col-md-4 sidebar">
 				<c:import url="right-display.jsp" />
@@ -208,58 +164,10 @@ s
 
 		</div>
 
-		<!-- 		<div class="inner_content"> -->
-		<!-- 			<div style="height: 90px;"></div> -->
-		<!-- 			<div class="suggestedreading"> -->
-		<!-- 				<div class="content-title-style"> -->
-		<!-- 					<h5>推荐阅读</h5> -->
-		<!-- 					<hr align="left" /> -->
-		<!-- 				</div> -->
-
-		<!-- 				<div class="suggestedreading_inner"></div> -->
-		<!-- 			</div> -->
-
-		<!-- 			<div class="new_article"> -->
-		<!-- 				<div class="content-middle-style"> -->
-		<!-- 					<h5>最新文章</h5> -->
-		<!-- 					<hr align="left" /> -->
-		<!-- 				</div> -->
-		<!-- 				<div class="content-midele-left"></div> -->
-		<!-- 			</div> -->
-
-
-		<!-- 			<div class="java"> -->
-		<!-- 				<div class="content-middle-style"> -->
-		<!-- 					<h5>java干货</h5> -->
-		<!-- 					<hr align="left" /> -->
-		<!-- 				</div> -->
-		<!-- 				<div class="content-midele-right"></div> -->
-		<!-- 			</div> -->
-
-		<!-- 			<div class="industry_dynamics"> -->
-		<!-- 				<div class="content-bottom-style"> -->
-		<!-- 					<h5>业界动态</h5> -->
-		<!-- 					<hr align="left" /> -->
-		<!-- 				</div> -->
-		<!-- 				<div class="contet-bottom"></div> -->
-		<!-- 			</div> -->
-
-		<!-- 			<div class="base_tic"> -->
-		<!-- 				<div class="content-mostbottom-style"> -->
-		<!-- 					<h5>基础技术</h5> -->
-		<!-- 					<hr align="left" /> -->
-		<!-- 				</div> -->
-		<!-- 				<div class="contet-mostbottom"></div> -->
-		<!-- 			</div> -->
-
-
-
-		<!-- 		</div> -->
 
 
 	</div>
 
-
-<c:import url="footer.jsp" />
+	<c:import url="footer.jsp" />
 </body>
 </html>

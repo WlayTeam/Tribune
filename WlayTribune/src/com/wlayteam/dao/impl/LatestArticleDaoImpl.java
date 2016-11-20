@@ -8,6 +8,8 @@ package com.wlayteam.dao.impl;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+
 import javax.annotation.Resource;
 import org.springframework.stereotype.Repository;
 
@@ -15,23 +17,26 @@ import com.mysql.jdbc.Connection;
 import com.mysql.jdbc.Statement;
 import com.wlayteam.dao.LatestArticleDao;
 import com.wlayteam.model.ArticleDataBean;
+
 @Repository
 public class LatestArticleDaoImpl implements LatestArticleDao {
-	@Resource(name="articleDataBean")
-	private ArticleDataBean articleDataBean;
+	// @Resource(name = "articleDataBean")
 	
-	
+	private ArrayList<ArticleDataBean> arrticleList = new ArrayList<ArticleDataBean>();
+
 	@Override
-	public ArticleDataBean findLatestArticle(Connection connection) throws SQLException {
-		String sql = "select * from summary";
+	public ArrayList<ArticleDataBean> findLatestArticle(Connection connection) throws SQLException {
+		String sql = "select * from title";
 		Statement statement = (Statement) connection.createStatement();
 		ResultSet resultSet = statement.executeQuery(sql);
-		while(resultSet.next()){
-			articleDataBean.setAuthor(resultSet.getString("author"));
-		}
-		return articleDataBean;
-	}
-	
+		while (resultSet.next()) {
+		 ArticleDataBean articleDataBean = new ArticleDataBean();
+			articleDataBean.setTitle(resultSet.getString("title"));
+			articleDataBean.setTid(resultSet.getInt("tid"));
+			arrticleList.add(articleDataBean);
 
+		}
+		return arrticleList;
+	}
 
 }

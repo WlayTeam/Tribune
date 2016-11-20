@@ -52,7 +52,7 @@
 	<bean id="dbConnectionUtil" class="com.wlayteam.utils.DBConnectionUtil"></bean>
 
 	<!-- ===================databean==================== -->
-	<bean id="articleDataBean" class="com.wlayteam.model.ArticleDataBean" />
+	<bean id="articleDataBean" class="com.wlayteam.model.ArticleDataBean"/>
 
 	<!-- ====================service==================== -->
 	<bean id="latestArticleServiceImpl" class="com.wlayteam.service.impl.LatestArticleServiceImpl"></bean>
