@@ -11,6 +11,14 @@ body {
 	min-height: 56px;
 }
 
+.nava{
+	height: 56px;
+}
+
+.dropdown-toggle{
+	height: 56px;
+}
+
 p {
 	margin: 0 0 10px;
 	display: block;

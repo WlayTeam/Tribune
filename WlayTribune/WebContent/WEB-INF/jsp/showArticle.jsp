@@ -9,6 +9,7 @@
 <link rel="shortcut icon" href="image/head.ico" />
 <title>WlayTeam Tribune</title>
 <script type="text/javascript" src="./js/jquery.js"></script>
+<script type="text/javascript" src="./js/bootstrap/bootstrap.js"></script>
 <script src="./js/bootstrap/bootstrap.min.js"></script>
 <style type="text/css">
 @IMPORT url("./css/bootstrap/bootstrap.min.css");
@@ -81,11 +82,11 @@
 			</div>
 			<div id="navbar" class="navbar-collapse collapse">
 				<ul class="nav navbar-nav">
-					<li class="active"><a href="${pageContext.request.contextPath }/toIndex">Home</a></li>
-					<li><a href="#">Article</a></li>
-					<li><a href="#News">News</a></li>
-					<li><a href="#Web">web</a></li>
-					<li><a href="#Books">Books</a></li>
+					<li class="active"><a href="${pageContext.request.contextPath }/toIndex" class="nava">Home</a></li>
+					<li><a href="#" class="nava">Article</a></li>
+					<li><a href="#News" class="nava">News</a></li>
+					<li><a href="#Web" class="nava">web</a></li>
+					<li><a href="#Books" class="nava">Books</a></li>
 					<li class="dropdown"><a href="#" class="dropdown-toggle"
 						data-toggle="dropdown">Code <span class="caret"></span></a>
 						<ul class="dropdown-menu" role="menu">
