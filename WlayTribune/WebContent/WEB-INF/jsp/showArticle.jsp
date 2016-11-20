@@ -82,7 +82,8 @@
 			</div>
 			<div id="navbar" class="navbar-collapse collapse">
 				<ul class="nav navbar-nav">
-					<li class="active"><a href="${pageContext.request.contextPath }/toIndex" class="nava">Home</a></li>
+					<li class="active"><a
+						href="${pageContext.request.contextPath }/toIndex" class="nava">Home</a></li>
 					<li><a href="#" class="nava">Article</a></li>
 					<li><a href="#News" class="nava">News</a></li>
 					<li><a href="#Web" class="nava">web</a></li>
@@ -168,6 +169,339 @@
 
 
 					</div>
+
+
+
+
+
+					<div class="copyright-area">
+						原文出处： <a ref="nofollow" target="_blank"
+							href="https://www.evget.com/article/2015/11/19/23028.html">回忆和感动</a>
+					</div>
+					<p>这是我们今天要讨论的话题，因为我觉得它非常的有趣。</p>
+					<p>如果你运行如下代码：</p>
+					<div>
+						<div id="highlighter_917523"
+							class="syntaxhighlighter notranslate java">
+							<table cellspacing="0" cellpadding="0" border="0">
+								<tbody>
+									<tr>
+										<td class="gutter"><div class="line number1 index0 alt2">1</div>
+											<div class="line number2 index1 alt1">2</div>
+											<div class="line number3 index2 alt2">3</div>
+											<div class="line number4 index3 alt1">4</div></td>
+										<td class="code"><div class="container">
+												<div class="line number1 index0 alt2">
+													<code class="java plain">Integer a = </code>
+													<code class="java value">1000</code>
+													<code class="java plain">, b = </code>
+													<code class="java value">1000</code>
+													<code class="java plain">; </code>
+												</div>
+												<div class="line number2 index1 alt1">
+													<code class="java plain">System.out.println(a == b);</code>
+													<code class="java comments">//1</code>
+												</div>
+												<div class="line number3 index2 alt2">
+													<code class="java plain">Integer c = </code>
+													<code class="java value">100</code>
+													<code class="java plain">, d = </code>
+													<code class="java value">100</code>
+													<code class="java plain">; </code>
+												</div>
+												<div class="line number4 index3 alt1">
+													<code class="java plain">System.out.println(c == d);</code>
+													<code class="java comments">//2</code>
+												</div>
+											</div></td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+					</div>
+					<p>你会得到以下运行结果：</p>
+					<div>
+						<div id="highlighter_276384"
+							class="syntaxhighlighter notranslate java">
+							<table cellspacing="0" cellpadding="0" border="0">
+								<tbody>
+									<tr>
+										<td class="gutter"><div class="line number1 index0 alt2">1</div>
+											<div class="line number2 index1 alt1">2</div></td>
+										<td class="code"><div class="container">
+												<div class="line number1 index0 alt2">
+													<code class="java keyword">false</code>
+												</div>
+												<div class="line number2 index1 alt1">
+													<code class="java keyword">true</code>
+												</div>
+											</div></td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+					</div>
+					<p>我们知道，如果两个引用指向同一个对象，那么==就成立；反之，如果两个引用指向的不是同一个对象，那么==就不成立，即便两个引用的内容是一样的。因此，结果就会出现false。</p>
+					<p>这是非常有趣的地方。如果你查看Integer.java类，你会找到IntegerCache.java这个内部私有类，它为-128到127之间的所有整数对象提供缓存。</p>
+					<p>这个东西为那些数值比较小的整数提供内部缓存，当进行如此声明时：</p>
+					<div>
+						<div id="highlighter_646347">
+							<div>
+								<div id="highlighter_597335"
+									class="syntaxhighlighter notranslate java">
+									<table cellspacing="0" cellpadding="0" border="0">
+										<tbody>
+											<tr>
+												<td class="gutter"><div
+														class="line number1 index0 alt2">1</div></td>
+												<td class="code"><div class="container">
+														<div class="line number1 index0 alt2">
+															<code class="java plain">Integer c = </code>
+															<code class="java value">100</code>
+															<code class="java plain">;</code>
+														</div>
+													</div></td>
+											</tr>
+										</tbody>
+									</table>
+								</div>
+							</div>
+						</div>
+					</div>
+					<p>它的内部就是这样的：</p>
+					<div>
+						<div id="highlighter_39960">
+							<div>
+								<div id="highlighter_508740"
+									class="syntaxhighlighter notranslate java">
+									<table cellspacing="0" cellpadding="0" border="0">
+										<tbody>
+											<tr>
+												<td class="gutter"><div
+														class="line number1 index0 alt2">1</div></td>
+												<td class="code"><div class="container">
+														<div class="line number1 index0 alt2">
+															<code class="java plain">Integer i =
+																Integer.valueOf(</code>
+															<code class="java value">100</code>
+															<code class="java plain">);</code>
+														</div>
+													</div></td>
+											</tr>
+										</tbody>
+									</table>
+								</div>
+							</div>
+						</div>
+					</div>
+					<p>如果我们观察valueOf()类函数，我们可以看到</p>
+					<div>
+						<div id="highlighter_584096">
+							<div>
+								<div id="highlighter_634009"
+									class="syntaxhighlighter notranslate java">
+									<table cellspacing="0" cellpadding="0" border="0">
+										<tbody>
+											<tr>
+												<td class="gutter"><div
+														class="line number1 index0 alt2">1</div>
+													<div class="line number2 index1 alt1">2</div>
+													<div class="line number3 index2 alt2">3</div>
+													<div class="line number4 index3 alt1">4</div>
+													<div class="line number5 index4 alt2">5</div></td>
+												<td class="code"><div class="container">
+														<div class="line number1 index0 alt2">
+															<code class="java keyword">public</code>
+															<code class="java keyword">static</code>
+															<code class="java plain">Integer valueOf(</code>
+															<code class="java keyword">int</code>
+															<code class="java plain">i) {</code>
+														</div>
+														<div class="line number2 index1 alt1">
+															<code class="java spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code>
+															<code class="java keyword">if</code>
+															<code class="java plain">(i &gt;= IntegerCache.low
+																&amp;&amp; i</code>
+														</div>
+														<div class="line number3 index2 alt2">
+															<code class="java spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code>
+															<code class="java keyword">return</code>
+															<code class="java plain">IntegerCache.cache[i +
+																(-IntegerCache.low)];</code>
+														</div>
+														<div class="line number4 index3 alt1">
+															<code class="java spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code>
+															<code class="java keyword">return</code>
+															<code class="java keyword">new</code>
+															<code class="java plain">Integer(i);</code>
+														</div>
+														<div class="line number5 index4 alt2">
+															<code class="java spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code>
+															<code class="java plain">}</code>
+														</div>
+													</div></td>
+											</tr>
+										</tbody>
+									</table>
+								</div>
+							</div>
+						</div>
+					</div>
+					<p>如果值在-128到127之间，它就会返回该缓存的实例。</p>
+					<p>因此。。。</p>
+					<div>
+						<div id="highlighter_796931"
+							class="syntaxhighlighter notranslate java">
+							<table cellspacing="0" cellpadding="0" border="0">
+								<tbody>
+									<tr>
+										<td class="gutter"><div class="line number1 index0 alt2">1</div></td>
+										<td class="code"><div class="container">
+												<div class="line number1 index0 alt2">
+													<code class="java plain">Integer c = </code>
+													<code class="java value">100</code>
+													<code class="java plain">, d = </code>
+													<code class="java value">100</code>
+													<code class="java plain">;</code>
+												</div>
+											</div></td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+					</div>
+					<p>两者指向同样的对象。</p>
+					<p>这就是为什么这段代码的结果为true了：</p>
+					<div>
+						<div id="highlighter_210749"
+							class="syntaxhighlighter notranslate java">
+							<table cellspacing="0" cellpadding="0" border="0">
+								<tbody>
+									<tr>
+										<td class="gutter"><div class="line number1 index0 alt2">1</div></td>
+										<td class="code"><div class="container">
+												<div class="line number1 index0 alt2">
+													<code class="java plain">System.out.println(c == d);</code>
+												</div>
+											</div></td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+					</div>
+					<p>现在你可能会问，为什么会为-128到127之间的所有整数设置缓存？</p>
+					<p>这是因为在这个范围内的小数值整数在日常生活中的使用频率要比其它的大得多，多次使用相同的底层对象这一特性可以通过该设置进行有效的内存优化。你可以使用reflection
+						API任意使用这个功能。</p>
+					<p>运行下面的这段代码，你就会明白它的神奇所在了。</p>
+					<div>
+						<div id="highlighter_532853"
+							class="syntaxhighlighter notranslate java">
+							<table cellspacing="0" cellpadding="0" border="0">
+								<tbody>
+									<tr>
+										<td class="gutter"><div class="line number1 index0 alt2">1</div>
+											<div class="line number2 index1 alt1">2</div>
+											<div class="line number3 index2 alt2">3</div>
+											<div class="line number4 index3 alt1">4</div>
+											<div class="line number5 index4 alt2">5</div>
+											<div class="line number6 index5 alt1">6</div>
+											<div class="line number7 index6 alt2">7</div>
+											<div class="line number8 index7 alt1">8</div>
+											<div class="line number9 index8 alt2">9</div>
+											<div class="line number10 index9 alt1">10</div>
+											<div class="line number11 index10 alt2">11</div>
+											<div class="line number12 index11 alt1">12</div>
+											<div class="line number13 index12 alt2">13</div></td>
+										<td class="code"><div class="container">
+												<div class="line number1 index0 alt2">
+													<code class="java keyword">public</code>
+													<code class="java keyword">static</code>
+													<code class="java keyword">void</code>
+													<code class="java plain">main(String[] args) </code>
+													<code class="java keyword">throws</code>
+													<code class="java plain">NoSuchFieldException,
+														IllegalAccessException {</code>
+												</div>
+												<div class="line number2 index1 alt1">&nbsp;</div>
+												<div class="line number3 index2 alt2">
+													<code class="java spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code>
+													<code class="java plain">Class cache = Integer.</code>
+													<code class="java keyword">class</code>
+													<code class="java plain">.getDeclaredClasses()[</code>
+													<code class="java value">0</code>
+													<code class="java plain">]; </code>
+													<code class="java comments">//1</code>
+												</div>
+												<div class="line number4 index3 alt1">
+													<code class="java spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code>
+													<code class="java plain">Field myCache =
+														cache.getDeclaredField(</code>
+													<code class="java string">"cache"</code>
+													<code class="java plain">); </code>
+													<code class="java comments">//2</code>
+												</div>
+												<div class="line number5 index4 alt2">
+													<code class="java spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code>
+													<code class="java plain">myCache.setAccessible(</code>
+													<code class="java keyword">true</code>
+													<code class="java plain">);</code>
+													<code class="java comments">//3</code>
+												</div>
+												<div class="line number6 index5 alt1">&nbsp;</div>
+												<div class="line number7 index6 alt2">
+													<code class="java spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code>
+													<code class="java plain">Integer[] newCache =
+														(Integer[]) myCache.get(cache); </code>
+													<code class="java comments">//4</code>
+												</div>
+												<div class="line number8 index7 alt1">
+													<code class="java spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code>
+													<code class="java plain">newCache[</code>
+													<code class="java value">132</code>
+													<code class="java plain">] = newCache[</code>
+													<code class="java value">133</code>
+													<code class="java plain">]; </code>
+													<code class="java comments">//5</code>
+												</div>
+												<div class="line number9 index8 alt2">&nbsp;</div>
+												<div class="line number10 index9 alt1">
+													<code class="java spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code>
+													<code class="java keyword">int</code>
+													<code class="java plain">a = </code>
+													<code class="java value">2</code>
+													<code class="java plain">;</code>
+												</div>
+												<div class="line number11 index10 alt2">
+													<code class="java spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code>
+													<code class="java keyword">int</code>
+													<code class="java plain">b = a + a;</code>
+												</div>
+												<div class="line number12 index11 alt1">
+													<code class="java spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code>
+													<code class="java plain">System.out.printf(</code>
+													<code class="java string">"%d + %d = %d"</code>
+													<code class="java plain">, a, a, b); </code>
+													<code class="java comments">//</code>
+												</div>
+												<div class="line number13 index12 alt2">
+													<code class="java spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code>
+													<code class="java plain">}</code>
+												</div>
+											</div></td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+					</div>
+					<div></div>
+
+
+
+					<!-- BEGIN #author-bio -->
+
+
+					<!-- END #author-bio -->
+
 				</article>
 			</div>
 			<div class="col-md-4 sidebar">
