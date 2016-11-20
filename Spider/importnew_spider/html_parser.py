@@ -29,7 +29,7 @@ class htmlParser(object):
             res_data['title'] = title_node.get_text()
             #summary
             summary_node = soup.find('div', class_='entry')
-            res_data['summary'] = summary_node.get_text()
+            res_data['summary'] = summary_node.prettify()
         return res_data
     
     
