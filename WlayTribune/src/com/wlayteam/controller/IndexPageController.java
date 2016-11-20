@@ -21,7 +21,7 @@ public class IndexPageController {
 	/** instantiate service object */
 	@Resource(name = "latestArticleServiceImpl")
 	private LatestArticleServiceImpl latestArticleServiceImpl;
-	private ArrayList<ArticleDataBean> arrticleList;
+	private ArrayList<ArticleDataBean> arrticleList = new ArrayList<ArticleDataBean>();
 
 	/**
 	 * display index page and diaplay the latest article
@@ -31,23 +31,24 @@ public class IndexPageController {
 	 */
 	@RequestMapping(value = "toIndex")
 	public ModelAndView toIndex(ModelAndView modelAndView) {
-		try {
-			
-			arrticleList = latestArticleServiceImpl.findLatestArticle();
 		
+		try {
+			arrticleList = latestArticleServiceImpl.findLatestArticle();
 			modelAndView.addObject("arrticleList",arrticleList);
 			modelAndView.setViewName("index");
-			System.out.println(modelAndView);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 		return modelAndView;
 	}
-
+	
+	/**
+	 * click read the full text and display the article
+	 * @param modelAndView
+	 * @return modelAndView
+	 */
 	@RequestMapping(value = "showArticle")
 	public ModelAndView showArticle(ModelAndView modelAndView) {
-
-		System.out.println("show article");
 		modelAndView.setViewName("showArticle");
 		return modelAndView;
 

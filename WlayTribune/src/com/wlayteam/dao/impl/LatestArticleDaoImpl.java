@@ -22,10 +22,11 @@ import com.wlayteam.model.ArticleDataBean;
 public class LatestArticleDaoImpl implements LatestArticleDao {
 	// @Resource(name = "articleDataBean")
 	
-	private ArrayList<ArticleDataBean> arrticleList = new ArrayList<ArticleDataBean>();
+
 
 	@Override
 	public ArrayList<ArticleDataBean> findLatestArticle(Connection connection) throws SQLException {
+	    ArrayList<ArticleDataBean> arrticleList = new ArrayList<ArticleDataBean>();
 		String sql = "select * from title";
 		Statement statement = (Statement) connection.createStatement();
 		ResultSet resultSet = statement.executeQuery(sql);

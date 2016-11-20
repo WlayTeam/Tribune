@@ -32,7 +32,7 @@ public class LatestArticleServiceImpl implements LatestArticleService {
 	@Resource(name = "latestArticleDaoImpl")
 	private LatestArticleDaoImpl latestArticleDaoImpl;
 
-	private ArrayList<ArticleDataBean> arrticleList;
+	private ArrayList<ArticleDataBean> arrticleList = new ArrayList<ArticleDataBean>();
 
 	@Override
 	public ArrayList<ArticleDataBean> findLatestArticle() throws SQLException {
