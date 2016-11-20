@@ -35,7 +35,7 @@
 		if (T.attachEvent) {
 			T.attachEvent("onload", g)
 		} else {
-			T.addEventListener("load", g, false)
+			T.addEventListener("load", g, false)s
 		}
 	}(window, document, "script", "tpwidget",
 			"//widget.thinkpage.cn/widget/chameleon.js"))

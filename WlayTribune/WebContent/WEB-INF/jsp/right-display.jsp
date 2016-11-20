@@ -76,11 +76,25 @@
 	margin-top: 20px;
 }
 
-.search {
+/* .search {
 	display:block;
 	cursor: pointer;
+} */
+
+.numb{
+	padding-left:10px;
+	color:#22bcdd;
+	font-size:16px;
+	
 }
 
+.right-list p a{
+	font-size:16px;
+	padding-left:10px;
+}
+.right-title-swapper div{
+	border-radius:4px;
+}
 </style>
 <script type="text/javascript" src="js/jquery.js"></script>
 <script type="text/javascript">
@@ -118,7 +132,7 @@
 						<input type="text" class="form-control input-default"
 							placeholder="Search"> <span
 							class="input-group-addon search"><span
-							class="glyphicon glyphicon-search"></span></span>
+							class="glyphicon glyphicon-search active"></span></span>
 					</div>
 				</div>
 
@@ -133,10 +147,23 @@
 			</ul>
 			<div class="right-title-swapper" id="right-content">
 				<div class="hot-article" style="opacity: 1;">
-					<span>0</span> <a href="#">sample</a>
+					<p><span class="numb">0</span> <a href="#">sample</a></p>
+					<p><span class="numb">0</span> <a href="#">sample</a></p>
+					<p><span class="numb">0</span> <a href="#">sample</a></p>
+					<p><span class="numb">0</span> <a href="#">sample</a></p>
 				</div>
-				<div class="month-hot">222222</div>
-				<div class="label-hot">33333</div>
+				<div class="month-hot">
+					<p><span class="numb">0</span> <a href="#">sample</a></p>
+					<p><span class="numb">0</span> <a href="#">sample</a></p>
+					<p><span class="numb">0</span> <a href="#">sample</a></p>
+					<p><span class="numb">0</span> <a href="#">sample</a></p>
+				</div>
+				<div class="label-hot">
+					<p><span class="numb">0</span> <a href="#">sample</a></p>
+					<p><span class="numb">0</span> <a href="#">sample</a></p>
+					<p><span class="numb">0</span> <a href="#">sample</a></p>
+					<p><span class="numb">0</span> <a href="#">sample</a></p>
+				</div>
 			</div>
 		</div>
 
