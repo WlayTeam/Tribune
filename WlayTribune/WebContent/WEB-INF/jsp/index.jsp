@@ -81,7 +81,8 @@
 			</div>
 			<div id="navbar" class="navbar-collapse collapse">
 				<ul class="nav navbar-nav">
-					<li class="active"><a href="#">Home</a></li>
+					<li class="active"><a
+						href="${pageContext.request.contextPath }/toIndex">Home</a></li>
 					<li><a href="${pageContext.request.contextPath }/allArticle">Article</a></li>
 					<li><a href="#News">News</a></li>
 					<li><a href="#Web">web</a></li>
@@ -116,11 +117,11 @@
 
 						<div class="post-head">
 							<h1 class="post-title">
-								<a href="#">${art.title}</a>
+								<a
+									href="${pageContext.request.contextPath }/showArticle?tid=${art.tid}">${art.title}</a>
 							</h1>
 							<div class="post-meta">
-								<span class="author">作者：<a href="/author/wangsai/">XX</a></span>
-								&bull;
+								<span class="author">作者：<a href="#">XX</a></span> &bull;
 								<time class="post-date" datetime="2016年7月26日星期二上午9点54分"
 									title="2016年7月26日星期二上午9点54分">2016年7月26日</time>
 							</div>
@@ -131,7 +132,8 @@
 								平台上流畅的运行并且内存消耗比原来也减少了。目前，Ghost(Pro) 上托</p>
 						</div>
 						<div class="post-permalink" style="float: right">
-							<a href="${pageContext.request.contextPath }/showArticle?tid=${art.tid}"
+							<a
+								href="${pageContext.request.contextPath }/showArticle?tid=${art.tid}"
 								class="btn btn-primary">阅读全文</a>
 						</div>
 

@@ -12,6 +12,7 @@
 <script src="./js/bootstrap/bootstrap.min.js"></script>
 <style type="text/css">
 @IMPORT url("./css/bootstrap/bootstrap.min.css");
+
 @IMPORT url("./css/index.css");
 </style>
 </head>
@@ -80,7 +81,7 @@
 			</div>
 			<div id="navbar" class="navbar-collapse collapse">
 				<ul class="nav navbar-nav">
-					<li class="active"><a href="#">Home</a></li>
+					<li class="active"><a href="${pageContext.request.contextPath }/toIndex">Home</a></li>
 					<li><a href="${pageContext.request.contextPath }/allArticle">Article</a></li>
 					<li><a href="#News">News</a></li>
 					<li><a href="#Web">web</a></li>
@@ -100,15 +101,73 @@
 			</div>
 		</div>
 	</nav>
+
+
 	<div style="height: 80px;"></div>
+
+
+
 	<div class="container">
 		<!-- 右边的栏位 预留 -->
 
 
 		<div class="row">
 			<div class="col-md-8 main-content">
-		
-				show article
+				<article class="post">
+					<div class="post-head">
+						<div class="post-title">
+							<h1>
+								<a href="">深入解析OutOfMemoryError</a>
+							</h1>
+						</div>
+					</div>
+
+					<div class="post-meta">
+						<span class="author">作者：<a href="#">XX</a></span> &bull;
+						<time class="post-date" datetime="2016年7月26日星期二上午9点54分"
+							title="2016年7月26日星期二上午9点54分">2016年7月26日</time>
+					</div>
+					<div class="post-content">
+						<p>从这周起，我们将 Ghost 推荐 Node.js 版本升级为 Node.js v4 LTS。
+							我们这样做其实已经落后于计划了。然而，经过大量测试之后，我们确信 Ghost 可以在 Node.js v4
+							平台上流畅的运行并且内存消耗比原来也减少了。目前，Ghost(Pro) 上托</p>
+						<p>从这周起，我们将 Ghost 推荐 Node.js 版本升级为 Node.js v4 LTS。
+							我们这样做其实已经落后于计划了。然而，经过大量测试之后，我们确信 Ghost 可以在 Node.js v4
+							平台上流畅的运行并且内存消耗比原来也减少了。目前，Ghost(Pro) 上托</p>
+						<p>从这周起，我们将 Ghost 推荐 Node.js 版本升级为 Node.js v4 LTS。
+							我们这样做其实已经落后于计划了。然而，经过大量测试之后，我们确信 Ghost 可以在 Node.js v4
+							平台上流畅的运行并且内存消耗比原来也减少了。目前，Ghost(Pro) 上托</p>
+						<p>从这周起，我们将 Ghost 推荐 Node.js 版本升级为 Node.js v4 LTS。
+							我们这样做其实已经落后于计划了。然而，经过大量测试之后，我们确信 Ghost 可以在 Node.js v4
+							平台上流畅的运行并且内存消耗比原来也减少了。目前，Ghost(Pro) 上托</p>
+						<p>从这周起，我们将 Ghost 推荐 Node.js 版本升级为 Node.js v4 LTS。
+							我们这样做其实已经落后于计划了。然而，经过大量测试之后，我们确信 Ghost 可以在 Node.js v4
+							平台上流畅的运行并且内存消耗比原来也减少了。目前，Ghost(Pro) 上托</p>
+						<p>从这周起，我们将 Ghost 推荐 Node.js 版本升级为 Node.js v4 LTS。
+							我们这样做其实已经落后于计划了。然而，经过大量测试之后，我们确信 Ghost 可以在 Node.js v4
+							平台上流畅的运行并且内存消耗比原来也减少了。目前，Ghost(Pro) 上托</p>
+						<p>从这周起，我们将 Ghost 推荐 Node.js 版本升级为 Node.js v4 LTS。
+							我们这样做其实已经落后于计划了。然而，经过大量测试之后，我们确信 Ghost 可以在 Node.js v4
+							平台上流畅的运行并且内存消耗比原来也减少了。目前，Ghost(Pro) 上托</p>
+						<p>从这周起，我们将 Ghost 推荐 Node.js 版本升级为 Node.js v4 LTS。
+							我们这样做其实已经落后于计划了。然而，经过大量测试之后，我们确信 Ghost 可以在 Node.js v4
+							平台上流畅的运行并且内存消耗比原来也减少了。目前，Ghost(Pro) 上托</p>
+						<p>从这周起，我们将 Ghost 推荐 Node.js 版本升级为 Node.js v4 LTS。
+							我们这样做其实已经落后于计划了。然而，经过大量测试之后，我们确信 Ghost 可以在 Node.js v4
+							平台上流畅的运行并且内存消耗比原来也减少了。目前，Ghost(Pro) 上托</p>
+						<p>从这周起，我们将 Ghost 推荐 Node.js 版本升级为 Node.js v4 LTS。
+							我们这样做其实已经落后于计划了。然而，经过大量测试之后，我们确信 Ghost 可以在 Node.js v4
+							平台上流畅的运行并且内存消耗比原来也减少了。目前，Ghost(Pro) 上托</p>
+						<p>从这周起，我们将 Ghost 推荐 Node.js 版本升级为 Node.js v4 LTS。
+							我们这样做其实已经落后于计划了。然而，经过大量测试之后，我们确信 Ghost 可以在 Node.js v4
+							平台上流畅的运行并且内存消耗比原来也减少了。目前，Ghost(Pro) 上托</p>
+						<p>从这周起，我们将 Ghost 推荐 Node.js 版本升级为 Node.js v4 LTS。
+							我们这样做其实已经落后于计划了。然而，经过大量测试之后，我们确信 Ghost 可以在 Node.js v4
+							平台上流畅的运行并且内存消耗比原来也减少了。目前，Ghost(Pro) 上托</p>
+
+
+					</div>
+				</article>
 			</div>
 			<div class="col-md-4 sidebar">
 				<c:import url="right-display.jsp" />
