@@ -59,9 +59,8 @@
 	float: left;
 	width: 300px;
 	height: 330px;
-	background:#fff;
+	background: #fff;
 	opacity: 0;
-	
 }
 
 .right-title-swapper div {
@@ -73,9 +72,15 @@
 	height: 50px;
 }
 
-.right-list{
-	margin-top:20px;
+.right-list {
+	margin-top: 20px;
 }
+
+.search {
+	display:block;
+	cursor: pointer;
+}
+
 </style>
 <script type="text/javascript" src="js/jquery.js"></script>
 <script type="text/javascript">
@@ -96,7 +101,7 @@
 				oCons[j].style.opacity = 0;
 			}
 			/* oLi[index].addClass("active"); */
-			oLi[index].setAttribute("class", "active"); 
+			oLi[index].setAttribute("class", "active");
 			oCons[index].style.opacity = 1;
 		}
 	}
@@ -109,28 +114,32 @@
 			<form class="navbar-form navbar-left" role="search"
 				style="display: block;">
 				<div class="form-group">
-					<input type="text" class="form-control input-default"
-						placeholder="Search">
+					<div class="input-group">
+						<input type="text" class="form-control input-default"
+							placeholder="Search"> <span
+							class="input-group-addon search"><span
+							class="glyphicon glyphicon-search"></span></span>
+					</div>
 				</div>
-				<button type="submit" class="btn btn-default btn-default">Submit</button>
+
 			</form>
 		</div>
 		<div class="right-image"></div>
 		<div class="right-list">
 			<ul class="nav nav-pills" role="tablist" id="right-ul">
-			<li role="presentation" class="active "><a href="#">本周热门文章</a></li>
-			<li role="presentation" class=""><a href="#">本月热门</a></li>
-			<li role="presentation" class=""><a href="#">热门标签</a></li>
-		</ul>
-		<div class="right-title-swapper" id="right-content">
-			<div class="hot-article" style="opacity: 1;">
-				<span>0</span> <a href="#">sample</a>
+				<li role="presentation" class="active "><a href="#">本周热门文章</a></li>
+				<li role="presentation" class=""><a href="#">本月热门</a></li>
+				<li role="presentation" class=""><a href="#">热门标签</a></li>
+			</ul>
+			<div class="right-title-swapper" id="right-content">
+				<div class="hot-article" style="opacity: 1;">
+					<span>0</span> <a href="#">sample</a>
+				</div>
+				<div class="month-hot">222222</div>
+				<div class="label-hot">33333</div>
 			</div>
-			<div class="month-hot">222222</div>
-			<div class="label-hot">33333</div>
 		</div>
-		</div>
-		
+
 	</div>
 
 </body>
