@@ -14,7 +14,8 @@
 <style type="text/css">
 .navbar{
 	min-height：51px;
-}
+} 
+@IMPORT url("./css/normalize.css")
 @IMPORT url("./css/bootstrap/bootstrap.min.css");
 
 @IMPORT url("./css/index.css");
