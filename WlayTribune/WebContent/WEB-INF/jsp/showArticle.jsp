@@ -8,14 +8,11 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <link rel="shortcut icon" href="image/head.ico" />
 <title>WlayTeam Tribune</title>
+<link rel="stylesheet" href="./css/bootstrap/bootstrap.min.css">
+<link rel="stylesheet" href="./css/index.css">
 <script type="text/javascript" src="./js/jquery.js"></script>
 <script type="text/javascript" src="./js/bootstrap/bootstrap.js"></script>
 <script src="./js/bootstrap/bootstrap.min.js"></script>
-<style type="text/css">
-@IMPORT url("./css/bootstrap/bootstrap.min.css");
-
-@IMPORT url("./css/index.css");
-</style>
 </head>
 <div id="tp-weather-widget"></div>
 <script>
