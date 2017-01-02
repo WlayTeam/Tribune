@@ -1,5 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
@@ -121,160 +120,14 @@
 							</h1>
 						</div>
 					</div>
-					<div class="copyright-area" style="text-align: center;">
-						原文出处： <a
-							href="https://www.evget.com/article/2015/11/16/22990.html"
-							ref="nofollow" target="_blank"> 王韵菲 </a>
-					</div>
-					<p>
-						本文中，小编搜集了7个最有影响的衡量标注，让你可以不依赖日志文件来了解应用程序。现在，让我们看看这些性能指标，并了解如何查看并收集它们：
-					</p>
-					<h2>
-						<strong> 1.响应时间和吞吐量 </strong>
-					</h2>
-					<p>
-						根据应用程序的响应时间可以知道程序完成传输数据所用的时间。也可以从HTTP请求级别，或者成为数据库级别来看。对那些缓慢的查询你需要做一些优化来缩短时间。吞吐量是另一个角度衡量传输数据的指标，是指单位时间内系统处理的客户请求的数量。
-					</p>
-					<p>我们可以使用APMs（例如New
-						Relic或AppDynamics）来衡量这些指标。使用这些工具，你可以在主报告仪表板中将平均响应时间与昨天的甚至上周的直接进行对比。这有助于我们观察新的部署是否会影响到我们的应用程序。你可以看到网络传输的百分比，测量HTTP完成请求需要多长时间。
-					</p>
-					<p>推荐工具：</p>
-					<ul>
-						<li><a class="external" href="http://www.appdynamics.com/"
-							rel="nofollow" target="_blank"> <strong> AppDynamics
-							</strong>
-						</a></li>
-						<li><a class="external" href="http://newrelic.com/"
-							rel="nofollow" target="_blank"> <strong> New Relic </strong>
-						</a></li>
-						<li><a class="external" href="https://ruxit.com/"
-							rel="nofollow" target="_blank"> <strong> Ruxit </strong>
-						</a></li>
-					</ul>
-					<div>
-						<img alt="响应时间和吞吐量"
-							src="http://evgetimg.oss-cn-hangzhou.aliyuncs.com/Content/files/2015/11/16/b6ffed055e5747688fd094526df5cad4635832725533427650.jpg" />
-					</div>
-					<p>New Relic报告：Web传输百分比和吞吐量</p>
-					<h2>
-						<strong> 2.平均负载 </strong>
-					</h2>
-					<p>
-						第二个应用广泛的指标是平均负载。我们习惯上会把平均负载分为这三步测量，分别是第5分钟、第15分钟和最后1分钟。要保证数量低于机器的内核数。一旦超过内核数，机器就会运行在压力状态下。
-					</p>
-					<p>
-						除了简单测量CPU使用率，还需要关注每个内核的队列中有多少进程。在内核使用率都是100%的情况下，队列中只有1个任务和有6个任务有很大不同。因此，平均负载不能只考虑CPU使用率。
-					</p>
-					<p>推荐工具：</p>
-					<ul>
-						<li><a class="external" href="http://hisham.hm/htop/"
-							rel="nofollow" target="_blank"> <strong> htop </strong>
-						</a></li>
-					</ul>
-					<div>
-						<img alt="平均负载"
-							src="http://evgetimg.oss-cn-hangzhou.aliyuncs.com/Content/files/2015/11/16/461fad9870ac4508a46cbebd07649380635832726056107546.jpg" />
-					</div>
-					<h2></h2>
-					<h2>
-						<strong> 3.错误率 </strong>
-					</h2>
-					<p>
-						大多数开发人员判断错误率是根据HTTP传输总失败百分比。但是他们忽略了一个更深层的东西：特定传输的错误率。这直接影响到您应用程序的运行状况。这可以显示出代码方法的错误以及错误或异常出现的次数。
-					</p>
-					<div>
-						<img alt="错误率"
-							src="http://evgetimg.oss-cn-hangzhou.aliyuncs.com/Content/files/2015/11/16/078acb723ae74f168fb3766dc24ca305635832726366795316.jpg" />
-					</div>
-					<p>
-						但单纯的错误率数据对我们没有多大帮助。最重要的是我们要找到它们的根源并解决问题。随着Takipi的运行，我们要在日志文件中需找线索。你可以找到所有关于服务器状态的信息，包括堆栈跟踪、源代码和变量值。
-					</p>
-					<p>推荐工具：</p>
-					<ul>
-						<li><a class="external" href="http://www.takipi.com/"
-							rel="nofollow" target="_blank"> <strong> Takipi </strong>
-						</a></li>
-					</ul>
-					<div>
-						<img alt="Takipi"
-							src="http://evgetimg.oss-cn-hangzhou.aliyuncs.com/Content/files/2015/11/16/932909f574c24083836cbb5d28447fdd635832726726735903.jpg" />
-					</div>
-					<h2></h2>
-					<h2>
-						<strong> 4.GC率和暂停时间 </strong>
-					</h2>
-					<p>
-						异常行为垃圾收集器应用程序的吞吐量和响应时间采取深潜的主要原因之一。了解GC暂停频率和持续时间的关键是分析GC日志文件。要分析它们，你需要收集GC日志和JVM参数。你要注意观察不同指标之间的数据是如何相互影响的。
-					</p>
-					<p>推荐工具：</p>
-					<ul>
-						<li><a class="external"
-							href="http://www.jclarity.com/censum/" rel="nofollow"
-							target="_blank"> <strong> jClarity Censum </strong>
-						</a></li>
-						<li><a class="external"
-							href="https://github.com/chewiebug/GCViewer" rel="nofollow"
-							target="_blank"> <strong> GCViewer </strong>
-						</a></li>
-					</ul>
-					<h2>
-						<strong> 5.业务指标 </strong>
-					</h2>
-					<p>应用程序的性能不完全取决于响应时间和错误率。业务指标也是一方面，例如收益、用户数。</p>
-					<p>推荐工具：</p>
-					<ul>
-						<li><a class="external" href="http://grafana.org/"
-							rel="nofollow" target="_blank"> <strong> Grafana </strong>
-						</a></li>
-						<li><a class="external" href="https://www.elastic.co/"
-							rel="nofollow" target="_blank"> <strong> The ELK
-									stack </strong>
-						</a></li>
-						<li><a class="external" href="https://www.datadoghq.com/"
-							rel="nofollow" target="_blank"> <strong> Datadog </strong>
-						</a></li>
-						<li><a class="external" href="https://www.librato.com/"
-							rel="nofollow" target="_blank"> <strong> Librato </strong>
-						</a></li>
-					</ul>
-					<h2>
-						<strong> 6.正常运行时间和服务运行状态 </strong>
-					</h2>
-					<p>
-						这一指标奠定了整个应用程序性能的基础。不仅可以当做一个提醒指标，也可以让你定义一段时间内的SKA。我们可以使用Pingdom的servlet功能进行运行状态检查。我们可以查到应用程序的所有传输，包括数据库和S3。
-					</p>
-					<p>推荐工具：</p>
-					<ul>
-						<li><a class="external" href="https://www.pingdom.com/"
-							rel="nofollow" target="_blank"> <strong> Pingdom </strong>
-						</a></li>
-					</ul>
-					<div>
-						<img alt="服务运行状态"
-							src="http://evgetimg.oss-cn-hangzhou.aliyuncs.com/Content/files/2015/11/16/a0a85da214fb401bbffda8d29522d272635832727080706149.jpg" />
-					</div>
-					<h2>
-						<strong> 7.日志大小 </strong>
-					</h2>
-					<p>日志有一个缺点，它是一直在增加的。当您的服务器启动塞满了垃圾，一切都慢下来。因此，我们需要密切的关注日志大小。</p>
-					<p>目前通常的解决办法是使用logstash划分使用日志，并将它们发送并存储在Splunk、ELK或其他的日志管理工具中。</p>
-					<p>推荐工具：</p>
-					<ul>
-						<li><a class="external" href="http://www.splunk.com/"
-							rel="nofollow" target="_blank"> <strong> Splunk </strong>
-						</a></li>
-						<li><a class="external" href="http://www.sumologic.com/"
-							rel="nofollow" target="_blank"> <strong> Sumo Logic
-							</strong>
-						</a></li>
-						<li><a class="external" href="https://www.loggly.com/"
-							rel="nofollow" target="_blank"> <strong> Loggly </strong>
-						</a></li>
-					</ul>
-					<!-- BEGIN #author-bio -->
-					<!-- END #author-bio -->
-			</div>
+					
+					<c:import url="article/2.jsp"/>
+					
+<!--  -->					
+			
 			</article>
+			
+			</div>
 			<div class="col-md-4 sidebar">
 				<c:import url="right-display.jsp" />
 			</div>
