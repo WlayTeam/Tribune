@@ -16,6 +16,6 @@ import com.wlayteam.model.ArticleDataBean;
  *
  */
 public interface LatestArticleService {
-	public ArrayList<ArticleDataBean> findLatestArticle() throws Exception;
+	public ArrayList<ArticleDataBean> findLatestArticle(int nowpage) throws Exception;
 
 }

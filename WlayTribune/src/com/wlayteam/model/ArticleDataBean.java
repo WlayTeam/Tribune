@@ -18,6 +18,8 @@ public class ArticleDataBean {
 	private Date uTime;
 	/**Introduction of the article*/
 	private String summary;
+	
+	private String introduction;
 
 	public String getTitle() {
 		return title;
@@ -59,12 +61,21 @@ public class ArticleDataBean {
 		this.tid = tid;
 	}
 
+	public String getIntroduction() {
+		return introduction;
+	}
+
+	public void setIntroduction(String introduction) {
+		this.introduction = introduction;
+	}
+
 	@Override
 	public String toString() {
 		return "ArticleDataBean [tid=" + tid + ", title=" + title + ", author=" + author + ", uTime=" + uTime
-				+ ", summary=" + summary + "]";
+				+ ", summary=" + summary + ", introduction=" + introduction + "]";
 	}
 
+	
 	
 
 }

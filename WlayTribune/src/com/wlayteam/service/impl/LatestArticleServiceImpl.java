@@ -35,9 +35,9 @@ public class LatestArticleServiceImpl implements LatestArticleService {
 	private ArrayList<ArticleDataBean> arrticleList = new ArrayList<ArticleDataBean>();
 
 	@Override
-	public ArrayList<ArticleDataBean> findLatestArticle() throws SQLException {
+	public ArrayList<ArticleDataBean> findLatestArticle(int nowpage) throws SQLException {
 		Connection connection = dbConnectionUtil.getConnection();
-		arrticleList = latestArticleDaoImpl.findLatestArticle(connection);
+		arrticleList = latestArticleDaoImpl.findLatestArticle(connection,nowpage);
 		return arrticleList;
 	}
 

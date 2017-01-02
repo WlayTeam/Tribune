@@ -20,9 +20,9 @@ public class TribuneAspect {
 	 */
 	@Around(value = "execution (* com.wlayteam..*.*(..))")
 	public Object aroundMethodExecute(ProceedingJoinPoint proceedingJoinPoint) throws Throwable {
-		System.out.println("the method will be executed: " + proceedingJoinPoint);
+		//System.out.println("the method will be executed: " + proceedingJoinPoint);
 		Object object = proceedingJoinPoint.proceed();
-		System.out.println("the method has executed: " + proceedingJoinPoint);
+		//System.out.println("the method has executed: " + proceedingJoinPoint);
 		return object;
 	}
 

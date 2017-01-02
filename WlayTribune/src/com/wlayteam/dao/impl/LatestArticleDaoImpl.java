@@ -21,23 +21,27 @@ import com.wlayteam.model.ArticleDataBean;
 @Repository
 public class LatestArticleDaoImpl implements LatestArticleDao {
 	// @Resource(name = "articleDataBean")
-	
+	private final static int EACHPAGE_SHOW_NUMBER = 5;
 
 
 	@Override
-	public ArrayList<ArticleDataBean> findLatestArticle(Connection connection) throws SQLException {
+	public ArrayList<ArticleDataBean> findLatestArticle(Connection connection,int nowpage) throws SQLException {
 	    ArrayList<ArticleDataBean> arrticleList = new ArrayList<ArticleDataBean>();
-		String sql = "select * from title";
+		String sql = "select * from title limit "+(nowpage-1)*EACHPAGE_SHOW_NUMBER+","+((nowpage-1)*EACHPAGE_SHOW_NUMBER+5)+" ";
+		System.out.println(sql);
 		Statement statement = (Statement) connection.createStatement();
 		ResultSet resultSet = statement.executeQuery(sql);
 		while (resultSet.next()) {
 		 ArticleDataBean articleDataBean = new ArticleDataBean();
 			articleDataBean.setTitle(resultSet.getString("title"));
 			articleDataBean.setTid(resultSet.getInt("tid"));
+			articleDataBean.setIntroduction(resultSet.getString("introduction"));
 			arrticleList.add(articleDataBean);
 
 		}
 		return arrticleList;
 	}
+
+	
 
 }

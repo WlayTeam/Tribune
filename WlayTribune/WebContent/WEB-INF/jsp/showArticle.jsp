@@ -114,14 +114,14 @@
 			<div class="col-md-8 main-content">
 				<article class="post">
 					<div class="post-head">
-						<div class="post-title">
+						<!-- <div class="post-title">
 							<h1>
 								<a href="">对Java意义重大的7个性能指标</a>
 							</h1>
-						</div>
+						</div> -->
 					</div>
 					
-					<c:import url="article/2.jsp"/>
+					<c:import url="article/${requestScope.id}.jsp"/>
 					
 <!--  -->					
 			
