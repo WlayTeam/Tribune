@@ -15,24 +15,21 @@ class htmlOutput(object):
         self.datas.append(data)
 
     
-    def output_html(self):
-        print("数据正在输出到html----------------------------------->")
-        fout = open('output.html', 'w')
-        fout.write("<!DOCTYPE html>")
+    def output_jsp(self,data,count):
+       
+        #print("数据正在输出到html----------------------------------->")
+       
+        fout = open(str(count)+'.jsp', 'w')
+        fout.write('<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>')
+        fout.write('<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">')
+        fout.write('<html>')
         fout.write("<body>")
-        fout.write("<table>")
+      
+        fout.write(data)
         
-        for data in self.datas:
-            if data.get('url') is  not None:
-                fout.write("<tr>")
-                fout.write("<td>" +data.get('url')+ "</td>")
-                fout.write("<td>%s</td>"%(data.get('title').encode('utf-8').decode('utf-8')))
-                fout.write("<td>%s</td>"%(data.get('summary').encode('utf-8').decode('utf-8')))
-                fout.write("</tr>")
-        fout.write("</table>")
         fout.write("</body>")
         fout.write("</html>")
-        print("<----------------------------------------文件输出成功")
+        #print("<----------------------------------------文件输出成功")
         fout.close()
     
     
